@@ -116,13 +116,12 @@ ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day,
   ggtitle("Series 8 was a Big Setback in Viewers",
           subtitle= "7-Day Viewers across All Series/Episodes") +
   theme(legend.position = "bottom",
-        text = element_text(family = "Lato"),
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank()) + 
   scale_fill_bakeoff() +
-  scale_x_continuous(expand = c(0, 0)) +
-* guides(fill = guide_legend(nrow = 1))
+* scale_x_continuous(expand = c(0, 0)) +
+  guides(fill = guide_legend(nrow = 1))
 ```
 
 ---
@@ -153,11 +152,10 @@ ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day,
             size = 3, color="white", family = "Lato") +
   geom_text(data = filter(ratings_bonanza1, series %in% c(3:8) &amp; episode == 6),
             aes(y = 1.5, label = series), 
-            size = 3, color="white", family = "Lato") + 
+            size = 3, color="white") + 
   ggtitle("Series 8 was a Big Setback in Viewers",
           subtitle= "7-Day Viewers across All Series/Episodes") +
   theme(legend.position = "bottom",
-        text = element_text(family = "Lato"),
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank()) + 
@@ -222,7 +220,6 @@ ggplot(ratings_bonanza2, aes(x = episode,
   facet_wrap(~series) +
   scale_color_viridis_c(option="plasma", begin = 0, 
                       end = .8, guide = FALSE) +
-  theme(text = element_text(family = "Lato")) +
   ggtitle("Great British Bake Off Finales Get the Most Viewers",
           subtitle = "Way Higher than Series Average (for Series with 10 episodes)")
 ```
@@ -251,8 +248,7 @@ ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
                     group = series)) +
   geom_line() +
   scale_color_bakeoff() +
-  labs(color = "Series", x = "Episode") +
-  theme(text = element_text(family = "Lato")) 
+  labs(color = "Series", x = "Episode") 
 ```
 
 
@@ -281,7 +277,6 @@ ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
   geom_line(lwd = 2) +
   scale_color_bakeoff() +
   labs(color = "Series", x = "Episode") +
-  theme(text = element_text(family = "Lato")) +
 * facet_wrap(~series) +
 * guides(color = FALSE)
 ```
@@ -310,7 +305,6 @@ ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
   geom_line(data = filter(ratings, !series == 8), alpha = .25) +
   geom_line(data = filter(ratings, series == 8), color = "#CF2154") +
   labs(color = "Series", x = "Episode") +
-  theme(text = element_text(family = "Lato")) +
   ggtitle("Series 8 was a Tough One") +
   geom_text(data = filter(ratings, episode == 1 &amp; series %in% c(1:7)), color = "gray",
             aes(label = paste0("Series ", series)), vjust = -1) +
@@ -352,7 +346,6 @@ ggplot(ratings_bonanza4, aes(x = series, y = viewers_7day,
   geom_line() +
   scale_color_bakeoff() +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
-  theme(text = element_text(family = "Lato")) +
   labs(color = "Episode")
 ```
 
@@ -399,8 +392,7 @@ ggplot(ratings_bonanza4, aes(x = viewers_7day, y = fct_rev(series),
   geom_point(size = 2.5) +
   scale_color_bakeoff() +
   labs(y = "Series", x = "Viewers (millions)") +
-  ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
-  theme(text = element_text(family = "Lato")) 
+  ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") 
 ```
 
 ---
@@ -427,8 +419,7 @@ ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
   geom_point() +
   geom_line() +
   scale_color_bakeoff() +
-  labs(color = "Series") +
-  theme(text = element_text(family = "Lato")) 
+  labs(color = "Series") 
 ```
 
 
@@ -461,12 +452,11 @@ ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
   geom_line(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
   geom_line(data = filter(ratings_bonanza4, series == 8), 
             color = "#CF2154") +
-  theme(text = element_text(family = "Lato")) +
   ggtitle("Series 8 was a Tough One") +
   geom_text(data = filter(ratings_bonanza4, episode == "last" &amp; series %in% c(1:7)), color = "gray",
-            aes(label = series), vjust = -1, family = "Lato", hjust = .5) +
+            aes(label = series), vjust = -1, hjust = .5) +
   geom_text(data = filter(ratings_bonanza4, episode == "last" &amp; series == 8), color = "#CF2154",
-            aes(label = paste0("Series ", series)), vjust = -1, family = "Lato")
+            aes(label = paste0("Series ", series)), vjust = -1)
 ```
 ---
 class: center, middle, inverse
@@ -501,8 +491,7 @@ ggplot(ratings_bonanza7, aes(x = fct_rev(series),
   coord_flip() +
   labs(x = "Series", y = "Difference in Viewers for Finale from Premiere (millions)") +
   ggtitle("Finale 'Bumps' were Smallest for Series 1 and 8",
-          subtitle= "Finale 7-day Viewers Relative to Premiere") +
-  theme(text = element_text(family = "Lato")) 
+          subtitle= "Finale 7-day Viewers Relative to Premiere")
 ```
 
 
@@ -539,10 +528,8 @@ ggplot(ratings_bonanza8, aes(x = fct_rev(series),
                              y = pct_change)) +
   geom_col(fill = bakeoff_cols("tangerine"), alpha = .5) +
   labs(x = "Series", y = "% Increase in Viewers from First to Last Episode") +
-  theme_minimal() +
   ggtitle("Series 8 had a 6% Increase in Viewers from Premiere to Finale",
-          subtitle= "The Lowest Across All Series (Line is the Median)") +
-  theme(text = element_text(family = "Lato")) +
+          subtitle= "The Lowest Across All Series (Line is the Median)") + 
   geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
              color = bakeoff_cols("orange")) +
   scale_y_continuous(labels = scales::percent) +
@@ -588,7 +575,6 @@ ggplot(ratings_bonanza9, aes(x = fct_rev(series),
        y = "% Change in Viewers from First to Last Episode, Relative to Median") +
   scale_fill_bakeoff(guide = FALSE) +
   ggtitle("Series 8 had the Most Disappointing Finale") +
-  theme(text = element_text(family = "Lato")) +
   scale_y_continuous(labels = scales::percent) +
   coord_flip() 
 ```
@@ -615,12 +601,10 @@ ggplot(ratings_bonanza9, aes(x = fct_rev(series),
                              y = pct_change)) +
   geom_point(color = bakeoff_cols("riptide"), size = 2) +
   geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("riptide")) +
-  geom_text(aes(label = scales::percent(pct_change)), hjust = -.25,
-            family = "Lato") +
+  geom_text(aes(label = scales::percent(pct_change)), hjust = -.25) +
   labs(x = "Series", y = "% Change in Viewers from First to Last Episode") +
   ggtitle("Percent Increase in Viewers was the Smallest for Series 8",
           subtitle= "Finale 7-day Viewers Relative to Premiere") +
-  theme(text = element_text(family = "Lato")) +
   scale_y_continuous(labels = scales::percent, limits = c(0, .85)) +
   coord_flip() 
 ```
@@ -650,8 +634,7 @@ ggplot(ratings_bonanza7, aes(x = first, y = last)) +
   geom_point() +
   geom_smooth(se = FALSE, color = '#EBBFDD') +
   geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
-  geom_text(aes(label = series), hjust = -1, family = "Lato") +
-  theme(text = element_text(family = "Lato")) +
+  geom_text(aes(label = series), hjust = -1) +
   labs(x = "Premiere Episode 7-day Viewers (millions)",
        y = "Finale Episode 7-day Viewers (millions)") +
   coord_equal(ratio=1)
@@ -680,10 +663,9 @@ ggplot(ratings_bonanza7, aes(x = first, y = last)) +
   geom_point(data = filter(ratings_bonanza7, series %in% c(1:7))) +
   geom_point(data = filter(ratings_bonanza7, series == 8), colour = "#CF2154") +
   geom_text(data = filter(ratings_bonanza7, series %in% c(1:7)),
-            aes(label = series), hjust = -1, family = "Lato") +
+            aes(label = series), hjust = -1) +
   geom_text(data = filter(ratings_bonanza7, series == 8),
-            aes(label = series), hjust = -1, family = "Lato", colour = "#CF2154") +
-  theme(text = element_text(family = "Lato")) +
+            aes(label = series), hjust = -1, colour = "#CF2154") +
   labs(x = "Premiere Episode 7-day Viewers (millions)",
        y = "Finale Episode 7-day Viewers (millions)")
 ```
