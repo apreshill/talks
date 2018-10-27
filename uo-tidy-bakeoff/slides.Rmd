@@ -58,8 +58,7 @@ I'll use all of the following:
 
 ```{r}
 library(tidyverse)
-library(viridis) # colors!
-library(beyonce) # colors!!
+library(bakeoff) # data + colors!
 library(extrafont) # fonts!
 ```
 
@@ -96,9 +95,6 @@ ratings_bonanza1 <- ratings %>%
   mutate(ep_id = row_number()) %>% 
   select(ep_id, viewers_7day, series, episode)
 
-# my colors from beyonce
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
 # make the plot
 ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day, 
                              fill = series)) +
@@ -110,8 +106,7 @@ ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day,
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank()) + 
-  scale_fill_manual(values = mybey) +
-  #scale_fill_bakeoff() +
+  scale_fill_bakeoff() +
   scale_x_continuous(expand = c(0, 0)) +
   guides(fill = guide_legend(nrow = 1)) #<<
 ```
@@ -132,7 +127,7 @@ class: center, middle, inverse
 ---
 ## Recipe 1.2: Ribbons not Bars
 
-```{r echo = FALSE, out.width = '70%'}
+```{r recipe1rev, echo = FALSE, out.width = '70%'}
 ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day, 
                              fill = series, color = series)) +
   geom_ribbon(aes(ymin = 0, ymax = viewers_7day), alpha = .75) +
@@ -144,7 +139,6 @@ ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day,
   geom_text(data = filter(ratings_bonanza1, series %in% c(3:8) & episode == 6),
             aes(y = 1.5, label = series), 
             size = 3, color="white", family = "Lato") + 
-  theme_minimal() +
   ggtitle("Series 8 was a Big Setback in Viewers",
           subtitle= "7-Day Viewers across All Series/Episodes") +
   theme(legend.position = "bottom",
@@ -152,8 +146,8 @@ ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day,
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.title.x = element_blank()) + 
-  scale_fill_manual(values = mybey) +
-  scale_color_manual(values = mybey) +
+  scale_fill_bakeoff() +
+  scale_color_bakeoff() +
   scale_x_continuous(expand = c(0, 0)) +
   guides(fill = FALSE, color = FALSE)
 ```
@@ -162,27 +156,7 @@ ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day,
 ---
 ## Recipe 1.2: Code for Ribbons 
 
-```{r eval = FALSE}
-ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day, 
-                             fill = series, color = series)) +
-  geom_ribbon(aes(ymin = 0, ymax = viewers_7day), alpha = .75) +
-  geom_line() +
-  geom_text(data = filter(ratings_bonanza1, series %in% c(1:2) & episode == 4), aes(y = 1.5, label = series), 
-            size = 3, color="white", family = "Lato") +
-  geom_text(data = filter(ratings_bonanza1, series %in% c(3:8) & episode == 6), aes(y = 1.5, label = series), 
-            size = 3, color="white", family = "Lato") + 
-  theme_minimal() +
-  ggtitle("Series 8 was a Big Setback in Viewers",
-          subtitle= "7-Day Viewers across All Series/Episodes") +
-  theme(legend.position = "bottom",
-        text = element_text(family = "Lato"),
-        axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.x = element_blank()) + 
-  scale_fill_manual(values = mybey) +
-  scale_color_manual(values = mybey) +
-  scale_x_continuous(expand = c(0, 0)) +
-  guides(fill = FALSE, color = FALSE)
+```{r recipe1rev, eval = FALSE}
 ```
 ---
 class: center, middle, inverse
@@ -215,7 +189,7 @@ class: center, middle, inverse
 
 ## Recipe 2: Lollipop Plot
 
-```{r echo = FALSE}
+```{r lolli, echo = FALSE}
 ratings_bonanza2 <- ratings %>% 
   group_by(series) %>% 
   mutate(series_avg = mean(viewers_7day, na.rm = TRUE),
@@ -231,9 +205,8 @@ ggplot(ratings_bonanza2, aes(x = episode,
   geom_point() +
   geom_segment(aes(xend = episode, yend = series_avg)) +
   facet_wrap(~series) +
-  scale_color_viridis(option="plasma", begin = 0, 
+  scale_color_viridis_c(option="plasma", begin = 0, 
                       end = .8, guide = FALSE) +
-  theme_minimal() +
   theme(text = element_text(family = "Lato")) +
   ggtitle("Great British Bake Off Finales Get the Most Viewers",
           subtitle = "Way Higher than Series Average (for Series with 10 episodes)")
@@ -243,28 +216,7 @@ ggplot(ratings_bonanza2, aes(x = episode,
 
 ## Recipe 2: Code for Lollipop Plot
 
-```{r eval = FALSE}
-ratings_bonanza2 <- ratings %>% 
-  group_by(series) %>% 
-  mutate(series_avg = mean(viewers_7day, na.rm = TRUE),
-         diff_avg = viewers_7day - series_avg)%>% 
-  filter(max(episode) == 10) %>% 
-  mutate(episode = as.factor(episode)) %>% 
-  select(episode, viewers_7day, series, diff_avg, series_avg)
-
-ggplot(ratings_bonanza2, aes(x = episode, 
-                            y = viewers_7day,
-                            color = diff_avg)) +
-  geom_hline(aes(yintercept = series_avg), alpha = .5) +
-  geom_point() +
-  geom_segment(aes(xend = episode, yend = series_avg)) +
-  facet_wrap(~series) +
-  scale_color_viridis(option="plasma", begin = 0, 
-                      end = .8, guide = FALSE) +
-  theme_minimal() +
-  theme(text = element_text(family = "Lato")) +
-  ggtitle("Great British Bake Off Finales Get the Most Viewers",
-          subtitle = "Way Higher than Series Average (for Series with 10 episodes)")
+```{r lolli, eval = FALSE}
 ```
 
 
@@ -279,15 +231,12 @@ class: center, middle, inverse
 ---
 ## Recipe 3: Grouped Line Plot by Series 
 
-```{r echo = FALSE, out.width='70%'}
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
+```{r lines, echo = FALSE, out.width='70%'}
 ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
                     color = fct_reorder2(series, episode, viewers_7day), 
                     group = series)) +
   geom_line() +
-  theme_minimal() +
-  scale_color_manual(values = mybey) +
+  scale_color_bakeoff() +
   labs(color = "Series", x = "Episode") +
   theme(text = element_text(family = "Lato")) 
 ```
@@ -295,17 +244,7 @@ ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
 ---
 ## Recipe 3: Code for Series Grouped Line Plot
 
-```{r eval = FALSE}
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
-ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
-                    color = fct_reorder2(series, episode, viewers_7day), 
-                    group = series)) +
-  geom_line() +
-  theme_minimal() +
-  scale_color_manual(values = mybey) +
-  labs(color = "Series", x = "Episode") +
-  theme(text = element_text(family = "Lato")) 
+```{r lines, eval = FALSE}
 ```
 
 
@@ -321,37 +260,22 @@ class: center, middle, inverse
 ---
 ## Recipe 3.1: Facetted Line Plot
 
-```{r echo = FALSE, out.width='70%'}
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
+```{r facetlines, echo = FALSE, out.width='70%'}
 ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
                     color = fct_reorder2(series, episode, viewers_7day), 
                     group = series)) +
   geom_line(lwd = 2) +
-  theme_minimal() +
-  scale_color_manual(values = mybey) +
+  scale_color_bakeoff() +
   labs(color = "Series", x = "Episode") +
   theme(text = element_text(family = "Lato")) +
-  facet_wrap(~series) +
-  guides(color = FALSE)
+  facet_wrap(~series) + #<<
+  guides(color = FALSE) #<<
 ```
 
 ---
 ## Recipe 3.1: Code for Facetted Line Plot
 
-```{r eval = FALSE}
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
-ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
-                    color = fct_reorder2(series, episode, viewers_7day), 
-                    group = series)) +
-  geom_line(lwd = 2) +
-  theme_minimal() +
-  scale_color_manual(values = mybey) +
-  labs(color = "Series", x = "Episode") +
-  theme(text = element_text(family = "Lato")) +
-  facet_wrap(~series) + #<<
-  guides(color = FALSE) #<<
+```{r facetlines, eval = FALSE}
 ```
 
 ---
@@ -366,12 +290,11 @@ class: center, middle, inverse
 ---
 ## Recipe 3.2: Redo Recipe 3
 
-```{r echo = FALSE, out.width='60%'}
+```{r facetlinesrev, echo = FALSE, out.width='60%'}
 ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
                     group = series)) +
   geom_line(data = filter(ratings, !series == 8), alpha = .25) +
   geom_line(data = filter(ratings, series == 8), color = "#CF2154") +
-  theme_minimal() +
   labs(color = "Series", x = "Episode") +
   theme(text = element_text(family = "Lato")) +
   ggtitle("Series 8 was a Tough One") +
@@ -384,19 +307,7 @@ ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
 ---
 ## Recipe 3.2: Code for Redo Recipe 3
 
-```{r eval = FALSE}
-ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
-                    group = series)) +
-  geom_line(data = filter(ratings, !series == 8), alpha = .25) +
-  geom_line(data = filter(ratings, series == 8), color = "#CF2154") +
-  theme_minimal() +
-  labs(color = "Series", x = "Episode") +
-  theme(text = element_text(family = "Lato")) +
-  ggtitle("Series 8 was a Tough One") +
-  geom_text(data = filter(ratings, episode == 1 & series %in% c(1:7)), color = "gray",
-            aes(label = paste0("Series ", series)), vjust = -1, family = "Lato") +
-  geom_text(data = filter(ratings, episode == 10 & series == 8), color = "#CF2154",
-            aes(label = paste0("Series ", series)), vjust = -1, family = "Lato")
+```{r facetlinesrev, eval = FALSE}
 ```
 
 
@@ -410,7 +321,7 @@ class: center, middle, inverse
 ---
 ## Recipe 4: Grouped Line Plot by Episode
 
-```{r echo = FALSE, out.width='60%'}
+```{r groupline, echo = FALSE, out.width='60%'}
 # some wrangling here
 ratings_bonanza4 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
@@ -425,8 +336,7 @@ ggplot(ratings_bonanza4, aes(x = series, y = viewers_7day,
                              group = episode)) +
   geom_point() + 
   geom_line() +
-  scale_color_manual(values = rev(beyonce_palette(18))) +
-  theme_minimal() +
+  scale_color_bakeoff() +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
   theme(text = element_text(family = "Lato")) +
   labs(color = "Episode")
@@ -435,25 +345,7 @@ ggplot(ratings_bonanza4, aes(x = series, y = viewers_7day,
 ---
 ## Recipe 4: Code for Grouped Episode Line Plot 
 
-```{r eval = FALSE}
-# some wrangling here
-ratings_bonanza4 <- ratings %>% 
-  select(series, episode, viewers_7day) %>% 
-  group_by(series) %>% 
-  filter(episode == 1 | episode == max(episode)) %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last"))  
-
-# code for plot
-ggplot(ratings_bonanza4, aes(x = series, y = viewers_7day, 
-                             color = fct_reorder2(episode, series, viewers_7day),
-                             group = episode)) +
-  geom_point() + 
-  geom_line() +
-  scale_color_manual(values = rev(beyonce_palette(18))) +
-  theme_minimal() +
-  ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
-  theme(text = element_text(family = "Lato")) +
-  labs(color = "Episode")
+```{r groupline, eval = FALSE}
 ```
 
 ---
@@ -485,13 +377,12 @@ class: center, middle, inverse
 ## Recipe 5: Dumbbell Plot
 
 
-```{r echo = FALSE, out.width='60%'}
+```{r dumbbell, echo = FALSE, out.width='60%'}
 ggplot(ratings_bonanza4, aes(x = viewers_7day, y = fct_rev(series), 
                              color = episode, group = series)) +
   geom_line(size = .75) +
   geom_point(size = 2.5) +
-  scale_color_manual(values = rev(beyonce_palette(18))) +
-  theme_minimal() +
+  scale_color_bakeoff() +
   labs(y = "Series", x = "Viewers (millions)") +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
   theme(text = element_text(family = "Lato")) 
@@ -501,16 +392,7 @@ ggplot(ratings_bonanza4, aes(x = viewers_7day, y = fct_rev(series),
 ## Recipe 5: Code for Dumbbell Plot
 
 
-```{r eval = FALSE}
-ggplot(ratings_bonanza4, aes(x = viewers_7day, y = fct_rev(series), 
-                             color = episode, group = series)) +
-  geom_line(size = .75) +
-  geom_point(size = 2.5) +
-  scale_color_manual(values = rev(beyonce_palette(18))) +
-  theme_minimal() +
-  labs(y = "Series", x = "Viewers (millions)") +
-  ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
-  theme(text = element_text(family = "Lato")) 
+```{r dumbbell, eval = FALSE}
 ```
 
 ---
@@ -524,16 +406,13 @@ class: center, middle, inverse
 ## Recipe 6: Slope Graph 
 
 
-```{r echo = FALSE, out.width='65%'}
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
+```{r slope, echo = FALSE, out.width='65%'}
 ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
                              color = fct_reorder2(series, episode, viewers_7day),
                              group = series)) +
   geom_point() +
   geom_line() +
-  theme_minimal() +
-  scale_color_manual(values = mybey) +
+  scale_color_bakeoff() +
   labs(color = "Series") +
   theme(text = element_text(family = "Lato")) 
 ```
@@ -541,18 +420,7 @@ ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
 ---
 ## Recipe 6: Code for Slope Graph
 
-```{r eval = FALSE}
-mybey <- beyonce_palette(66)[c(11,10,7,6,5,4,3,1)]
-
-ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
-                             color = fct_reorder2(series, episode, viewers_7day),
-                             group = series)) +
-  geom_point() +
-  geom_line() +
-  theme_minimal() +
-  scale_color_manual(values = mybey) +
-  labs(color = "Series") +
-  theme(text = element_text(family = "Lato")) 
+```{r slope, eval = FALSE}
 ```
 
 
@@ -569,7 +437,7 @@ class: center, middle, inverse
 ## Recipe 6.1: Redo Recipe 6
 
 
-```{r echo = FALSE, out.width='65%'}
+```{r sloperev, echo = FALSE, out.width='65%'}
 ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
                              group = series)) +
   geom_point(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
@@ -578,7 +446,6 @@ ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
   geom_line(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
   geom_line(data = filter(ratings_bonanza4, series == 8), 
             color = "#CF2154") +
-  theme_minimal() +
   theme(text = element_text(family = "Lato")) +
   ggtitle("Series 8 was a Tough One") +
   geom_text(data = filter(ratings_bonanza4, episode == "last" & series %in% c(1:7)), color = "gray",
@@ -591,22 +458,7 @@ ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
 ## Recipe 6.1: Redo Recipe 6 
 
 
-```{r eval = FALSE}
-ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
-                             group = series)) +
-  geom_point(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
-  geom_point(data = filter(ratings_bonanza4, series == 8), 
-             color = "#CF2154") +
-  geom_line(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
-  geom_line(data = filter(ratings_bonanza4, series == 8), 
-            color = "#CF2154") +
-  theme_minimal() +
-  theme(text = element_text(family = "Lato")) +
-  ggtitle("Series 8 was a Tough One") +
-  geom_text(data = filter(ratings_bonanza4, episode == "last" & series %in% c(1:7)), color = "gray",
-            aes(label = series), vjust = -1, family = "Lato", hjust = .5) +
-  geom_text(data = filter(ratings_bonanza4, episode == "last" & series == 8), color = "#CF2154",
-            aes(label = paste0("Series ", series)), vjust = -1, family = "Lato")
+```{r sloperev, eval = FALSE}
 ```
 ---
 class: center, middle, inverse
@@ -618,7 +470,7 @@ class: center, middle, inverse
 ---
 ## Recipe 7: Bar Chart
 
-```{r echo = FALSE, out.width='70%'}
+```{r bar, echo = FALSE, out.width='70%'}
 # some more serious wrangling here
 ratings_bonanza7 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
@@ -631,10 +483,9 @@ ratings_bonanza7 <- ratings %>%
 # plot
 ggplot(ratings_bonanza7, aes(x = fct_rev(series), 
                              y = finale_bump)) +
-  geom_col(fill = beyonce_palette(49)[1], alpha = .5) +
+  geom_col(fill = bakeoff_cols("berry"), alpha = .8) +
   coord_flip() +
   labs(x = "Series", y = "Difference in Viewers for Finale from Premiere (millions)") +
-  theme_minimal() +
   ggtitle("Finale 'Bumps' were Smallest for Series 1 and 8",
           subtitle= "Finale 7-day Viewers Relative to Premiere") +
   theme(text = element_text(family = "Lato")) 
@@ -643,26 +494,7 @@ ggplot(ratings_bonanza7, aes(x = fct_rev(series),
 ---
 ## Recipe 7: Code for Bar Chart
 
-```{r eval = FALSE}
-# some more serious wrangling here
-ratings_bonanza7 <- ratings %>% 
-  select(series, episode, viewers_7day) %>% 
-  group_by(series) %>% 
-  filter(episode == 1 | episode == max(episode)) %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>%  
-  spread(episode, viewers_7day) %>% 
-  mutate(finale_bump = last - first)
-
-# plot
-ggplot(ratings_bonanza7, aes(x = fct_rev(series), 
-                             y = finale_bump)) +
-  geom_col(fill = beyonce_palette(49)[1], alpha = .5) +
-  coord_flip() +
-  labs(x = "Series", y = "Difference in Viewers for Finale from Premiere (millions)") +
-  theme_minimal() +
-  ggtitle("Finale 'Bumps' were Smallest for Series 1 and 8",
-          subtitle= "Finale 7-day Viewers Relative to Premiere") +
-  theme(text = element_text(family = "Lato")) 
+```{r bar, eval = FALSE}
 ```
 
 
@@ -677,7 +509,7 @@ class: center, middle, inverse
 ---
 ## Recipe 8: % Change Bar Chart
 
-```{r echo = FALSE, out.width='70%'}
+```{r changebar, echo = FALSE, out.width='70%'}
 # wrangling to calculate percent change
 ratings_bonanza8 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
@@ -691,14 +523,14 @@ ratings_bonanza8 <- ratings %>%
 # plot
 ggplot(ratings_bonanza8, aes(x = fct_rev(series), 
                              y = pct_change)) +
-  geom_col(fill = beyonce_palette(49)[1], alpha = .5) +
+  geom_col(fill = bakeoff_cols("tangerine"), alpha = .5) +
   labs(x = "Series", y = "% Increase in Viewers from First to Last Episode") +
   theme_minimal() +
   ggtitle("Series 8 had a 6% Increase in Viewers from Premiere to Finale",
           subtitle= "The Lowest Across All Series (Line is the Median)") +
   theme(text = element_text(family = "Lato")) +
   geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
-             color = beyonce_palette(49)[5]) +
+             color = bakeoff_cols("orange")) +
   scale_y_continuous(labels = scales::percent) +
   coord_flip() 
 ```
@@ -706,30 +538,7 @@ ggplot(ratings_bonanza8, aes(x = fct_rev(series),
 ---
 ## Recipe 8: Code for % Bar
 
-````{r eval = FALSE}
-# wrangling to calculate percent change
-ratings_bonanza8 <- ratings %>% 
-  select(series, episode, viewers_7day) %>% 
-  group_by(series) %>% 
-  filter(episode == 1 | episode == max(episode)) %>% 
-  ungroup() %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% 
-  spread(episode, viewers_7day) %>% 
-  mutate(pct_change = (last - first) / first)
-
-# plot
-ggplot(ratings_bonanza8, aes(x = fct_rev(series), 
-                             y = pct_change)) +
-  geom_col(fill = beyonce_palette(49)[1], alpha = .5) +
-  labs(x = "Series", y = "% Increase in Viewers from First to Last Episode") +
-  theme_minimal() +
-  ggtitle("Series 8 had a 6% Increase in Viewers from Premiere to Finale",
-          subtitle= "The Lowest Across All Series (Line is the Median)") +
-  theme(text = element_text(family = "Lato")) +
-  geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
-             color = beyonce_palette(49)[5]) +
-  scale_y_continuous(labels = scales::percent) +
-  coord_flip() 
+````{r changebar, eval = FALSE}
 ```
 
 
@@ -743,7 +552,7 @@ class: center, middle, inverse
 ---
 ## Recipe 9: Bars Diverging from Median
 
-```{r echo = FALSE, out.width='70%'}
+```{r medianbars, echo = FALSE, out.width='70%'}
 # some more serious wrangling here
 ratings_bonanza9 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
@@ -763,8 +572,7 @@ ggplot(ratings_bonanza9, aes(x = fct_rev(series),
   geom_col(alpha = .5) +
   labs(x = "Series", 
        y = "% Change in Viewers from First to Last Episode, Relative to Median") +
-  scale_fill_manual(values = rev(beyonce_palette(121)), guide = FALSE) +
-  theme_minimal() +
+  scale_fill_bakeoff(guide = FALSE) +
   ggtitle("Series 8 had the Most Disappointing Finale") +
   theme(text = element_text(family = "Lato")) +
   scale_y_continuous(labels = scales::percent) +
@@ -774,32 +582,7 @@ ggplot(ratings_bonanza9, aes(x = fct_rev(series),
 ---
 ## Recipe 9: Bars from Median
 
-```{r eval = FALSE}
-# some more serious wrangling here
-ratings_bonanza9 <- ratings %>% 
-  select(series, episode, viewers_7day) %>% 
-  group_by(series) %>% 
-  filter(episode == 1 | episode == max(episode)) %>% 
-  ungroup() %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% 
-  spread(episode, viewers_7day) %>% 
-  mutate(finale_bump =pct_change = (last - first) / first,
-         pct_change_diff = pct_change - median(pct_change),
-         change_sign = if_else(pct_change_diff > 0, 1, 0))
-
-# plot
-ggplot(ratings_bonanza9, aes(x = fct_rev(series), 
-                             y = pct_change_diff,
-                             fill = as.factor(change_sign))) +
-  geom_col(alpha = .5) +
-  labs(x = "Series", 
-       y = "% Change in Viewers from First to Last Episode, Relative to Median") +
-  scale_fill_manual(values = rev(beyonce_palette(121)), guide = FALSE) +
-  theme_minimal() +
-  ggtitle("Series 8 had the Most Disappointing Finale") +
-  theme(text = element_text(family = "Lato")) +
-  scale_y_continuous(labels = scales::percent) +
-  coord_flip()
+```{r medianbars, eval = FALSE}
 ```
 
 ---
@@ -812,16 +595,15 @@ class: center, middle, inverse
 ---
 ## Recipe 10: Lollipop Plot, % Change
 
-```{r echo = FALSE, out.width='70%'}
+```{r lollipercent, echo = FALSE, out.width='70%'}
 # plot
 ggplot(ratings_bonanza9, aes(x = fct_rev(series), 
                              y = pct_change)) +
-  geom_point(color = beyonce_palette(49)[1], size = 2) +
-  geom_segment(aes(xend = fct_rev(series), yend = 0), color = beyonce_palette(49)[1]) +
+  geom_point(color = bakeoff_cols("riptide"), size = 2) +
+  geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("riptide")) +
   geom_text(aes(label = scales::percent(pct_change)), hjust = -.25,
             family = "Lato") +
   labs(x = "Series", y = "% Change in Viewers from First to Last Episode") +
-  theme_minimal() +
   ggtitle("Percent Increase in Viewers was the Smallest for Series 8",
           subtitle= "Finale 7-day Viewers Relative to Premiere") +
   theme(text = element_text(family = "Lato")) +
@@ -832,21 +614,7 @@ ggplot(ratings_bonanza9, aes(x = fct_rev(series),
 ---
 ## Recipe 10: Code for % Lollipop Plot
 
-```{r eval = FALSE}
-# plot
-ggplot(ratings_bonanza9, aes(x = fct_rev(series), 
-                             y = pct_change)) +
-  geom_point(color = beyonce_palette(49)[1], size = 2) +
-  geom_segment(aes(xend = fct_rev(series), yend = 0), color = beyonce_palette(49)[1]) +
-  geom_text(aes(label = scales::percent(pct_change)), hjust = -.25,
-            family = "Lato") +
-  labs(x = "Series", y = "% Change in Viewers from First to Last Episode") +
-  theme_minimal() +
-  ggtitle("Percent Increase in Viewers was the Smallest for Series 8",
-          subtitle= "Finale 7-day Viewers Relative to Premiere") +
-  theme(text = element_text(family = "Lato")) +
-  scale_y_continuous(labels = scales::percent, limits = c(0, .85)) +
-  coord_flip() 
+```{r lollipercent, eval = FALSE}
 ```
 
 ---
@@ -863,12 +631,11 @@ class: center, middle, inverse
 ---
 ## Recipe 11: Scatterplot
 
-```{r echo = FALSE}
+```{r scatter, echo = FALSE}
 ggplot(ratings_bonanza7, aes(x = first, y = last)) +
   geom_point() +
   geom_smooth(se = FALSE, color = '#EBBFDD') +
   geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
-  theme_minimal() +
   geom_text(aes(label = series), hjust = -1, family = "Lato") +
   theme(text = element_text(family = "Lato")) +
   labs(x = "Premiere Episode 7-day Viewers (millions)",
@@ -879,16 +646,7 @@ ggplot(ratings_bonanza7, aes(x = first, y = last)) +
 ---
 ## Recipe 11: Code for Scatterplot
 
-```{r eval = FALSE}
-ggplot(ratings_bonanza7, aes(x = first, y = last)) +
-  geom_point() +
-  geom_smooth(se = FALSE, color = '#EBBFDD') +
-  geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
-  theme_minimal() +
-  geom_text(aes(label = series), hjust = -1, family = "Lato") +
-  theme(text = element_text(family = "Lato")) +
-  labs(x = "Premiere Episode 7-day Viewers (millions)",
-       y = "Finale Episode 7-day Viewers (millions)")
+```{r scatter, eval = FALSE}
 ```
 
 ---
@@ -901,7 +659,7 @@ class: center, middle, inverse
 ---
 ## Recipe 11.1: Pop-Out Scatterplot
 
-```{r echo = FALSE}
+```{r lollipop, echo = FALSE}
 ggplot(ratings_bonanza7, aes(x = first, y = last)) +
   geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
   geom_smooth(se = FALSE, color = "#11B2E8") +
@@ -911,7 +669,6 @@ ggplot(ratings_bonanza7, aes(x = first, y = last)) +
             aes(label = series), hjust = -1, family = "Lato") +
   geom_text(data = filter(ratings_bonanza7, series == 8),
             aes(label = series), hjust = -1, family = "Lato", colour = "#CF2154") +
-  theme_minimal() +
   theme(text = element_text(family = "Lato")) +
   labs(x = "Premiere Episode 7-day Viewers (millions)",
        y = "Finale Episode 7-day Viewers (millions)")
@@ -920,22 +677,7 @@ ggplot(ratings_bonanza7, aes(x = first, y = last)) +
 ---
 ## Recipe 11.1: Code for Pop-Out Scatterplot
 
-```{r eval = FALSE}
-ggplot(ratings_bonanza7, aes(x = first, y = last)) +
-  geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
-  geom_smooth(se = FALSE, color = "#11B2E8") +
-  geom_point(data = filter(ratings_bonanza7, series %in% c(1:7))) +
-  geom_point(data = filter(ratings_bonanza7, series == 8), 
-             colour = "#CF2154") +
-  geom_text(data = filter(ratings_bonanza7, series %in% c(1:7)),
-            aes(label = series), hjust = -1, family = "Lato") +
-  geom_text(data = filter(ratings_bonanza7, series == 8),
-            aes(label = series), hjust = -1, family = "Lato", 
-            colour = "#CF2154") +
-  theme_minimal() +
-  theme(text = element_text(family = "Lato")) +
-  labs(x = "Premiere Episode 7-day Viewers (millions)",
-       y = "Finale Episode 7-day Viewers (millions)")
+```{r lollipop, eval = FALSE}
 ```
 
 ---
