@@ -20,11 +20,9 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300,
   fig.align = "center", out.width = "70%", cache = FALSE)
-library(tidyverse)
-library(here)
-library(knitr)
-library(emo)
-library(extrafont)
+if (!require("pacman")) { install.packages("pacman") }
+p_load(tidyverse, here, knitr, extrafont)
+p_load_gh("hadley/emo", "apreshill/bakeoff")
 # ggplot2::theme_set(theme_minimal())
 # update those defaults
 update_font_defaults <- function(font_choice = "Lato") {
