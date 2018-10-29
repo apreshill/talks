@@ -140,7 +140,6 @@ library(bakeoff) # data + colors!
 # Data second
 
 ```{r}
-library(bakeoff)
 ratings <- ratings_seasons %>% 
   mutate(series = as.factor(series))
 ```
