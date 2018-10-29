@@ -24,6 +24,7 @@ library(tidyverse)
 library(here)
 library(knitr)
 library(emo)
+library(extrafont)
 # ggplot2::theme_set(theme_minimal())
 # update those defaults
 update_font_defaults <- function(font_choice = "Lato") {
@@ -48,7 +49,7 @@ class: center, middle, inverse
 
 # Inspired by:
 
-## [Flowing Data](https://flowingdata.com/2017/01/24/one-dataset-visualized-25-ways/)
+## [Flowing Data: One Dataset Visualized 25 Ways](https://flowingdata.com/2017/01/24/one-dataset-visualized-25-ways/)
 
 ```{r echo = FALSE}
 knitr::include_graphics("img/flowing-data-inspo.png")
@@ -58,40 +59,70 @@ knitr::include_graphics("img/flowing-data-inspo.png")
 ---
 class: center, middle, inverse
 
-`r emo::ji("smile")`
+## Disclaimers
 
-1. I am a data visualization practioner. 
+--
 
-1. I offer what I hope are well-reasoned opinions here, but 
+I am a data visualization .whisper[practioner]. 
+
+--
+
+I offer what I hope are well-reasoned opinions here, but obviously .whisper[YMMV].
+
+--
+
+I do not claim that all of the following are .whisper[good] nor .whisper[publication-worthy] visualizations (for those viewing these slides without narrative)
 
 ![](https://media.giphy.com/media/3oEjHIs0EQ4nxN4YPC/giphy.gif)
 
 ---
 class:middle, inverse, center
 
-## My goals for today
+## My messages for today
 
 ---
-# Change the way (you might) think about tidy data
+class:middle, inverse, center
 
-- .whisper[Tidy data is a place to start]
+## tidiness $\neq$ .shout[godliness]
 
-Subgoals
-
-- .shout[labeling!]
-- .onfire[lose the defaults!]
+![](https://media.giphy.com/media/3o6vXSvvyxyzJMVqGk/giphy.gif)
 
 ---
-# But also...
+class:middle, inverse, center
 
-Don't be afraid to change those `ggplot2` defaults! 
+## tidiness = .whisper[nimbleness]
+
+![](https://media.giphy.com/media/3o7TKFVl2L6P6P7zqM/giphy.gif)
+
+---
+class:middle, inverse, center
+
+## tidy $\neq$ .shout[done]
+
+![](https://media.giphy.com/media/l41YtBXZvSRdgqq7m/giphy.gif)
+
+---
+class:middle, inverse, center
+
+```{r echo = FALSE}
+knitr::include_graphics("img/tidyverse_wrangle.png")
+```
+
+---
+class: center, middle, inverse
+
+## But also...
+
+Don't be afraid to chop out those `ggplot2` defaults! 
 
 ![](https://media.giphy.com/media/26BoDD0vgBWAipgJ2/giphy.gif)
 
 ---
-# But also...
+class: center, middle, inverse
 
-Think about "chart junk"
+## But also...
+
+It's all in the details.
 
 ![](https://media.giphy.com/media/l0MYrsYIulHYo0Bhe/giphy.gif)
 
@@ -103,7 +134,6 @@ I'll use all of the following:
 ```{r}
 library(tidyverse)
 library(bakeoff) # data + colors!
-library(extrafont) # fonts!
 ```
 
 ---
@@ -167,7 +197,7 @@ ggplot(plot_off1, aes(x = ep_id, y = viewers_7day, fill = series)) + #<<
 
 .left-column[
 1. Which .whisper[dataset]?
-1. Which .shout[geom]?
+1. Which .whisper[geom]?
 1. What .whisper[variable] is mapped on the .shout[x-axis]?
 1. What .whisper[variable] is mapped on the .shout[y-axis]?
 1. What .whisper[variable] is mapped to .shout[color]?
@@ -217,17 +247,17 @@ class: center, middle, inverse
 
 ```{r lolli, echo = FALSE}
 plot_off2 <- ratings %>% 
-  group_by(series) %>% 
-  mutate(series_avg = mean(viewers_7day, na.rm = TRUE),
-         diff_avg = viewers_7day - series_avg)%>% 
+  group_by(series) %>% #<<
+  mutate(series_avg = mean(viewers_7day, na.rm = TRUE), #<<
+         diff_avg = viewers_7day - series_avg) %>% #<<
   filter(max(episode) == 10) %>% 
   mutate(episode = as.factor(episode)) %>% 
   select(episode, viewers_7day, series, diff_avg, series_avg)
 
 ggplot(plot_off2, aes(x = episode, y = viewers_7day, color = diff_avg)) + #<<
-  geom_hline(aes(yintercept = series_avg), alpha = .5) +
-  geom_point() +
-  geom_segment(aes(xend = episode, yend = series_avg)) +
+  geom_hline(aes(yintercept = series_avg), alpha = .5) + #<<
+  geom_point() + #<<
+  geom_segment(aes(xend = episode, yend = series_avg)) + #<<
   facet_wrap(~series) + #<<
   scale_color_viridis_c(option="plasma", begin = 0, 
                       end = .8, guide = FALSE) +
@@ -240,7 +270,7 @@ ggplot(plot_off2, aes(x = episode, y = viewers_7day, color = diff_avg)) + #<<
 
 .left-column[
 1. Which .whisper[dataset]?
-1. Which .whisper[geoms]?
+1. Which .whisper[3 geoms]?
 1. What .whisper[variable] is .shout[facet wrapped]?
 1. What .whisper[variable] is mapped on the .shout[x-axis]?
 1. What .whisper[variable] is mapped on the .shout[y-axis]?
@@ -276,11 +306,11 @@ line_labels <- ratings %>%
   filter(episode == max(episode)) %>% 
   select(series, x_position = episode, y_position = viewers_7day)
 
-ggplot(ratings, aes(x = as.factor(episode), 
-                    y = viewers_7day,
-                    color = as.factor(series), 
-                    group = series)) +
-  geom_line() +
+ggplot(ratings, aes(x = as.factor(episode), #<<
+                    y = viewers_7day, #<<
+                    color = as.factor(series), #<<
+                    group = series)) + #<<
+  geom_line() + #<<
   scale_color_bakeoff(guide = FALSE) +
   labs(color = "Series", x = "Episode") +
   geom_text(data = line_labels, aes(label = series,
@@ -369,8 +399,8 @@ class: center, middle, inverse
 # some wrangling here
 plot_off5 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
-  group_by(series) %>% 
-  filter(episode == 1 | episode == max(episode)) %>% 
+  group_by(series) %>% #<<
+  filter(episode == 1 | episode == max(episode)) %>% #<<
   mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% #<<
   ungroup()
 
@@ -542,8 +572,8 @@ plot_off8 <- ratings %>%
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% 
   filter(episode == 1 | episode == max(episode)) %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>%  
-  spread(episode, viewers_7day) %>% 
+  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>%  #<<
+  spread(episode, viewers_7day) %>% #<<
   mutate(finale_bump = last - first) #<<
 
 # plot
@@ -605,7 +635,7 @@ ggplot(plot_off9, aes(x = fct_rev(series), #<<
                       y = pct_change)) + #<<
   geom_col(fill = bakeoff_cols("baltic"), alpha = .5) + #<<
   geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
-             color = bakeoff_cols("magenta"),
+             color = bakeoff_cols("berry"),
              lwd = 2) +
   labs(x = "Series", y = "% Increase in Viewers, First to Last Episode") +
   ggtitle("Series 8 had a 6% Increase in Viewers from Premiere to Finale",
@@ -648,10 +678,10 @@ class: center, middle, inverse
 
 ```{r lollipercent, echo = FALSE, out.width='70%'}
 # plot
-ggplot(plot_off9, aes(x = fct_rev(series), 
-                             y = pct_change)) +
-  geom_point(color = bakeoff_cols("bluesapphire"), size = 2) +
-  geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("bluesapphire")) +
+ggplot(plot_off9, aes(x = fct_rev(series), #<<
+                      y = pct_change)) + #<<
+  geom_point(color = bakeoff_cols("bluesapphire"), size = 2) + #<<
+  geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("bluesapphire")) + #<<
   geom_text(aes(label = scales::percent(pct_change)), hjust = -.25) +
   labs(x = "Series", y = "% Change in Viewers from First to Last Episode") +
   ggtitle("Percent Increase in Viewers was the Smallest for Series 8",
@@ -681,10 +711,10 @@ class: center, middle, inverse
 ## Recipe 11: Scatterplot
 
 ```{r scatter, echo = FALSE}
-ggplot(plot_off8, aes(x = first, y = last)) +
-  geom_point() +
-  geom_smooth(se = FALSE, color = '#EBBFDD') +
-  geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
+ggplot(plot_off8, aes(x = first, y = last)) + #<<
+  geom_point() + #<<
+  geom_smooth(se = FALSE, color = '#EBBFDD') + #<<
+  geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) + #<<
   geom_text(aes(label = series), hjust = -1) +
   labs(x = "Premiere Episode 7-day Viewers (millions)",
        y = "Finale Episode 7-day Viewers (millions)") +

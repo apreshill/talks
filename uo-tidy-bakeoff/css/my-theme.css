@@ -7,9 +7,17 @@ h1, h2, h3 {
   color: #126180;
 }
 
-.shout { color: #ee5863; }
+.shout { color: #ee5863; 
+font-family: 'Lato', sans-serif;
+font-weight: bold;
+}
 
-.whisper { color: #84d6d3; }
+.whisper { color: #84d6d3; 
+font-family: 'Cormorant Garamond', serif;
+font-style: italic;
+font-weight: bold;
+font-size: larger;
+}
 
 .onfire { color: #ff7436; }
 
