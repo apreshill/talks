@@ -23,6 +23,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 library(tidyverse)
 library(here)
 library(knitr)
+library(emo)
 # ggplot2::theme_set(theme_minimal())
 # update those defaults
 update_font_defaults <- function(font_choice = "Lato") {
@@ -54,11 +55,24 @@ knitr::include_graphics("img/flowing-data-inspo.png")
 ```
 
 
+---
+class: center, middle, inverse
 
+`r emo::ji("smile")`
 
+1. I am a data visualization practioner. 
+
+1. I offer what I hope are well-reasoned opinions here, but 
+
+![](https://media.giphy.com/media/3oEjHIs0EQ4nxN4YPC/giphy.gif)
 
 ---
-# tl;dr
+class:middle, inverse, center
+
+## My goals for today
+
+---
+# Change the way (you might) think about tidy data
 
 - .whisper[Tidy data is a place to start]
 
@@ -66,6 +80,20 @@ Subgoals
 
 - .shout[labeling!]
 - .onfire[lose the defaults!]
+
+---
+# But also...
+
+Don't be afraid to change those `ggplot2` defaults! 
+
+![](https://media.giphy.com/media/26BoDD0vgBWAipgJ2/giphy.gif)
+
+---
+# But also...
+
+Think about "chart junk"
+
+![](https://media.giphy.com/media/l0MYrsYIulHYo0Bhe/giphy.gif)
 
 ---
 # Packages first
@@ -90,7 +118,7 @@ ratings <- ratings_seasons %>%
 ---
 # Glimpse
 
-```{r echo = FALSE, highlight.output = 2:3}
+```{r echo = FALSE, highlight.output = 6}
 glimpse(ratings)
 ```
 
@@ -98,84 +126,68 @@ glimpse(ratings)
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
 ## Recipe 1: Continuous Bar Chart
 
 ---
 ## Recipe 1: Continuous Bar Chart
 
-```{r recipe1, echo = FALSE, out.width = '70%'}
-# some small wrangling
-ratings_bonanza1 <- ratings %>% 
-  mutate(ep_id = row_number()) %>% 
+```{r episodebar, echo = FALSE, out.width = '70%'}
+# create continuous episode count
+plot_off1 <- ratings %>% 
+  mutate(ep_id = row_number()) %>% #<<
   select(ep_id, viewers_7day, series, episode)
 
+# create coordinates for labels
+series_labels <- plot_off1 %>% 
+  group_by(series) %>% 
+  summarize(y_position = median(viewers_7day) + 1,
+            x_position = mean(ep_id))
+
 # make the plot
-ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day, 
-                             fill = series)) +
-  geom_col(alpha = .9) +
+ggplot(plot_off1, aes(x = ep_id, y = viewers_7day, fill = series)) + #<<
+  geom_col(alpha = .9) + #<<
   ggtitle("Series 8 was a Big Setback in Viewers",
           subtitle= "7-Day Viewers across All Series/Episodes") +
-  theme(legend.position = "bottom",
-        axis.text.x = element_blank(),
+  geom_text(data = series_labels, aes(label = series,
+                                      x = x_position, 
+                                      y = y_position)) +
+  theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
-        axis.title.x = element_blank()) + 
-  scale_fill_bakeoff() +
-  scale_x_continuous(expand = c(0, 0)) + #<<
-  guides(fill = guide_legend(nrow = 1))
+        axis.title.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_fill_bakeoff(guide = FALSE) +
+  scale_x_continuous(expand = c(0, 0)) 
 ```
+
+---
+## Recipe 1: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .shout[geom]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r episodebar, echo = FALSE}
+```
+]
 
 ---
 ## Recipe 1: Code for Bar Chart
 
-```{r recipe1, eval = FALSE}
+```{r episodebar, eval = FALSE}
 ```
 
 ---
 class: center, middle, inverse
 
-# 🎂
-
-## Recipe 1.2: Ribbons not Bars
-
----
-## Recipe 1.2: Ribbons not Bars
-
-```{r recipe1rev, echo = FALSE, out.width = '70%'}
-ggplot(ratings_bonanza1, aes(x = ep_id, y = viewers_7day, 
-                             fill = series, color = series)) +
-  geom_ribbon(aes(ymin = 0, ymax = viewers_7day), alpha = .75) +
-  geom_line() +
-  geom_text(data = filter(ratings_bonanza1, 
-                          series %in% c(1:2) & episode == 4), 
-            aes(y = 1.5, label = series), 
-            size = 3, color="white", family = "Lato") +
-  geom_text(data = filter(ratings_bonanza1, series %in% c(3:8) & episode == 6),
-            aes(y = 1.5, label = series), 
-            size = 3, color="white") + 
-  ggtitle("Series 8 was a Big Setback in Viewers",
-          subtitle= "7-Day Viewers across All Series/Episodes") +
-  theme(legend.position = "bottom",
-        axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.x = element_blank()) + 
-  scale_fill_bakeoff() +
-  scale_color_bakeoff() +
-  scale_x_continuous(expand = c(0, 0)) +
-  guides(fill = FALSE, color = FALSE)
-```
-
-
----
-## Recipe 1.2: Code for Ribbons 
-
-```{r recipe1rev, eval = FALSE}
-```
----
-class: center, middle, inverse
-
-# 🎂
+# `r emo::ji("cake")`
 
 ## What is going on with Series 8?
 
@@ -195,7 +207,7 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
 ## Recipe 2: Lollipop Plot
 
@@ -204,7 +216,7 @@ class: center, middle, inverse
 ## Recipe 2: Lollipop Plot
 
 ```{r lolli, echo = FALSE}
-ratings_bonanza2 <- ratings %>% 
+plot_off2 <- ratings %>% 
   group_by(series) %>% 
   mutate(series_avg = mean(viewers_7day, na.rm = TRUE),
          diff_avg = viewers_7day - series_avg)%>% 
@@ -212,19 +224,33 @@ ratings_bonanza2 <- ratings %>%
   mutate(episode = as.factor(episode)) %>% 
   select(episode, viewers_7day, series, diff_avg, series_avg)
 
-ggplot(ratings_bonanza2, aes(x = episode, 
-                            y = viewers_7day,
-                            color = diff_avg)) +
+ggplot(plot_off2, aes(x = episode, y = viewers_7day, color = diff_avg)) + #<<
   geom_hline(aes(yintercept = series_avg), alpha = .5) +
   geom_point() +
   geom_segment(aes(xend = episode, yend = series_avg)) +
-  facet_wrap(~series) +
+  facet_wrap(~series) + #<<
   scale_color_viridis_c(option="plasma", begin = 0, 
                       end = .8, guide = FALSE) +
   ggtitle("Great British Bake Off Finales Get the Most Viewers",
           subtitle = "Way Higher than Series Average (for Series with 10 episodes)")
 ```
 
+---
+## Recipe 2: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[facet wrapped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r lolli, echo = FALSE}
+```
+]
 ---
 
 ## Recipe 2: Code for Lollipop Plot
@@ -237,54 +263,94 @@ ggplot(ratings_bonanza2, aes(x = episode,
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
-## Recipe 3: Grouped Line Plot by Series
+## Recipe 3: Series Line Plot
 
 ---
-## Recipe 3: Grouped Line Plot by Series 
+## Recipe 3: Series Line Plot
 
-```{r lines, echo = FALSE, out.width='70%'}
-ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
-                    color = fct_reorder2(series, episode, viewers_7day), 
+```{r serieslines, echo = FALSE, out.width='70%'}
+line_labels <- ratings %>% 
+  group_by(series) %>% 
+  filter(episode == max(episode)) %>% 
+  select(series, x_position = episode, y_position = viewers_7day)
+
+ggplot(ratings, aes(x = as.factor(episode), 
+                    y = viewers_7day,
+                    color = as.factor(series), 
                     group = series)) +
   geom_line() +
-  scale_color_bakeoff() +
-  labs(color = "Series", x = "Episode") 
+  scale_color_bakeoff(guide = FALSE) +
+  labs(color = "Series", x = "Episode") +
+  geom_text(data = line_labels, aes(label = series,
+                                      x = x_position + .25, 
+                                      y = y_position)) 
 ```
 
 ---
-## Recipe 3: Code for Series Grouped Line Plot
+## Recipe 3: Questions
 
-```{r lines, eval = FALSE}
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r serieslines, echo = FALSE}
+```
+]
+---
+## Recipe 3: Code for Series Line Plot
+
+```{r serieslines, eval = FALSE}
 ```
 
 
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
-## Recipe 3.1: Redo Recipe 3
-
-## Facetted Series Grouped Line Plot
+## Recipe 4: Facetted Line Plot
 
 ---
-## Recipe 3.1: Facetted Line Plot
+## Recipe 4: Facetted Line Plot
 
 ```{r facetlines, echo = FALSE, out.width='70%'}
-ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
-                    color = fct_reorder2(series, episode, viewers_7day), 
-                    group = series)) +
-  geom_line(lwd = 2) +
-  scale_color_bakeoff() +
-  labs(color = "Series", x = "Episode") +
+ggplot(ratings, aes(x = as.factor(episode), #<<
+                    y = viewers_7day, #<<
+                    color = fct_reorder2(series, episode, viewers_7day), #<<
+                    group = series)) + #<<
   facet_wrap(~series) + #<<
-  guides(color = FALSE) #<<
+  geom_line(lwd = 2) + #<<
+  scale_color_bakeoff(guide = FALSE) +
+  labs(color = "Series", x = "Episode") 
 ```
 
 ---
-## Recipe 3.1: Code for Facetted Line Plot
+## Recipe 4: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is .shout[facetted]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r facetlines, echo = FALSE}
+```
+]
+---
+## Recipe 4: Code for Facetted Line Plot
 
 ```{r facetlines, eval = FALSE}
 ```
@@ -292,75 +358,60 @@ ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
-## Recipe 3.2: Redo Recipe 3
-
-## Pop-Out Series Grouped Line Plot
+## Recipe 5: First vs. Last
 
 ---
-## Recipe 3.2: Redo Recipe 3
+## Recipe 5: First vs. Last
 
-```{r facetlinesrev, echo = FALSE, out.width='60%'}
-ggplot(ratings, aes(x = as.factor(episode), y = viewers_7day,
-                    group = series)) +
-  geom_line(data = filter(ratings, !series == 8), alpha = .25) +
-  geom_line(data = filter(ratings, series == 8), color = "#CF2154") +
-  labs(color = "Series", x = "Episode") +
-  ggtitle("Series 8 was a Tough One") +
-  geom_text(data = filter(ratings, episode == 1 & series %in% c(1:7)), color = "gray",
-            aes(label = paste0("Series ", series)), vjust = -1) +
-  geom_text(data = filter(ratings, episode == 10 & series == 8), color = "#CF2154",
-            aes(label = paste0("Series ", series)), vjust = -1)
-```
-
----
-## Recipe 3.2: Code for Redo Recipe 3
-
-```{r facetlinesrev, eval = FALSE}
-```
-
-
----
-class: center, middle, inverse
-
-# 🎂
-
-## Recipe 4: Grouped Line Plot by Episode
-
----
-## Recipe 4: Grouped Line Plot by Episode
-
-```{r groupline, echo = FALSE, out.width='60%'}
+```{r firstlastline, echo = FALSE, out.width='60%'}
 # some wrangling here
-ratings_bonanza4 <- ratings %>% 
+plot_off5 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% 
   filter(episode == 1 | episode == max(episode)) %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% 
+  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% #<<
   ungroup()
 
 # code for plot
-ggplot(ratings_bonanza4, aes(x = series, y = viewers_7day,
-                             color = fct_reorder2(episode, series, viewers_7day), 
-                             group = episode)) +
-  geom_point() + 
-  geom_line() +
+ggplot(plot_off5, aes(x = series, #<<
+                      y = viewers_7day,#<<
+                      color = fct_reorder2(episode, series, viewers_7day), #<<
+                      group = episode)) + #<<
+  geom_point() + #<<
+  geom_line() + #<<
   scale_color_bakeoff() +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
   labs(color = "Episode")
 ```
 
 ---
-## Recipe 4: Code for Grouped Episode Line Plot 
+## Recipe 5: Questions
 
-```{r groupline, eval = FALSE}
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r firstlastline, echo = FALSE}
+```
+]
+---
+## Recipe 5: Code for First vs. Last
+
+```{r firstlastline, eval = FALSE}
 ```
 
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
 ## What is going on with the Series 8 finale?
 
@@ -368,7 +419,6 @@ class: center, middle, inverse
 class: middle, center, inverse
 
 ## A [tweet](https://twitter.com/PrueLeith/status/925329937644564480) heard 'round the world
-
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I am so sorry to the fans of the show for my mistake this morning, I am in a different time zone and mortified by my error <a href="https://twitter.com/hashtag/GBBO?src=hash&amp;ref_src=twsrc%5Etfw">#GBBO</a>.</p>&mdash; Prue Leith (@PrueLeith) <a href="https://twitter.com/PrueLeith/status/925329937644564480?ref_src=twsrc%5Etfw">October 31, 2017</a></blockquote>
 
@@ -378,26 +428,44 @@ class: middle, center, inverse
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
-## Recipe 5: Dumbbell Plot
+## Recipe 6: Dumbbell Plot
 
 ---
-## Recipe 5: Dumbbell Plot
+## Recipe 6: Dumbbell Plot
 
 
 ```{r dumbbell, echo = FALSE, out.width='60%'}
-ggplot(ratings_bonanza4, aes(x = viewers_7day, y = fct_rev(series), 
-                             color = episode, group = series)) +
-  geom_line(size = .75) +
-  geom_point(size = 2.5) +
+ggplot(plot_off5, aes(x = viewers_7day, #<<
+                      y = fct_rev(series),  #<<
+                      color = episode,  #<<
+                      group = series)) + #<<
+  geom_line(size = .75) + #<<
+  geom_point(size = 2.5) + #<<
   scale_color_bakeoff() +
-  labs(y = "Series", x = "Viewers (millions)") +
+  labs(y = "Series", x = "Viewers (millions)", color = "Episode") +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") 
 ```
 
 ---
-## Recipe 5: Code for Dumbbell Plot
+## Recipe 6: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r dumbbell, echo = FALSE}
+```
+]
+---
+## Recipe 6: Code for Dumbbell Plot
 
 
 ```{r dumbbell, eval = FALSE}
@@ -406,26 +474,52 @@ ggplot(ratings_bonanza4, aes(x = viewers_7day, y = fct_rev(series),
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
-## Recipe 6: Slope Graph
+## Recipe 7: Slope Graph
 
 ---
-## Recipe 6: Slope Graph 
+## Recipe 7: Slope Graph 
 
 
 ```{r slope, echo = FALSE, out.width='65%'}
-ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
-                             color = fct_reorder2(series, episode, viewers_7day),
-                             group = series)) +
-  geom_point() +
-  geom_line() +
-  scale_color_bakeoff() +
-  labs(color = "Series") 
+slope_labels <- plot_off5 %>% 
+  filter(episode == "last") %>% 
+  select(series, x_position = episode, y_position = viewers_7day)
+
+ggplot(plot_off5, aes(x = episode, #<<
+                      y = viewers_7day, #<<
+                      color = series, #<<
+                      group = series)) + #<<
+  geom_point() + #<<
+  geom_line() + #<<
+  scale_color_bakeoff(guide = FALSE) +
+  geom_text(data = slope_labels, aes(label = series,
+                                    x = x_position,
+                                    y = y_position),
+            nudge_x = .1) +
+  theme(panel.grid = element_blank(),
+        axis.line = element_line(color = "gray"))
 ```
 
 ---
-## Recipe 6: Code for Slope Graph
+## Recipe 7: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r slope, echo = FALSE}
+```
+]
+---
+## Recipe 7: Code for Slope Graph
 
 ```{r slope, eval = FALSE}
 ```
@@ -434,72 +528,53 @@ ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
 ---
 class: center, middle, inverse
 
-# 🎂
-
-## Recipe 6.1: Redo Recipe 6
-
-## Pop-Out Slope Graph
-
----
-## Recipe 6.1: Redo Recipe 6
+# `r emo::ji("cake")`
 
 
-```{r sloperev, echo = FALSE, out.width='65%'}
-ggplot(ratings_bonanza4, aes(x = episode, y = viewers_7day,
-                             group = series)) +
-  geom_point(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
-  geom_point(data = filter(ratings_bonanza4, series == 8), 
-             color = "#CF2154") +
-  geom_line(data = filter(ratings_bonanza4, !series == 8), alpha = .25) +
-  geom_line(data = filter(ratings_bonanza4, series == 8), 
-            color = "#CF2154") +
-  ggtitle("Series 8 was a Tough One") +
-  geom_text(data = filter(ratings_bonanza4, episode == "last" & series %in% c(1:7)), color = "gray",
-            aes(label = series), vjust = -1, hjust = .5) +
-  geom_text(data = filter(ratings_bonanza4, episode == "last" & series == 8), color = "#CF2154",
-            aes(label = paste0("Series ", series)), vjust = -1)
-```
+## Recipe 8: Finale "Bumps"
 
 ---
-## Recipe 6.1: Redo Recipe 6 
+## Recipe 8: Finale "Bumps"
 
-
-```{r sloperev, eval = FALSE}
-```
----
-class: center, middle, inverse
-
-# 🎂
-
-## Recipe 7: Bar Chart
-
----
-## Recipe 7: Bar Chart
-
-```{r bar, echo = FALSE, out.width='70%'}
+```{r bump, echo = FALSE, out.width='70%'}
 # some more serious wrangling here
-ratings_bonanza7 <- ratings %>% 
+plot_off8 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% 
   filter(episode == 1 | episode == max(episode)) %>% 
   mutate(episode = recode(episode, `1` = "first", .default = "last")) %>%  
   spread(episode, viewers_7day) %>% 
-  mutate(finale_bump = last - first)
+  mutate(finale_bump = last - first) #<<
 
 # plot
-ggplot(ratings_bonanza7, aes(x = fct_rev(series), 
-                             y = finale_bump)) +
-  geom_col(fill = bakeoff_cols("berry"), alpha = .8) +
-  coord_flip() +
+ggplot(plot_off8, aes(x = fct_rev(series), #<<
+                      y = finale_bump)) + #<<
+  geom_col(fill = bakeoff_cols("baltic"), alpha = .7) + #<<
+  coord_flip() + #<<
   labs(x = "Series", y = "Difference in Viewers for Finale from Premiere (millions)") +
   ggtitle("Finale 'Bumps' were Smallest for Series 1 and 8",
-          subtitle= "Finale 7-day Viewers Relative to Premiere")
+          subtitle = "Finale 7-day Viewers Relative to Premiere")
 ```
 
 ---
-## Recipe 7: Code for Bar Chart
+## Recipe 8: Questions
 
-```{r bar, eval = FALSE}
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r bump, echo = FALSE}
+```
+]
+---
+## Recipe 8: Code for Finale "Bumps"
+
+```{r bump, eval = FALSE}
 ```
 
 
@@ -507,85 +582,59 @@ ggplot(ratings_bonanza7, aes(x = fct_rev(series),
 ---
 class: center, middle, inverse
 
-# 🎂
+# `r emo::ji("cake")`
 
-## Recipe 8: % Change Bar Chart
+## Recipe 9: % Change Bar Chart
 
 ---
-## Recipe 8: % Change Bar Chart
+## Recipe 9: % Change Bar Chart
 
 ```{r changebar, echo = FALSE, out.width='70%'}
 # wrangling to calculate percent change
-ratings_bonanza8 <- ratings %>% 
+plot_off9 <- ratings %>% 
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% 
   filter(episode == 1 | episode == max(episode)) %>% 
   ungroup() %>% 
   mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% 
-  spread(episode, viewers_7day) %>% 
-  mutate(pct_change = (last - first) / first)
+  spread(episode, viewers_7day) %>% #<<
+  mutate(pct_change = (last - first) / first) #<<
 
 # plot
-ggplot(ratings_bonanza8, aes(x = fct_rev(series), 
-                             y = pct_change)) +
-  geom_col(fill = bakeoff_cols("tangerine"), alpha = .5) +
-  labs(x = "Series", y = "% Increase in Viewers from First to Last Episode") +
+ggplot(plot_off9, aes(x = fct_rev(series), #<<
+                      y = pct_change)) + #<<
+  geom_col(fill = bakeoff_cols("baltic"), alpha = .5) + #<<
+  geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
+             color = bakeoff_cols("magenta"),
+             lwd = 2) +
+  labs(x = "Series", y = "% Increase in Viewers, First to Last Episode") +
   ggtitle("Series 8 had a 6% Increase in Viewers from Premiere to Finale",
           subtitle= "The Lowest Across All Series (Line is the Median)") + 
-  geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
-             color = bakeoff_cols("orange")) +
   scale_y_continuous(labels = scales::percent) +
   coord_flip() 
 ```
 
 ---
-## Recipe 8: Code for % Bar
+## Recipe 9: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+```{r changebar, echo = FALSE}
+```
+]
+---
+## Recipe 9: Code for % Bar
 
 ````{r changebar, eval = FALSE}
 ```
 
-
----
-class: center, middle, inverse
-
-# 🎂
-
-## Recipe 9: Bars Diverging from Median
-
----
-## Recipe 9: Bars Diverging from Median
-
-```{r medianbars, echo = FALSE, out.width='70%'}
-# some more serious wrangling here
-ratings_bonanza9 <- ratings %>% 
-  select(series, episode, viewers_7day) %>% 
-  group_by(series) %>% 
-  filter(episode == 1 | episode == max(episode)) %>% 
-  ungroup() %>% 
-  mutate(episode = recode(episode, `1` = "first", .default = "last")) %>% 
-  spread(episode, viewers_7day) %>% 
-  mutate(pct_change = (last - first) / first,
-         pct_change_diff = pct_change - median(pct_change),
-         change_sign = if_else(pct_change_diff > 0, 1, 0))
-
-# plot
-ggplot(ratings_bonanza9, aes(x = fct_rev(series), 
-                             y = pct_change_diff,
-                             fill = as.factor(change_sign))) +
-  geom_col(alpha = .5) +
-  labs(x = "Series", 
-       y = "% Change in Viewers from First to Last Episode, Relative to Median") +
-  scale_fill_bakeoff(guide = FALSE) +
-  ggtitle("Series 8 had the Most Disappointing Finale") +
-  scale_y_continuous(labels = scales::percent) +
-  coord_flip() 
-```
-
----
-## Recipe 9: Bars from Median
-
-```{r medianbars, eval = FALSE}
-```
 
 ---
 class: center, middle, inverse
@@ -599,10 +648,10 @@ class: center, middle, inverse
 
 ```{r lollipercent, echo = FALSE, out.width='70%'}
 # plot
-ggplot(ratings_bonanza9, aes(x = fct_rev(series), 
+ggplot(plot_off9, aes(x = fct_rev(series), 
                              y = pct_change)) +
-  geom_point(color = bakeoff_cols("riptide"), size = 2) +
-  geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("riptide")) +
+  geom_point(color = bakeoff_cols("bluesapphire"), size = 2) +
+  geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("bluesapphire")) +
   geom_text(aes(label = scales::percent(pct_change)), hjust = -.25) +
   labs(x = "Series", y = "% Change in Viewers from First to Last Episode") +
   ggtitle("Percent Increase in Viewers was the Smallest for Series 8",
@@ -632,7 +681,7 @@ class: center, middle, inverse
 ## Recipe 11: Scatterplot
 
 ```{r scatter, echo = FALSE}
-ggplot(ratings_bonanza7, aes(x = first, y = last)) +
+ggplot(plot_off8, aes(x = first, y = last)) +
   geom_point() +
   geom_smooth(se = FALSE, color = '#EBBFDD') +
   geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
@@ -659,14 +708,14 @@ class: center, middle, inverse
 ## Recipe 11.1: Pop-Out Scatterplot
 
 ```{r lollipop, echo = FALSE}
-ggplot(ratings_bonanza7, aes(x = first, y = last)) +
+ggplot(plot_off8, aes(x = first, y = last)) +
   geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
   geom_smooth(se = FALSE, color = "#11B2E8") +
-  geom_point(data = filter(ratings_bonanza7, series %in% c(1:7))) +
-  geom_point(data = filter(ratings_bonanza7, series == 8), colour = "#CF2154") +
-  geom_text(data = filter(ratings_bonanza7, series %in% c(1:7)),
+  geom_point(data = filter(plot_off8, series %in% c(1:7))) +
+  geom_point(data = filter(plot_off8, series == 8), colour = "#CF2154") +
+  geom_text(data = filter(plot_off8, series %in% c(1:7)),
             aes(label = series), hjust = -1) +
-  geom_text(data = filter(ratings_bonanza7, series == 8),
+  geom_text(data = filter(plot_off8, series == 8),
             aes(label = series), hjust = -1, colour = "#CF2154") +
   labs(x = "Premiere Episode 7-day Viewers (millions)",
        y = "Finale Episode 7-day Viewers (millions)")
