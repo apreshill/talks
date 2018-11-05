@@ -1,0 +1,80 @@
+---
+title: "BIG MAGIC WITH R"
+subtitle: "Creative Learning Beyond Fear"
+author: 'Alison Hill, PhD <br> Data Scientist & Professional Educator <br><br> <a href="https://github.com/apreshill"><i class="fa fa-github fa-fw"></i>&nbsp; apreshill</a><br> <a href="https://twitter.com/apreshill"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @apreshill</a><br> <a href="mailto:alison@rstudio.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; alison@rstudio.com</a><br>'
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/my-theme.css", "css/my-fonts.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+    includes:
+      in_header: header.html  
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300,
+  fig.align = "center", out.width = "70%", cache = FALSE)
+library(tidyverse)
+library(here)
+library(knitr)
+library(emo)
+library(extrafont)
+# ggplot2::theme_set(theme_minimal())
+# update those defaults
+update_font_defaults <- function(font_choice = "Lato") {
+
+    ggplot2::update_geom_defaults("text", list(family = font_choice))
+    ggplot2::update_geom_defaults("label", list(family = font_choice))
+    
+}
+
+theme_bakeoff <- function(font_choice = "Lato"){ 
+  
+  update_font_defaults()
+  
+  ggplot2::theme_minimal(base_family = font_choice)
+  
+}
+ggplot2::theme_set(theme_bakeoff())
+```
+
+---
+class: center, middle, inverse
+background-image: url(https://lh3.googleusercontent.com/tf-4xK9mLqCqWSZamthAQWDf_hydWvqIWqKtud2-BFGZONlYt2Vz-mkGeSh-N1c47DwxX7n62J27Dh_2HnVekCWUue6Z9t2zjIgxqcUZHNGS5orbdEun_jN_altUCcjQNykgxKhY9DiL_gq9KLA0O6yKpCtIiAXGJdO-wIMzwLXmAgJyKeCYO3SdDcVlNJshhutM0b2nQWC3Id31hlAo6gqGBi12bzuGkA1S47WANrAFLZHm74ItubJ_A9RA8tluPHmkxIcKCAVluILQiVOmN76gEdoEJj19RMCmdTXJv0CokCsbWUyTxL2Vd-sa5SeE3QCXqU92K5GYwqHX6cGubLq-KmmybAuMIHoDc6z0ZFkjNWV8CXrb6rTKy1DjGZQlD3QlyeJJWIKTbn2EC5-UxSQqFly0uBmL8j2SEBrcfP-TRJZicmB3JBFJOlc47cOUUg7D7pjURpKx9jWVu9htKmHHR4g2W_iHWqqeH5n5WQC0ClUMPBKMM6J1HNF0Yq8H39onPsw5UQZA6p0iWgAEMg4NKdyYBcrY1qAAxUPZ95ASG_G__08LrWWCVHRnNRrQIxfX6EaM10ptLTJL0hwb4XgibF8iqPO6DPGf7LlwWqWme1K1wDU6U8ObspueUQ2KVLYrNvU05KUSOEe7QwVIqeLX=w1920-h1280-no)
+background-size: cover
+
+???
+“The essential ingredients for creativity remain exactly the same for everybody: courage, enchantment, permission, persistence, trust—and those elements are universally accessible. Which does not mean that creative [LEARNING] is always easy; it merely means that creative [LEARNING] is always possible.”
+
+--
+
+## Courage
+
+--
+
+## Enchantment
+
+--
+
+## Permission
+
+--
+
+## Persistence
+
+--
+
+## Trust
+
+---
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When I try to become acquainted with a new (to me) <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> package, I prefer to read ___________</p>&mdash; J🎃n🎃 C👻rr🎃ll (@carroll_jono) <a href="https://twitter.com/carroll_jono/status/969442252610191361?ref_src=twsrc%5Etfw">March 2, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BIG MAGIC WITH R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Alison Hill, PhD   Data Scientist &amp; Professional Educator      apreshill     @apreshill    alison@rstudio.com" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# BIG MAGIC WITH R
+## Creative Learning Beyond Fear
+### Alison Hill, PhD <br> Data Scientist &amp; Professional Educator <br><br> <a href="https://github.com/apreshill"><i class="fa fa-github fa-fw"></i>  apreshill</a><br> <a href="https://twitter.com/apreshill"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@apreshill</span></a><br> <a href="mailto:alison@rstudio.com"><i class="fa fa-paper-plane fa-fw"></i>  alison@rstudio.com</a><br>
+
+---
+
+
+
+
+---
+class: center, middle, inverse
+background-image: url(https://lh3.googleusercontent.com/tf-4xK9mLqCqWSZamthAQWDf_hydWvqIWqKtud2-BFGZONlYt2Vz-mkGeSh-N1c47DwxX7n62J27Dh_2HnVekCWUue6Z9t2zjIgxqcUZHNGS5orbdEun_jN_altUCcjQNykgxKhY9DiL_gq9KLA0O6yKpCtIiAXGJdO-wIMzwLXmAgJyKeCYO3SdDcVlNJshhutM0b2nQWC3Id31hlAo6gqGBi12bzuGkA1S47WANrAFLZHm74ItubJ_A9RA8tluPHmkxIcKCAVluILQiVOmN76gEdoEJj19RMCmdTXJv0CokCsbWUyTxL2Vd-sa5SeE3QCXqU92K5GYwqHX6cGubLq-KmmybAuMIHoDc6z0ZFkjNWV8CXrb6rTKy1DjGZQlD3QlyeJJWIKTbn2EC5-UxSQqFly0uBmL8j2SEBrcfP-TRJZicmB3JBFJOlc47cOUUg7D7pjURpKx9jWVu9htKmHHR4g2W_iHWqqeH5n5WQC0ClUMPBKMM6J1HNF0Yq8H39onPsw5UQZA6p0iWgAEMg4NKdyYBcrY1qAAxUPZ95ASG_G__08LrWWCVHRnNRrQIxfX6EaM10ptLTJL0hwb4XgibF8iqPO6DPGf7LlwWqWme1K1wDU6U8ObspueUQ2KVLYrNvU05KUSOEe7QwVIqeLX=w1920-h1280-no)
+background-size: cover
+
+???
+“The essential ingredients for creativity remain exactly the same for everybody: courage, enchantment, permission, persistence, trust—and those elements are universally accessible. Which does not mean that creative [LEARNING] is always easy; it merely means that creative [LEARNING] is always possible.”
+
+--
+
+## Courage
+
+--
+
+## Enchantment
+
+--
+
+## Permission
+
+--
+
+## Persistence
+
+--
+
+## Trust
+
+---
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;When I try to become acquainted with a new (to me) &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; package, I prefer to read ___________&lt;/p&gt;&amp;mdash; J🎃n🎃 C👻rr🎃ll (@carroll_jono) &lt;a href="https://twitter.com/carroll_jono/status/969442252610191361?ref_src=twsrc%5Etfw"&gt;March 2, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
