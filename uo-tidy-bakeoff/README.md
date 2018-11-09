@@ -1,3 +1,3 @@
-Rendered slides [here](https://alison.netlify.com/uo-tidy-bakeoff/slides.html)
+Rendered slides [here](https://alison.netlify.com/uo-tidy-bakeoff)
 
-Repo [here](https://github.com/apreshill/talks/new/master/uo-tidy-bakeoff)
+Repo [here](/uo-tidy-bakeoff)
