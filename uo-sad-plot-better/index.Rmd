@@ -1,0 +1,649 @@
+---
+title: "Take A Sad Plot & Make It Better"
+subtitle: "A Case Study with R and ggplot2"
+author: 'Alison Hill, PhD <br> Data Scientist & Professional Educator <br><br> <a href="https://github.com/apreshill"><i class="fa fa-github fa-fw"></i>&nbsp; apreshill</a><br> <a href="https://twitter.com/apreshill"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @apreshill</a><br> <a href="mailto:alison@rstudio.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; alison@rstudio.com</a><br>'
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/my-theme.css", "css/my-fonts.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+    includes:
+      in_header: header.html  
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300, echo = FALSE,
+  fig.align = "center", out.width = "80%", cache = FALSE)
+library(tidyverse)
+library(wesanderson)
+library(gganimate)
+```
+
+class: center, middle, inverse
+## About me
+
+![](images/beatles-tidy.gif)
+
+---
+class: center, middle
+
+![](images/aim-here.png)
+
+---
+class: center, bottom, inverse
+
+# `v1.ppt`
+
+--
+
+## Hey, Jude, don't make it bad...
+
+---
+background-image: url("./images/version1.png")
+background-size: cover
+
+---
+
+# Blameless postmortem
+
+.pull-left[
+![](images/version1.png)
+]
+
+--
+
+.pull-right[
+- 😀 Pink blobs are always smaller than green squares- always under-estimating.
+
+- 😒 But, on R, there are more dots in the pink blob. The point is that more people are getting services, but...
+
+- 😬 The "true" prevalence (total number of dots) looks different. It is actually the same at both time points!
+
+- 😳 I actually like the dots! And I return to this later.
+]
+
+
+
+---
+class: center, inverse, middle
+
+# 💡
+
+--
+
+## What is the message?
+
+--
+
+Is there an autism epidemic? Based on the data available, we don't know!
+
+---
+class: center, inverse, middle
+
+# 💡
+
+--
+
+## What is the medium?
+
+--
+
+A book chapter, but also presentations like this one!
+
+---
+class: center, middle
+
+![](images/aim-here-v1.png)
+
+---
+class: center, bottom, inverse
+
+# `v2.doc`
+
+--
+
+## Take a sad (plot) and make it better...
+
+---
+class: center
+background-image: url("./images/version2.png")
+background-size: 800px 550px
+
+---
+class: center, middle, inverse
+
+![](images/beatles-face-palm.gif)
+
+---
+
+# Full-of-blame postmortem
+
+.pull-left[
+![](images/version2.png)
+]
+
+.pull-right[
+
+- 😬 The connection between the line and pie charts is totally unclear. They are also kind of redundant.
+
+- 😬 There are pie charts. With some kind of reflective coating.
+]
+
+---
+class: center, middle
+
+![](images/aim-here-v2.png)
+
+---
+class: center, bottom, inverse
+
+# `v3 <- ggplot()`
+
+--
+
+## Then you'll begin to make it better... 
+
+
+---
+class: center, middle, inverse
+
+![](images/beatles-help.gif)
+
+---
+class: center, middle
+
+# Asking for help
+
+.pull-left[
+![](images/help-me-viz-logo.jpg)
+]
+
+.pull-right[
+Help Me Viz
+
+[https://policyviz.com/helpmeviz/](https://policyviz.com/helpmeviz/)
+
+*"A place to facilitate discussion, debate, and collaboration from the data visualization community"*
+]
+
+---
+class: center, middle, inverse
+
+![](images/help-me-newcat.png)
+
+
+---
+class: center
+background-image: url("./images/help-me-plea.png")
+background-size: auto
+
+---
+class: center
+background-image: url("./images/help-me-response.png")
+background-size: auto
+
+---
+class: center, inverse, middle
+
+# 💡
+
+--
+
+## I can use `ggplot2`!
+
+---
+
+
+```{r tibbleset, echo = TRUE}
+set.seed(1000)
+asdpop <- tibble::tibble(
+  time1 = sample(1:100, 100, replace = F), 
+  time2 = time1) %>% 
+  tidyr::gather(x, y, time1:time2, factor_key = TRUE)  
+asdpop
+```
+
+---
+
+```{r tibblefactor, echo = TRUE}
+asdpop <- asdpop %>% 
+  mutate(services = as.factor(case_when(
+    x == "time1" & y <= 30 ~ 1, 
+    x == "time1" & y > 30 ~ 0, 
+    x == "time2" & y <= 60 ~ 1, 
+    TRUE ~ 0
+    )))
+asdpop
+```
+
+---
+class: center
+
+```{r bar1}
+bar1 <- ggplot(asdpop, aes(x, fill = services)) 
+bar1 <- bar1 + geom_bar(width = .6)
+bar1
+```
+
+
+---
+class: center
+
+
+
+```{r bar2}
+#ff <- wes_palette("FantasticFox1")[c(2:3)]
+vir_fill <- scale_fill_viridis_d(option = "A", begin = .1, end = .7)
+#bar2 <- bar1 + scale_fill_manual(values = ff)
+bar2 <- bar1 + vir_fill
+bar2
+```
+
+
+---
+class: center
+
+```{r bar3}
+bar3 <- bar2 + scale_x_discrete(name = "", labels = c("Time 1", "Time 2"))
+bar3 <- bar3 + scale_y_continuous(expand = c(.02, 0),
+                                  name = "ASD Cases per 10,000") 
+bar3 <- bar3 + theme_bw(base_family = "Lato") 
+bar3 <- bar3 + theme(axis.title = element_text(size = 10)) 
+bar3 <- bar3 + theme(legend.text = element_text(size = 10)) 
+bar3 <- bar3 + theme(legend.title = element_text(size = 10)) 
+bar3 <- bar3 + theme(axis.ticks = element_blank())  
+bar3 <- bar3 + theme(panel.border = element_blank())  
+bar3 <- bar3 + theme(axis.line = element_blank()) 
+bar3 <- bar3 + theme(panel.grid = element_blank())
+bar3
+```
+
+---
+class: center
+
+```{r bar4}
+bar4 <- bar3 + annotate("text", label = "Accessing \nServices", 
+                        x = 2, y = 30, size = 4, color = "white", 
+                        fontface = "bold", family = "Lato") 
+bar4 <- bar4 + annotate("text", label = "Not \nAccessing \nServices", 
+                        x = 2, y = 80, size = 4, color = "white", 
+                        fontface = "bold", family = "Lato") 
+bar4 <- bar4 + guides(fill = FALSE)
+bar4
+```
+
+---
+class: center
+
+
+```{r bar5}
+# add the top horizontal line for population prevalence
+bar5 <- bar4 + geom_segment(aes(x = .6, xend = 2.45, y = 100, yend = 100), 
+                            lty = 3, lwd = .3, colour = "black")
+bar5
+```
+
+---
+class: center
+```{r bar6}
+bar6 <- bar5 + coord_cartesian(ylim = c(0, 102), xlim = c(1, 3.2)) 
+bar6 <- bar6 + annotate("text", 
+                        x = 2.5, y = 97, size = 4, hjust = 0, 
+                        family = "Lato", 
+                        label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.") 
+bar6
+```
+
+
+---
+class: center
+
+```{r bar7}
+# add segments to track sample prevalence
+bar7 <- bar6 + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                            lty = 3, lwd = .5, colour = "black") 
+bar7 <- bar7 + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                            lty = 3, lwd = .5, colour = "black") 
+bar7 <- bar7 + geom_segment(aes(x = 1.7, xend = 2.45, y = 60, yend = 60), 
+                            lty = 3, lwd = .5, colour = "black")
+bar7
+```
+
+
+
+
+---
+class: center
+
+```{r bar8}
+bar8 <- bar7 + annotate("text", 
+                        x = 2.5, y = 60, size = 4, hjust = 0, 
+                        family = "Lato", 
+                        label = "Estimates of prevalence based\non individuals accessing services\ncan create an illusion of an\nincrease in prevalence over time,\nyet still underestimate prevalence\nat both time points.")
+bar8
+```
+
+---
+class: center, middle
+
+![](images/aim-here-v3.png)
+
+---
+class: center, bottom, inverse
+
+# `rep("better", 40)`
+
+--
+
+## `r rep("better", 40)`...
+
+
+---
+class: center, middle, inverse
+
+## Why I ❤️ `ggplot2`
+
+![](images/beatles-rotation.gif)
+
+---
+class: center
+
+
+```{r dot1}
+set.seed(2018)
+dot <- ggplot(asdpop, aes(x))
+dot <- dot + geom_jitter(aes(y = y, colour = services), 
+                             position = position_jitter(width = .25, 
+                                                        height = 0), 
+                             alpha = .75, size = 2) 
+dot <- dot + scale_x_discrete(name = "", labels = c("Time 1", "Time 2"))
+dot <- dot + scale_y_continuous(name = "ASD Cases per 10,000") 
+dot <- dot + guides(colour = guide_legend(keyheight = 1.5))
+dot <- dot + theme(text = element_text(family = "Lato"))
+dot
+```
+
+---
+
+```{r dot2}
+dotseg <- dot + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
+                                     name = "",
+                                     labels = c("Not accessing \nservices",
+                                                 "Accessing \nservices")) 
+dotseg <- dotseg + annotate("text", 
+                        x = 1.2, y = 102, size = 4, hjust = 0, 
+                        label = "True ASD Prevalence", family = "Lato")
+dotseg <- dotseg + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotseg <- dotseg + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotseg <- dotseg + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotseg <- dotseg + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black")
+dotseg <- dotseg + theme(axis.ticks = element_blank()) 
+dotseg
+```
+
+
+---
+class: center
+
+```{r dot3}
+set.seed(2018)
+dotcol <- ggplot(asdpop, aes(x))
+dotcol <- dotcol + geom_bar(fill = "white", width = .6)
+dotcol <- dotcol + geom_jitter(aes(y = y, colour = services), 
+                             position = position_jitter(width = .25, 
+                                                        height = 0), 
+                             alpha = .75, size = 2) 
+dotcol <- dotcol + scale_x_discrete(name = "", labels = c("Time 1", "Time 2"))
+dotcol <- dotcol + scale_y_continuous(name = "ASD Cases per 10,000") 
+dotcol <- dotcol + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
+                                     name = "",
+                                     labels = c("Not accessing \nservices",
+                                                 "Accessing \nservices")) 
+dotcol <- dotcol + guides(colour = guide_legend(keyheight = 1.5))
+dotcol <- dotcol + annotate("text", 
+                        x = 1.2, y = 102, size = 4, hjust = 0, 
+                        label = "True ASD Prevalence", family = "Lato")
+dotcol <- dotcol + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotcol <- dotcol + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotcol <- dotcol + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotcol <- dotcol + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black")
+dotcol <- dotcol + theme(axis.ticks = element_blank()) 
+dotcol <- dotcol + theme(legend.key=element_blank()) 
+dotcol <- dotcol + theme(text = element_text(family = "Lato"))
+dotcol
+```
+
+
+---
+class: center
+
+```{r dot4}
+set.seed(2018)
+dotbw <- ggplot(asdpop, aes(x, y))
+dotbw <- dotbw + geom_jitter(aes(colour = services), 
+                             position = position_jitter(width = .25, 
+                                                        height = 0), 
+                             alpha = .75, size = 2) 
+dotbw <- dotbw + scale_x_discrete(name = "", labels = c("Time 1", "Time 2"))
+dotbw <- dotbw + scale_y_continuous(expand = c(.02, 0),
+                                    name = "ASD Cases per 10,000") 
+dotbw <- dotbw + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
+                                     name = "",
+                                     labels = c("Not accessing \nservices",
+                                                 "Accessing \nservices")) 
+dotbw <- dotbw + guides(colour = guide_legend(keyheight = 1.5))
+dotbw <- dotbw + theme_bw(base_family = "Lato") 
+dotbw <- dotbw + theme(axis.ticks = element_blank()) 
+dotbw <- dotbw + theme(panel.border = element_blank()) 
+dotbw <- dotbw + theme(panel.grid = element_blank()) 
+dotbw <- dotbw + theme(axis.title.y = element_text(size = 10)) 
+dotbw <- dotbw + theme(axis.text = element_text(size = 10))
+dotbw <- dotbw + theme(axis.line = element_line(colour = "gray80"))
+dotbw
+```
+
+
+---
+class: center
+
+```{r dot5}
+set.seed(2018)
+dotleg <- ggplot(asdpop, aes(x, y))
+dotleg <- dotleg + geom_jitter(aes(colour = services), 
+                             position = position_jitter(width = .25, 
+                                                        height = 0), 
+                             alpha = .75, size = 2) 
+dotleg <- dotleg + scale_x_discrete(expand = c(0, 0.6),
+                                    name = "", 
+                                    labels = c("Time 1:\nPoor Service Access", "Time 2:\nBetter Service Access"))
+dotleg <- dotleg + scale_y_continuous(expand = c(.02, 0),
+                                      name = "ASD Cases per 10,000",
+                                      breaks = seq(0, 100, by = 20)) 
+dotleg <- dotleg + theme_bw(base_family = "Lato") 
+dotleg <- dotleg + theme(axis.ticks = element_blank()) 
+dotleg <- dotleg + theme(panel.border = element_blank()) 
+dotleg <- dotleg + theme(panel.grid = element_blank()) 
+dotleg <- dotleg + theme(axis.title.y = element_text(size = 10)) 
+dotleg <- dotleg + theme(axis.text = element_text(size = 10))
+dotleg <- dotleg + coord_cartesian(ylim = c(0, 102), xlim = c(1, 3.2)) 
+dotleg <- dotleg + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
+                                     name = "ASD cases who are:",
+                                     labels = c("Not accessing \nservices",
+                                                 "Accessing \nservices")) 
+dotleg <- dotleg + guides(colour = guide_legend(keywidth = 1.1, 
+                                keyheight = 1.1, 
+                                override.aes = list(alpha = 1, size = 3))) 
+dotleg <- dotleg + theme(legend.position=c(.75, .25)) 
+dotleg <- dotleg + theme(legend.text = element_text(size = 10)) 
+dotleg <- dotleg + theme(legend.title = element_text(size = 10)) 
+dotleg <- dotleg + theme(legend.background = element_rect(fill = "gray90", 
+                                          size=.3, 
+                                          linetype="dotted"))
+dotleg
+```
+
+---
+class: center
+
+```{r dot6}
+# lines
+dotline <- dotleg + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotline <- dotline + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotline <- dotline + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotline <- dotline + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black")
+dotline
+```
+
+
+
+
+---
+class: center
+
+```{r dot7}
+dotann <- dotline + annotate("text", 
+                            x = 2.5, y = 97, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
+dotann <- dotann + annotate("text", 
+                            x = 2.5, y = 60, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non individuals accessing services\ncan create an illusion of an\nincrease in prevalence over time,\nyet still underestimate prevalence\nat both time points.") 
+dotann
+```
+
+
+---
+
+```{r dot8}
+set.seed(2018)
+dotprint <- ggplot(asdpop, aes(x, y))
+dotprint <- dotprint + geom_jitter(aes(fill = services), 
+                                   position = position_jitter(width=.25,
+                                                              height = 0),
+                                   pch = 21,
+                                   colour = "black", 
+                                   size = 2) 
+dotprint <- dotprint + scale_x_discrete(expand = c(0, 0.6),
+                                    name = "", 
+                                    labels = c("Time 1:\nPoor Service Access", "Time 2:\nBetter Service Access"))
+dotprint <- dotprint + scale_y_continuous(expand = c(.02, 0),
+                                      name = "ASD Cases per 10,000",
+                                      breaks = seq(0, 100, by = 20)) 
+dotprint <- dotprint + theme_bw(base_family = "Lato") 
+dotprint <- dotprint + theme(axis.ticks = element_blank()) 
+dotprint <- dotprint + theme(panel.border = element_blank()) 
+dotprint <- dotprint + theme(panel.grid = element_blank()) 
+dotprint <- dotprint + theme(axis.title.y = element_text(size = 10)) 
+dotprint <- dotprint + theme(axis.text = element_text(size = 10))
+dotprint <- dotprint + coord_cartesian(ylim = c(0, 102), xlim = c(1, 3.2)) 
+dotprint <- dotprint + scale_fill_manual(name = "ASD cases who are:", 
+                                     values = c("black", "white"), 
+                                     labels = c("Not accessing services",
+                                                "Accessing services")) 
+dotprint <- dotprint + guides(colour = guide_legend(keywidth = 1.1, 
+                                keyheight = 1.1, 
+                                override.aes = list(alpha = 1, size = 3))) 
+dotprint <- dotprint + theme(legend.position=c(.75, .25)) 
+dotprint <- dotprint + theme(legend.text = element_text(size = 10)) 
+dotprint <- dotprint + theme(legend.title = element_text(size = 10)) 
+dotprint <- dotprint + theme(legend.background = element_rect(fill = "gray90", 
+                                          size=.3, 
+                                          linetype="dotted"))
+# lines
+dotprint <- dotprint + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotprint <- dotprint + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotprint <- dotprint + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotprint <- dotprint + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black")
+dotprint <- dotprint + annotate("text", 
+                            x = 2.5, y = 97, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
+dotprint <- dotprint + annotate("text", 
+                            x = 2.5, y = 60, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non individuals accessing services\ncan create an illusion of an\nincrease in prevalence over time,\nyet still underestimate prevalence\nat both time points.") 
+dotprint
+```
+
+---
+class: center, middle, inverse
+
+## Take CS631 with us!
+
+![](images/beatles-hold-your-hand.gif)
+---
+class: center, middle, inverse
+
+## CS631 Course Directors: 
+
+## Steven Bedrick, Jackie Wirz, me
+
+![](images/beatles-abbey.gif)
+
+
+---
+class: center, middle, inverse
+
+## Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+
+This work is licensed under a Creative Commons Attribution- ShareAlike 4.0 International License. 
+
+To view a copy of this license, visit:
+
+https://creativecommons.org/licenses/by-sa/4.0/
+
+---
+
+Let's try gganimate
+
+
+
+
+```{r}
+dotprint +
+  transition_layers(layer_length = 1, transition_length = 2,
+                    from_blank = FALSE) +
+  enter_fade()
+```
+
+---
+
+```{r}
+dotann + 
+  transition_layers(layer_length = 2, transition_length = 2) +
+  #enter_grow() +
+  enter_fade() +
+  enter_recolour(colour = 'black') 
+
+```
+
+---
+idea: first bring in data without `services` geom_jitter color black?
+next add geom_jitter with data + services variable

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Take A Sad Plot &amp; Make It Better</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Alison Hill, PhD   Data Scientist &amp; Professional Educator      apreshill     @apreshill    alison@rstudio.com" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Take A Sad Plot &amp; Make It Better
+## A Case Study with R and ggplot2
+### Alison Hill, PhD <br> Data Scientist &amp; Professional Educator <br><br> <a href="https://github.com/apreshill"><i class="fa fa-github fa-fw"></i>  apreshill</a><br> <a href="https://twitter.com/apreshill"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@apreshill</span></a><br> <a href="mailto:alison@rstudio.com"><i class="fa fa-paper-plane fa-fw"></i>  alison@rstudio.com</a><br>
+
+---
+
+
+
+
+class: center, middle, inverse
+## About me
+
+![](images/beatles-tidy.gif)
+
+---
+class: center, middle
+
+![](images/aim-here.png)
+
+---
+class: center, bottom, inverse
+
+# `v1.ppt`
+
+--
+
+## Hey, Jude, don't make it bad...
+
+---
+background-image: url("./images/version1.png")
+background-size: cover
+
+---
+
+# Blameless postmortem
+
+.pull-left[
+![](images/version1.png)
+]
+
+--
+
+.pull-right[
+- 😀 Pink blobs are always smaller than green squares- always under-estimating.
+
+- 😒 But, on R, there are more dots in the pink blob. The point is that more people are getting services, but...
+
+- 😬 The "true" prevalence (total number of dots) looks different. It is actually the same at both time points!
+
+- 😳 I actually like the dots! And I return to this later.
+]
+
+
+
+---
+class: center, inverse, middle
+
+# 💡
+
+--
+
+## What is the message?
+
+--
+
+Is there an autism epidemic? Based on the data available, we don't know!
+
+---
+class: center, inverse, middle
+
+# 💡
+
+--
+
+## What is the medium?
+
+--
+
+A book chapter, but also presentations like this one!
+
+---
+class: center, middle
+
+![](images/aim-here-v1.png)
+
+---
+class: center, bottom, inverse
+
+# `v2.doc`
+
+--
+
+## Take a sad (plot) and make it better...
+
+---
+class: center
+background-image: url("./images/version2.png")
+background-size: 800px 550px
+
+---
+class: center, middle, inverse
+
+![](images/beatles-face-palm.gif)
+
+---
+
+# Full-of-blame postmortem
+
+.pull-left[
+![](images/version2.png)
+]
+
+.pull-right[
+
+- 😬 The connection between the line and pie charts is totally unclear. They are also kind of redundant.
+
+- 😬 There are pie charts. With some kind of reflective coating.
+]
+
+---
+class: center, middle
+
+![](images/aim-here-v2.png)
+
+---
+class: center, bottom, inverse
+
+# `v3 &lt;- ggplot()`
+
+--
+
+## Then you'll begin to make it better... 
+
+
+---
+class: center, middle, inverse
+
+![](images/beatles-help.gif)
+
+---
+class: center, middle
+
+# Asking for help
+
+.pull-left[
+![](images/help-me-viz-logo.jpg)
+]
+
+.pull-right[
+Help Me Viz
+
+[https://policyviz.com/helpmeviz/](https://policyviz.com/helpmeviz/)
+
+*"A place to facilitate discussion, debate, and collaboration from the data visualization community"*
+]
+
+---
+class: center, middle, inverse
+
+![](images/help-me-newcat.png)
+
+
+---
+class: center
+background-image: url("./images/help-me-plea.png")
+background-size: auto
+
+---
+class: center
+background-image: url("./images/help-me-response.png")
+background-size: auto
+
+---
+class: center, inverse, middle
+
+# 💡
+
+--
+
+## I can use `ggplot2`!
+
+---
+
+
+
+```r
+set.seed(1000)
+asdpop &lt;- tibble::tibble(
+  time1 = sample(1:100, 100, replace = F), 
+  time2 = time1) %&gt;% 
+  tidyr::gather(x, y, time1:time2, factor_key = TRUE)  
+asdpop
+```
+
+```
+# A tibble: 200 x 2
+   x         y
+   &lt;fct&gt; &lt;int&gt;
+ 1 time1    33
+ 2 time1    76
+ 3 time1    12
+ 4 time1    68
+ 5 time1    50
+ 6 time1     7
+ 7 time1    70
+ 8 time1    55
+ 9 time1    20
+10 time1    24
+# … with 190 more rows
+```
+
+---
+
+
+```r
+asdpop &lt;- asdpop %&gt;% 
+  mutate(services = as.factor(case_when(
+    x == "time1" &amp; y &lt;= 30 ~ 1, 
+    x == "time1" &amp; y &gt; 30 ~ 0, 
+    x == "time2" &amp; y &lt;= 60 ~ 1, 
+    TRUE ~ 0
+    )))
+asdpop
+```
+
+```
+# A tibble: 200 x 3
+   x         y services
+   &lt;fct&gt; &lt;int&gt; &lt;fct&gt;   
+ 1 time1    33 0       
+ 2 time1    76 0       
+ 3 time1    12 1       
+ 4 time1    68 0       
+ 5 time1    50 0       
+ 6 time1     7 1       
+ 7 time1    70 0       
+ 8 time1    55 0       
+ 9 time1    20 1       
+10 time1    24 1       
+# … with 190 more rows
+```
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/bar1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+
+
+&lt;img src="index_files/figure-html/bar2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/bar3-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/bar4-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+
+
+&lt;img src="index_files/figure-html/bar5-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+&lt;img src="index_files/figure-html/bar6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/bar7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/bar8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle
+
+![](images/aim-here-v3.png)
+
+---
+class: center, bottom, inverse
+
+# `rep("better", 40)`
+
+--
+
+## better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better, better...
+
+
+---
+class: center, middle, inverse
+
+## Why I ❤️ `ggplot2`
+
+![](images/beatles-rotation.gif)
+
+---
+class: center
+
+
+&lt;img src="index_files/figure-html/dot1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="index_files/figure-html/dot2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/dot3-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/dot4-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/dot5-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/dot6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+class: center
+
+&lt;img src="index_files/figure-html/dot7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;img src="index_files/figure-html/dot8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+
+## Take CS631 with us!
+
+![](images/beatles-hold-your-hand.gif)
+---
+class: center, middle, inverse
+
+## CS631 Course Directors: 
+
+## Steven Bedrick, Jackie Wirz, me
+
+![](images/beatles-abbey.gif)
+
+
+---
+class: center, middle, inverse
+
+## Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+
+This work is licensed under a Creative Commons Attribution- ShareAlike 4.0 International License. 
+
+To view a copy of this license, visit:
+
+https://creativecommons.org/licenses/by-sa/4.0/
+
+---
+
+Let's try gganimate
+
+
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-1-1.gif" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.gif" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+idea: first bring in data without `services` geom_jitter color black?
+next add geom_jitter with data + services variable
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
