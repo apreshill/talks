@@ -407,7 +407,7 @@ class: inverse, middle, center
 
 ### Wes Anderson: Fantastic Mr. Fox!
 
-```{r echo = TRUE}
+```{r echo = TRUE, out.width='50%'}
 wes_palette("FantasticFox1")
 ```
 
@@ -419,8 +419,8 @@ https://github.com/karthik/wesanderson
 ```{r dot1-2}
 dotseg <- dot + scale_color_manual(values = ff,
                                      name = "",
-                                     labels = c("Not accessing \nservices",
-                                                 "Accessing \nservices")) 
+                                     labels = c("Not accessing services",
+                                                 "Accessing services")) 
 dotseg <- dotseg + annotate("text", 
                         x = 1.2, y = 102, size = 4, hjust = 0, 
                         label = "True ASD Prevalence", family = "Lato")
@@ -457,8 +457,8 @@ https://ggplot2.tidyverse.org/reference/scale_viridis.html
 ```{r dot2}
 dotseg <- dot + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
                                      name = "",
-                                     labels = c("Not accessing \nservices",
-                                                 "Accessing \nservices")) 
+                                     labels = c("Not accessing services",
+                                                 "Accessing services")) 
 dotseg <- dotseg + annotate("text", 
                         x = 1.2, y = 102, size = 4, hjust = 0, 
                         label = "True ASD Prevalence", family = "Lato")
