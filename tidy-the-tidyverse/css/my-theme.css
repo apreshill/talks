@@ -1,0 +1,176 @@
+body {
+  color: #585E60;
+}
+
+h1, h2, h3 {
+  font-weight: normal;
+  color: #343c56;
+}
+
+.shout { color: #ee5863; 
+font-family: 'Muli', sans-serif;
+font-weight: bold;
+}
+
+.whisper { color: #84d6d3; 
+font-family: 'Sofia', serif;
+font-style: italic;
+font-weight: bold;
+font-size: larger;
+}
+
+.onfire { color: #ff7436; }
+
+/* link color */
+a, a > code {
+  color: #84d6d3;
+}
+
+/* unvisited link */
+a:link {
+    color: #84d6d3;
+}
+
+/* visited link */
+a:visited {
+    color: #84d6d3;
+}
+
+/* mouse over link */
+a:hover {
+    color: #ee5863;
+}
+
+/* selected link */
+a:active {
+    color: #ee5863;
+}
+
+.remark-code {
+  color: #126180;
+}
+
+.remark-inline-code { 
+  color: #126180;
+}
+
+.remark-code-line-highlighted { 
+  background-color: #84d6d3; 
+}
+
+.inverse {
+  background-color: #343c56;
+  color: #FFFFFF;
+  /*text-shadow: 0 0 20px #333;*/
+}
+
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #FFFFFF;
+  line-height: 1.0em;
+}
+
+.inverse .remark-code {
+  color: #3498CC;
+}
+
+/* Two-column layout */
+.left-column {
+  color: #777;
+  width: 25%;
+  height: 92%;
+  float: left;
+  font-size: 18px;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+
+img, video, iframe {
+  max-width: 100%;
+}
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee }
+
+@page { margin: 0; }
+
+.title-slide {
+  background-image: url(RStudio-Logo-White.png);
+  background-position: 80% 90%;
+  background-size: 250px;
+  background-color: #343c56;
+}
+
+.inverse h2 {
+  line-height: 1.1;
+  font-family: 'Sofia', serif;
+}
+
+.inverse .remark-inline-code { 
+  color: white;
+}
+
+.title-slide h1 {
+  color: #FFFFFF;
+  padding-top: 250px;
+  font-size: 45px;
+  line-height: 0.05;
+  text-align: left;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  text-shadow: none;
+  word-wrap: break-word;
+}
+
+.title-slide h2 {
+  color: #FFFFFF;
+  font-size: 40px;
+  text-align: left;
+  padding-top: 0px;
+  margin-top: 0px;
+  text-shadow: none;
+}
+
+.title-slide h3 {
+  font-family: 'Muli', sans-serif;
+  font-size: 25px;
+  color: #FFFFFF;
+  text-align: left;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px;
+  line-height: 1.1;
+}
+
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+
+
+
