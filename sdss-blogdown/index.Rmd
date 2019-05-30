@@ -422,5 +422,6 @@ class: middle, right, inverse
 [`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)  
 [`r icon::fa("paper-plane")` alison@rstudio.com](mailto:alison@rstudio.com)  
 [`r icon::fa("laptop-code")` slides](rstd.io/blogdown-sdss)  
-[`r icon::fa("camera-retro")` graphics](https://vecteezy.com)
+[`r icon::fa("code")` code for slides](https://github.com/apreshill/talks)  
+[`r icon::fa("camera-retro")` graphics](https://vecteezy.com)  
 
