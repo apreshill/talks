@@ -1,0 +1,133 @@
+.remark-slide-content p, ul, ol, li {
+  font-size: 2rem;
+}
+
+body {
+  color: #000;
+}
+
+h1 {
+  font-weight: normal;
+  color: #f30000;
+}
+
+h2, h3 {
+  font-weight: normal;
+  color: #0392bb;
+}
+
+.shout { color: #f30000; 
+font-family: 'Bangers', sans-serif;
+}
+
+/* link color */
+a, a > code {
+  color: #0392bb;
+}
+
+/* unvisited link */
+a:link {
+    color: #0392bb;
+}
+
+/* visited link */
+a:visited {
+    color: #0392bb;
+}
+
+/* mouse over link */
+a:hover {
+    text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+    text-decoration: underline;
+}
+
+.remark-code {
+  color: #126180;
+}
+
+.remark-inline-code { 
+  color: #126180;
+}
+
+.remark-code-line-highlighted { 
+  background-color: #84d6d3; 
+}
+
+.inverse {
+  background-color: #0392bb;
+  color: #FFFFFF;
+  text-shadow: 0 0;
+}
+
+.inverse h1 {
+  text-shadow: 0 0 20px #333;
+}
+
+.inverse .remark-code {
+  color: #3498CC;
+}
+
+.inverse a { 
+  color: white;
+  text-decoration: underline;
+}
+
+/* Two-column layout */
+.left-column {
+  color: #777;
+  width: 25%;
+  height: 92%;
+  float: left;
+  font-size: 18px;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+
+img, video, iframe {
+  max-width: 100%;
+}
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee }
+
+@page { margin: 0; }
+
+.inverse .remark-inline-code { 
+  color: white;
+}
+
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+

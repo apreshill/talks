@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:300,400');
+@import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
+
+.inverse h1 {
+  font-family: 'Bangers', cursive;
+  color: #FFFFFF;
+  line-height: 1.0em;
+}
+
+.title-slide h1 {
+  font-family: 'Bangers', cursive;
+  color: #000;
+  padding-top: 100px;
+  font-size: 50px;
+  line-height: 0.05;
+  text-align: left;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  text-shadow: none;
+}
+
+.title-slide h2, h3 {
+  /*font-size: 25px;*/
+  color: #000;
+  text-align: left;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+body { 
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3 {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+}
+
+
+@media print {
+  body {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 300;
+}
+
+
+
+
