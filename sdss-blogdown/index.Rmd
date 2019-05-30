@@ -387,10 +387,31 @@ So what was hard about teaching blogdown? Turns out a lot!
 background-image: url(img/netlify-drop.png)
 background-size: contain
 
+
 ---
 background-image: url(img/book.png)
 background-size: contain
 
+---
+class: inverse, middle, center
+
+# DANGER
+
+--
+
+# HUGO THEMES
+
+---
+background-image: url(img/hugo-future-imperfect.png)
+background-size: contain
+
+---
+background-image: url(img/hugo-cocoa-eh.png)
+background-size: contain
+
+---
+background-image: url(img/hugo-academic.png)
+background-size: contain
 
 ---
 # Learning objectives 
