@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Using Blogdown to Connect Beyond the Classroom</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Hill" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, top, left
+background-image: url(img/esteban-lopez-482075-unsplash.jpg)
+background-size: cover
+
+
+
+# Using Blogdown to Connect Beyond the Classroom
+
+### Alison Hill
+
+### rstd.io/blogdown-sdss
+
+.footnote[
+&lt;img src="css/RStudio-Logo-White.png" alt="rstudio" style="float:left;width:150px;"/&gt;
+]
+
+---
+name: hello
+class: inverse, right, middle
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Find me at...
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+[<i class="fas  fa-paper-plane "></i> alison@rstudio.com](mailto:alison@rstudio.com)
+
+---
+name: resume
+
+###RESUME
+
+
+.right-column[
+
++ Technically trained and skilled justice seeker with over 15 years hands-on experience fighting crime in an urban metropolis.
+
++ Highly motivated individual with proven success and drive against the war on crime.
+
++ Direct staff training to ensure timely assistance with law enforcement goals.
+
++ Demonstrated proficiency in the areas of intellect, detective skills, science and technology, physical prowess, and martial arts.
+]
+
+???
+
+I want to start with a highly artificial example.
+
+Here is a resume from a potential applicant for a job, and I'll just read these bullet points aloud...
+
+This person may be the perfect person for my job. But these bullet points may not be that different from the other 5, 10, 50 applicants I have for the same job. How can they stand out?
+
+Well one way is to find out is to give me something I can remember.
+
+You may have heard that a picture is worth 1000 words. If you buy that, then a good story to go along with it is worth at least 1000 more words.
+
+And it didn't have to be this way right? The same words could be used to accurately sum up another applicant...
+
+---
+template: resume
+
+.left-column[
+![](https://upload.wikimedia.org/wikipedia/en/8/87/Batman_DC_Comics.png)
+
+]
+
+---
+template: resume
+
+.left-column[
+![](https://ib.hulu.com/user/v3/artwork/3bfa9275-9d0b-4e6e-b206-e3dc8fe6167d?base_image_bucket_name=hummus&amp;base_image=43385669-24c4-47c6-bc20-59908fdbcce1&amp;size=400x600&amp;format=jpeg)
+
+]
+
+---
+background-image: url(img/jean-philippe-delberghe-640668-unsplash.jpg)
+background-size: cover
+class: top, right, inverse
+
+## "I web, therefore I am ~~a spiderman~~."
+
+##[- Yihui Xie](https://bookdown.org/yihui/blogdown/)
+
+
+???
+
+This example reminds me of one of my favorite quotes from Yihui Xie, the creator of the blogdown package and many other workflow changing R packages and that is:
+
+
+
+---
+name: blogdown
+class: inverse, middle, center
+
+# What is blogdown?
+
+---
+template: blogdown
+
+&lt;img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/blogdown.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+
+---
+template: blogdown
+
+--
+
+An &lt;i class="fab fa-r-project"&gt;&lt;/i&gt; package...
+
+--
+
+that lets you create websites in 
+
+&lt;img src="css/RStudio-Logo-White.png" width = "15%"&gt;
+
+???
+
+So what is blogdown?
+
+It is an R package... can I get a show of hands for everyone here who uses R? OK keep them up...
+
+That lets you create websites in RStudio...can I get all of you R users to keep your hand up if you use RStudio, so lower your hand if you don't use RStudio
+
+Perfect, thanks! So this is one of the first perks of blogdown, which is that you can build a website in the RStudio IDE using tools you are familiar with, and you won't need very much else to start.
+
+---
+
+
+![](img/hugo-themes.gif)
+
+
+??? 
+
+The package helps you to use a static site generator named Hugo. If you didn't understand much of the last sentence I said, that is OK! The main thing you'll want to know is that Hugo gives you over 100 themes to choose from, so you can create a custom-looking website, in the same way that Wordpress offers website themes.
+
+One difference here is that you own your content, and the entire pipeline for creating it, from start to finish, which I think is a huge benefit to users. You control what, you control when, you control how.
+
+
+---
+class: center, middle
+
+# .shout[Bonus!]
+
+
+
+&lt;img src="img/pow.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+
+# .shout[You can use R Markdown!]
+
+
+
+???
+
+And a bonus is that because blogdown is built on top of R Markdown, you can include code and output in your website content.
+
+This means you can include R code, but also Python, Julia, C++, any language engine supported in R Markdown.
+
+This makes blogdown ideal for data scientists.
+
+So what does a blogdown site look like?
+
+---
+background-image: url(img/amber.png)
+background-size: contain
+
+---
+background-image: url(img/rudeboybert.png)
+background-size: contain
+  
+---
+background-image: url(img/emi-showcase.gif)
+background-size: cover
+
+
+---
+class: inverse, middle, center
+
+# Adventures in teaching blogdown
+
+--
+
+## Principles &amp; Practice of Data Visualization
+
+## Oregon Health &amp; Science University, CS631 
+
+---
+
+class: middle, center, inverse
+
+# First dataviz class, 2015
+
+--
+
+![](https://media.giphy.com/media/oMLJaPmbUnoC4/giphy.gif)
+
+
+???
+
+Taught all dataviz principle, no practice
+
+Their response? We want hands-on labs! We want ggplot2! 
+
+---
+class: middle, center, inverse
+
+# Second dataviz class, 2016
+
+--
+
+![](https://media.giphy.com/media/BP9eSu9cnnGN2/giphy.gif)
+
+???
+
+So we added weekly `ggplot2` labs, change lives
+
+But...
+
+---
+class: middle, center, inverse
+
+# Second dataviz class, 2016
+
+--
+
+## The final presentation
+
+--
+
+![](https://media.giphy.com/media/TTqOkDAHo5VM4/giphy.gif)
+
+???
+
+Students fumble all over themselves on how to share their plots! how to turn them in, how to present in slidedeck
+
+---
+class: middle, center, inverse
+
+# What did we miss? 🎯
+
+--
+
+&gt; *We need to imagine new approaches...*
+
+--
+
+&gt; *That entails shifting our emphasis away from individual charts to the construction, evaluation and delivery of the .large[.fancy[products where those charts appear]].*
+
+--
+
+.footnote[From [_3rd Wave Data Visualization_](https://towardsdatascience.com/3rd-wave-data-visualization-824c5dc84967) by [Elijah Meeks](http://elijahmeeks.com/#about)]
+
+---
+class: middle, center, inverse
+
+# Third time is a charm! 2018
+
+
+--
+
+![](https://media.giphy.com/media/wLDXxrBcH4FPO/giphy.gif)
+
+--
+
+# You can help your students look awesome
+
+???
+
+So what did we do differently the third time around?
+
+We decided to actually *teach* how to "wrap up" your data viz into a website 
+
+---
+
+# The final project
+
+--
+
++ 1 shareable website
+
+--
+
++ 1 about/bio page
+
+--
+
++ 3 dataviz-focused blog posts
+
+--
+
++ 15 minute verbal presentation of one post
+
+---
+class: middle, center, inverse
+
+# So . . . how did it go?
+
+--
+
+![](https://media.giphy.com/media/jIzXYqaQ0nLkA/giphy.gif)
+
+
+---
+class: middle, center, inverse
+
+# What is hard about teaching blogdown?
+
+--
+
+&lt;img src="img/Batman-slapping-Robin-Meme-Blank.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+???
+
+So what was hard about teaching blogdown? Turns out a lot!
+
+---
+
+# Lessons learned
+
+.pull-left[
+
+❌ I thought I had to *also* teach Git/GitHub (wrong)
+
+
+❌ I thought I had to *also* teach continuous deployment (wrong x2)
+
+❌ I didn't deploy soon enough (wrong x3)
+
+]
+
+--
+
+.pull-right[
+
+✅ I made everyone use the same Hugo theme
+
+✅ I created the site live with them
+
+✅ I showed them how to publish their sites! 🚀
+
+]
+
+---
+background-image: url(img/netlify-drop.png)
+background-size: contain
+
+---
+background-image: url(img/book.png)
+background-size: contain
+
+
+---
+# Learning objectives 
+
+1. .shout[Showcase] your data science skills and projects with a shareable website
+
+--
+
+1. .shout[Understand] the relationship between files on your computer and the internet, and how to connect the two
+
+--
+
+1. .shout[Build and deploy] a static website and edit and create new content
+
+--
+
+1. .shout[Communicate] effectively about data and code with words and visualizations using a medium **that scales** beyond the classroom
+
+---
+name: thanks
+class: middle, right, inverse
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Thank you!
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+[<i class="fas  fa-paper-plane "></i> alison@rstudio.com](mailto:alison@rstudio.com)  
+[<i class="fas  fa-laptop-code "></i> slides](rstd.io/blogdown-sdss)  
+[<i class="fas  fa-camera-retro "></i> graphics](https://vecteezy.com)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
