@@ -1,0 +1,347 @@
+---
+title: "Teaching Students to Talk about Data Science"
+subtitle: "Making an Impact in Statistics Education through Innovation and Outreach"
+author: Alison Hill
+date: "JSM July 2019"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/my-theme.css", "css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      slideNumberFormat: "" 
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "https://platform.twitter.com/widgets.js"
+    includes:
+      in_header: header.html  
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300, echo = FALSE,
+  fig.align = "center", out.width = "80%", cache = FALSE)
+library(tidyverse)
+library(wesanderson)
+library(gganimate)
+```
+
+class: inverse, title-slide
+background-image: url(img/ilyass-seddoug-c4lXkCHuaXY-unsplash.jpg)
+background-size: cover
+
+# `r rmarkdown::metadata$title`
+
+
+.footnote[
+### `r rmarkdown::metadata$author`, Ph.D.
+### Data Scientist & Professional Educator
+#### rstd.io/talkingds-jsm<br>
+<img src="css/RStudio-Logo-White.png" alt="rstudio" style="float:left;width:150px;"/>
+]
+
+---
+name: hello
+class: inverse, right, bottom
+
+
+<img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/>
+
+# Find me at...
+
+[`r icon::fa("twitter")` @apreshill](http://twitter.com/apreshill)  
+[`r icon::fa("github")` @apreshill](http://github.com/apreshill)  
+[`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)  
+[`r icon::fa("paper-plane")` alison@rstudio.com](mailto:alison@rstudio.com)
+
+
+---
+class: center, middle
+
+# Problem #1
+
+--
+
+I made beautiful keys for my homework assignments. 
+
+--
+
+That no one read.
+
+--
+
+Maybe the best students did.
+
+--
+
+But that meant the ones who needed to read them the most...did not.
+
+---
+class: middle, center
+
+<div class="row">
+  <div class="column">
+    <h2>Homework 1</h2>
+    <img src="img/hw1.png" width="300px"/>
+  </div>
+  
+--
+
+  <div class="column">
+    <h2>Homework 2</h2>
+    <img src="img/hw2.png" width="300px"/>
+  </div>
+  
+--
+
+  <div class="column">
+    <h2>Homework 3</h2>
+    <img src="img/hw3.png" width="300px"/>
+  </div>
+
+--
+
+  <div class="column">
+    <h2>Homework 4</h2>
+    <img src="img/hw4.png" width="300px"/>
+  </div>
+</div>
+
+
+---
+
+# Solution #1
+
+
+I gave away my keys.
+
+Inspired by [Hal Daume](https://docs.google.com/presentation/d/1AL4WIGN6ti3uuIE-XgMQqQpLXijlVIeskI_D5ZxN80Q/edit#slide=id.g10749fb5e7_0_60), I started grading based on self-assessments. Here was my final rubric: (link to it)
+
+
+---
+class: middle
+
+# Grading homeworks
+
+
++ Was your initial solution a good faith effort? (`0` / `1` / `2` points)
+
++ Did you catch all (or most) of your own errors in your self-assessment? Is your updated solution correct? (`0` / `1` / `2` / `3` points)
+
+---
+class: middle, center
+
+## Ways to get a 100%
+
+.pull-left[
+Submit a perfectly accurate <br> initial solution.
+
+```{r echo = FALSE, out.width="50%"}
+knitr::include_graphics("img/the-hare.jpeg")
+```
+
+]
+
+--
+
+.pull-right[
+Submit a perfectly accurate <br> self-assessment.
+
+```{r echo = FALSE, out.width="50%"}
+knitr::include_graphics("img/the-tortoise.jpeg")
+```
+]
+
+
+
+---
+class: inverse, center, middle
+background-image: url(img/fabian-moller-gI7zgb80QWY-unsplash.jpg)
+background-size: cover
+
+# Self-reflection
+
+???
+
+Self-assessments
+
+---
+
+What I found:
+
++ Students had incredible insights into their own learning process when I made them reflect
+
++ My materials got better because I had insight into what they struggled with
+
++ They actually read my answer keys
+
+---
+name: self-talk
+class: center, middle
+background-image: url(img/self-talk.png)
+background-size: cover
+
+
+---
+class: center, middle
+
+# Problem #2
+
+--
+
+Make code work↩
+
+--
+
+Make something acceptable (stats: get a sane answer / dataviz: make a sane plot)↩
+
+--
+
+Never ever ever look at your code again↩
+
+--
+
+Rinse and repeat↩
+
+---
+class: middle, center
+
+
+![](https://media.giphy.com/media/uEhLWy2eu87Ly/giphy.gif)
+
+---
+class: center, middle
+background-image: url(img/brooke-lark-V4MBq8kue3U-unsplash.jpg)
+background-size: cover
+
+# Solution #2: Force Iteration
+
+???
+
+Take some sad plots/code and make them better
+
+
+---
+
+# What did this look like?
+
+In my data visualization class:
+
++ Recruit army of ~8 `r icon::fa("r-project")` pros (course instructors plus past students)
+
++ Get students to pick out 2-3 plots that were `r emo::ji("heavy_check_mark")` but `r emo::ji("disappointed")`
+
+
+---
+class: middle, center
+
+# What is a sad plot or sad code?
+
+--
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">It’s that feeling when you want to do something that sounds simple but instead your code is like 10 stack overflow snippets slapped together that you could never explain to another human what they do 😰 <a href="https://t.co/IF53AX6QvC">pic.twitter.com/IF53AX6QvC</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1035526182392000514?ref_src=twsrc%5Etfw">August 31, 2018</a></blockquote>
+
+---
+
+What I found:
+
+
+Instead now they:
+
++ Normalize talking about "hacky" code- everyone does it
+
++ Normalize going back and revisiting old code- they realized how much they had learned even since writing it!
+
++ Get actual code *help* not *feedback*
+
+---
+template: self-talk
+
+---
+name: peer-talk
+class: center, middle
+background-image: url(img/peer-talk.png)
+background-size: cover
+
+---
+class: inverse, center, middle
+
+# Broadcasting
+
+???
+
+As a parent to a toddler, reminiscent of advice to "sportscast"
+
+---
+class: inverse, middle, center
+
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">REALLY great atmosphere of inquiry, reflection, and open discussion of graphics &amp; data analysis strategies with <a href="https://twitter.com/apreshill?ref_src=twsrc%5Etfw">@apreshill</a>&#39;s students <a href="https://twitter.com/alexandra_em?ref_src=twsrc%5Etfw">@alexandra_em</a>, <a href="https://twitter.com/_opelr?ref_src=twsrc%5Etfw">@_opelr</a>, <a href="https://twitter.com/graceolawley?ref_src=twsrc%5Etfw">@graceolawley</a>, <a href="https://twitter.com/alexandracsalem?ref_src=twsrc%5Etfw">@alexandracsalem</a> at the <a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw">@pdxrlang</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> Meetup last night! THANKS!</p>&mdash; John David Smith (@smithjd) <a href="https://twitter.com/smithjd/status/1029759688487854080?ref_src=twsrc%5Etfw">August 15, 2018</a></blockquote> 
+
+
+---
+class: inverse, middle, center
+
+.pull-left[
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A sentimental analysis of Tolstoy <a href="https://twitter.com/alexandracsalem?ref_src=twsrc%5Etfw">@alexandracsalem</a> <a href="https://t.co/lHvGY6KwcU">https://t.co/lHvGY6KwcU</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot2</a> <a href="https://twitter.com/hashtag/xaringan?src=hash&amp;ref_src=twsrc%5Etfw">#xaringan</a> from <a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw">@pdxrlang</a> <a href="https://t.co/LyIcXb4ZfN">pic.twitter.com/LyIcXb4ZfN</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1029547097404493824?ref_src=twsrc%5Etfw">August 15, 2018</a></blockquote> 
+]
+
+--
+
+.pull-right[
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sole Mates: Analysis of Nike’s <a href="https://twitter.com/BIKETOWNpdx?ref_src=twsrc%5Etfw">@BIKETOWNpdx</a> Sneaker Bikes by <a href="https://twitter.com/_opelr?ref_src=twsrc%5Etfw">@_opelr</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot2</a> <a href="https://twitter.com/hashtag/xaringan?src=hash&amp;ref_src=twsrc%5Etfw">#xaringan</a> <a href="https://t.co/DxNOXVOFuQ">https://t.co/DxNOXVOFuQ</a> from <a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw">@pdxrlang</a> <a href="https://t.co/cDWwMSoQ0G">pic.twitter.com/cDWwMSoQ0G</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1029554571897524224?ref_src=twsrc%5Etfw">August 15, 2018</a></blockquote>
+]
+
+---
+class: inverse, middle, center
+
+.pull-left[
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Such good Q &amp; A I forgot to tweet!! What’s up with Colorado water basin usage? <a href="https://twitter.com/alexandra_em?ref_src=twsrc%5Etfw">@alexandra_em</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot2</a> <a href="https://twitter.com/hashtag/xaringan?src=hash&amp;ref_src=twsrc%5Etfw">#xaringan</a> <a href="https://t.co/wwpBUJaeJO">https://t.co/wwpBUJaeJO</a> from <a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw">@pdxrlang</a> <a href="https://t.co/7vRKuVEUGI">pic.twitter.com/7vRKuVEUGI</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1029568569632153601?ref_src=twsrc%5Etfw">August 15, 2018</a></blockquote>
+]
+
+--
+
+.pull-right[
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sentiment analysis of a CHILDES corpus <a href="https://twitter.com/graceolawley?ref_src=twsrc%5Etfw">@graceolawley</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot2</a> <a href="https://twitter.com/hashtag/xaringan?src=hash&amp;ref_src=twsrc%5Etfw">#xaringan</a> <a href="https://t.co/212d3Dk5EE">https://t.co/212d3Dk5EE</a> from <a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw">@pdxrlang</a> <a href="https://t.co/uKubbHmyRe">pic.twitter.com/uKubbHmyRe</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1029550481922830336?ref_src=twsrc%5Etfw">August 15, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+]
+
+
+---
+template: self-talk
+
+---
+template: peer-talk
+
+---
+name: community-talk
+class: center, middle
+background-image: url(img/community-talk.png)
+background-size: cover
+
+---
+name: full-circle
+class: center, middle
+background-image: url(img/full-circle.png)
+background-size: cover
+
+---
+name: thanks
+background-image: url(img/heart-inverse.png)
+background-size: cover
+class: middle, right, inverse
+
+<img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/>
+
+# Thank you!
+
+[`r icon::fa("twitter")` @apreshill](http://twitter.com/apreshill)  
+[`r icon::fa("github")` @apreshill](http://github.com/apreshill)  
+[`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)  
+[`r icon::fa("paper-plane")` alison@rstudio.com](mailto:alison@rstudio.com)  
+[`r icon::fa("laptop-code")` slides](rstd.io/blogdown-sdss)  
+[`r icon::fa("code")` code for slides](https://github.com/apreshill/talks)  
+[`r icon::fa("camera-retro")` graphics](https://vecteezy.com)  
+

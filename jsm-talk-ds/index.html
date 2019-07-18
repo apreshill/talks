@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Teaching Students to Talk about Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Hill" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: inverse, title-slide
+background-image: url(img/ilyass-seddoug-c4lXkCHuaXY-unsplash.jpg)
+background-size: cover
+
+# Teaching Students to Talk about Data Science
+
+
+.footnote[
+### Alison Hill, Ph.D.
+### Data Scientist &amp; Professional Educator
+#### rstd.io/talkingds-jsm&lt;br&gt;
+&lt;img src="css/RStudio-Logo-White.png" alt="rstudio" style="float:left;width:150px;"/&gt;
+]
+
+---
+name: hello
+class: inverse, right, bottom
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Find me at...
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+[<i class="fas  fa-paper-plane "></i> alison@rstudio.com](mailto:alison@rstudio.com)
+
+
+---
+class: center, middle
+
+# Problem #1
+
+--
+
+I made beautiful keys for my homework assignments. 
+
+--
+
+That no one read.
+
+--
+
+Maybe the best students did.
+
+--
+
+But that meant the ones who needed to read them the most...did not.
+
+---
+class: middle, center
+
+&lt;div class="row"&gt;
+  &lt;div class="column"&gt;
+    &lt;h2&gt;Homework 1&lt;/h2&gt;
+    &lt;img src="img/hw1.png" width="300px"/&gt;
+  &lt;/div&gt;
+  
+--
+
+  &lt;div class="column"&gt;
+    &lt;h2&gt;Homework 2&lt;/h2&gt;
+    &lt;img src="img/hw2.png" width="300px"/&gt;
+  &lt;/div&gt;
+  
+--
+
+  &lt;div class="column"&gt;
+    &lt;h2&gt;Homework 3&lt;/h2&gt;
+    &lt;img src="img/hw3.png" width="300px"/&gt;
+  &lt;/div&gt;
+
+--
+
+  &lt;div class="column"&gt;
+    &lt;h2&gt;Homework 4&lt;/h2&gt;
+    &lt;img src="img/hw4.png" width="300px"/&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+---
+
+# Solution #1
+
+
+I gave away my keys.
+
+Inspired by [Hal Daume](https://docs.google.com/presentation/d/1AL4WIGN6ti3uuIE-XgMQqQpLXijlVIeskI_D5ZxN80Q/edit#slide=id.g10749fb5e7_0_60), I started grading based on self-assessments. Here was my final rubric: (link to it)
+
+
+---
+class: middle
+
+# Grading homeworks
+
+
++ Was your initial solution a good faith effort? (`0` / `1` / `2` points)
+
++ Did you catch all (or most) of your own errors in your self-assessment? Is your updated solution correct? (`0` / `1` / `2` / `3` points)
+
+---
+class: middle, center
+
+## Ways to get a 100%
+
+.pull-left[
+Submit a perfectly accurate &lt;br&gt; initial solution.
+
+&lt;img src="img/the-hare.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+Submit a perfectly accurate &lt;br&gt; self-assessment.
+
+&lt;img src="img/the-tortoise.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+class: inverse, center, middle
+background-image: url(img/fabian-moller-gI7zgb80QWY-unsplash.jpg)
+background-size: cover
+
+# Self-reflection
+
+???
+
+Self-assessments
+
+---
+
+What I found:
+
++ Students had incredible insights into their own learning process when I made them reflect
+
++ My materials got better because I had insight into what they struggled with
+
++ They actually read my answer keys
+
+---
+name: self-talk
+class: center, middle
+background-image: url(img/self-talk.png)
+background-size: cover
+
+
+---
+class: center, middle
+
+# Problem #2
+
+--
+
+Make code work↩
+
+--
+
+Make something acceptable (stats: get a sane answer / dataviz: make a sane plot)↩
+
+--
+
+Never ever ever look at your code again↩
+
+--
+
+Rinse and repeat↩
+
+---
+class: middle, center
+
+
+![](https://media.giphy.com/media/uEhLWy2eu87Ly/giphy.gif)
+
+---
+class: center, middle
+background-image: url(img/brooke-lark-V4MBq8kue3U-unsplash.jpg)
+background-size: cover
+
+# Solution #2: Force Iteration
+
+???
+
+Take some sad plots/code and make them better
+
+
+---
+
+# What did this look like?
+
+In my data visualization class:
+
++ Recruit army of ~8 <i class="fab  fa-r-project "></i> pros (course instructors plus past students)
+
++ Get students to pick out 2-3 plots that were ✔️ but 😞
+
+
+---
+class: middle, center
+
+# What is a sad plot or sad code?
+
+--
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;It’s that feeling when you want to do something that sounds simple but instead your code is like 10 stack overflow snippets slapped together that you could never explain to another human what they do 😰 &lt;a href="https://t.co/IF53AX6QvC"&gt;pic.twitter.com/IF53AX6QvC&lt;/a&gt;&lt;/p&gt;&amp;mdash; Alison Hill (@apreshill) &lt;a href="https://twitter.com/apreshill/status/1035526182392000514?ref_src=twsrc%5Etfw"&gt;August 31, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+---
+
+What I found:
+
+
+Instead now they:
+
++ Normalize talking about "hacky" code- everyone does it
+
++ Normalize going back and revisiting old code- they realized how much they had learned even since writing it!
+
++ Get actual code *help* not *feedback*
+
+---
+template: self-talk
+
+---
+name: peer-talk
+class: center, middle
+background-image: url(img/peer-talk.png)
+background-size: cover
+
+---
+class: inverse, center, middle
+
+# Broadcasting
+
+???
+
+As a parent to a toddler, reminiscent of advice to "sportscast"
+
+---
+class: inverse, middle, center
+
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;REALLY great atmosphere of inquiry, reflection, and open discussion of graphics &amp;amp; data analysis strategies with &lt;a href="https://twitter.com/apreshill?ref_src=twsrc%5Etfw"&gt;@apreshill&lt;/a&gt;&amp;#39;s students &lt;a href="https://twitter.com/alexandra_em?ref_src=twsrc%5Etfw"&gt;@alexandra_em&lt;/a&gt;, &lt;a href="https://twitter.com/_opelr?ref_src=twsrc%5Etfw"&gt;@_opelr&lt;/a&gt;, &lt;a href="https://twitter.com/graceolawley?ref_src=twsrc%5Etfw"&gt;@graceolawley&lt;/a&gt;, &lt;a href="https://twitter.com/alexandracsalem?ref_src=twsrc%5Etfw"&gt;@alexandracsalem&lt;/a&gt; at the &lt;a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw"&gt;@pdxrlang&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; Meetup last night! THANKS!&lt;/p&gt;&amp;mdash; John David Smith (@smithjd) &lt;a href="https://twitter.com/smithjd/status/1029759688487854080?ref_src=twsrc%5Etfw"&gt;August 15, 2018&lt;/a&gt;&lt;/blockquote&gt; 
+
+
+---
+class: inverse, middle, center
+
+.pull-left[
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;A sentimental analysis of Tolstoy &lt;a href="https://twitter.com/alexandracsalem?ref_src=twsrc%5Etfw"&gt;@alexandracsalem&lt;/a&gt; &lt;a href="https://t.co/lHvGY6KwcU"&gt;https://t.co/lHvGY6KwcU&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#ggplot2&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/xaringan?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#xaringan&lt;/a&gt; from &lt;a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw"&gt;@pdxrlang&lt;/a&gt; &lt;a href="https://t.co/LyIcXb4ZfN"&gt;pic.twitter.com/LyIcXb4ZfN&lt;/a&gt;&lt;/p&gt;&amp;mdash; Alison Hill (@apreshill) &lt;a href="https://twitter.com/apreshill/status/1029547097404493824?ref_src=twsrc%5Etfw"&gt;August 15, 2018&lt;/a&gt;&lt;/blockquote&gt; 
+]
+
+--
+
+.pull-right[
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Sole Mates: Analysis of Nike’s &lt;a href="https://twitter.com/BIKETOWNpdx?ref_src=twsrc%5Etfw"&gt;@BIKETOWNpdx&lt;/a&gt; Sneaker Bikes by &lt;a href="https://twitter.com/_opelr?ref_src=twsrc%5Etfw"&gt;@_opelr&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#ggplot2&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/xaringan?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#xaringan&lt;/a&gt; &lt;a href="https://t.co/DxNOXVOFuQ"&gt;https://t.co/DxNOXVOFuQ&lt;/a&gt; from &lt;a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw"&gt;@pdxrlang&lt;/a&gt; &lt;a href="https://t.co/cDWwMSoQ0G"&gt;pic.twitter.com/cDWwMSoQ0G&lt;/a&gt;&lt;/p&gt;&amp;mdash; Alison Hill (@apreshill) &lt;a href="https://twitter.com/apreshill/status/1029554571897524224?ref_src=twsrc%5Etfw"&gt;August 15, 2018&lt;/a&gt;&lt;/blockquote&gt;
+]
+
+---
+class: inverse, middle, center
+
+.pull-left[
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Such good Q &amp;amp; A I forgot to tweet!! What’s up with Colorado water basin usage? &lt;a href="https://twitter.com/alexandra_em?ref_src=twsrc%5Etfw"&gt;@alexandra_em&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#ggplot2&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/xaringan?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#xaringan&lt;/a&gt; &lt;a href="https://t.co/wwpBUJaeJO"&gt;https://t.co/wwpBUJaeJO&lt;/a&gt; from &lt;a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw"&gt;@pdxrlang&lt;/a&gt; &lt;a href="https://t.co/7vRKuVEUGI"&gt;pic.twitter.com/7vRKuVEUGI&lt;/a&gt;&lt;/p&gt;&amp;mdash; Alison Hill (@apreshill) &lt;a href="https://twitter.com/apreshill/status/1029568569632153601?ref_src=twsrc%5Etfw"&gt;August 15, 2018&lt;/a&gt;&lt;/blockquote&gt;
+]
+
+--
+
+.pull-right[
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Sentiment analysis of a CHILDES corpus &lt;a href="https://twitter.com/graceolawley?ref_src=twsrc%5Etfw"&gt;@graceolawley&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#ggplot2&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/xaringan?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#xaringan&lt;/a&gt; &lt;a href="https://t.co/212d3Dk5EE"&gt;https://t.co/212d3Dk5EE&lt;/a&gt; from &lt;a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw"&gt;@pdxrlang&lt;/a&gt; &lt;a href="https://t.co/uKubbHmyRe"&gt;pic.twitter.com/uKubbHmyRe&lt;/a&gt;&lt;/p&gt;&amp;mdash; Alison Hill (@apreshill) &lt;a href="https://twitter.com/apreshill/status/1029550481922830336?ref_src=twsrc%5Etfw"&gt;August 15, 2018&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt; 
+]
+
+
+---
+template: self-talk
+
+---
+template: peer-talk
+
+---
+name: community-talk
+class: center, middle
+background-image: url(img/community-talk.png)
+background-size: cover
+
+---
+name: full-circle
+class: center, middle
+background-image: url(img/full-circle.png)
+background-size: cover
+
+---
+name: thanks
+background-image: url(img/heart-inverse.png)
+background-size: cover
+class: middle, right, inverse
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Thank you!
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+[<i class="fas  fa-paper-plane "></i> alison@rstudio.com](mailto:alison@rstudio.com)  
+[<i class="fas  fa-laptop-code "></i> slides](rstd.io/blogdown-sdss)  
+[<i class="fas  fa-code "></i> code for slides](https://github.com/apreshill/talks)  
+[<i class="fas  fa-camera-retro "></i> graphics](https://vecteezy.com)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
