@@ -20,8 +20,11 @@ h2, h3 {
   color: #e13d3d;
 }
 
-.shout { color: #f30000; 
-font-family: 'Bangers', sans-serif;
+.callout { 
+  color: #E13D3D; 
+  font-family: 'Arapey', serif;
+  font-style: italic;
+  font-size: 2.5rem;
 }
 
 /* link color */
@@ -147,9 +150,19 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
   overflow-wrap: break-word;
 }
 
+/* four-column layout */
+
 .column {
   float: left;
   width: 25%;
+  text-align: center;
+}
+
+/* fiver-column layout */
+
+.column-5 {
+  float: left;
+  width: 20%;
   text-align: center;
 }
 
@@ -162,4 +175,8 @@ div.column h2{
   content: "";
   display: table;
   clear: both;
+}
+
+hr {
+  color: #f30000;
 }
