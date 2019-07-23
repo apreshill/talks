@@ -57,6 +57,18 @@ class: inverse, right, bottom
 [`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)  
 [`r icon::fa("paper-plane")` alison@rstudio.com](mailto:alison@rstudio.com)
 
+---
+background-image: url(img/can-answer.png)
+background-size: cover
+
+---
+background-image: url(img/can-present.png)
+background-size: cover
+
+---
+background-image: url(img/can-connect.png)
+background-size: cover
+
 
 ---
 class: center, middle
@@ -65,7 +77,7 @@ class: center, middle
 
 --
 
-I made beautiful keys for my homework assignments . . .
+I made beautiful answer keys for my homework assignments . . .
 
 --
 
@@ -120,7 +132,7 @@ class: middle, center
 
 # Problem #1
 
-No one used the keys to learn.
+No one used the answer keys to learn.
 
 --
 
@@ -129,7 +141,7 @@ No one used the keys to learn.
 # Solution #1
 
 
-I gave away my keys.
+I gave away my answer keys.
 
 ---
 name: self
@@ -153,7 +165,7 @@ class: middle, center
     <h1 style="font-size:1em;">&nbsp;</h1>
   </div>
   <div class="column-5">
-    <h1 style="font-size:1em;">Key given</h1>
+    <h1 style="font-size:1em;">Answer key given</h1>
   </div>
   <div class="column-5">
     <h1 style="font-size:1em;">&nbsp;</h1>
@@ -218,7 +230,7 @@ class: middle, center
   </div>
   <div class="column-5">
     <span style="font-size:1em;font-family: Arapey;">Did you catch all (or most) of your own errors in your self-assessment? <br><br>
-    Is your updated solution correct? <br><br>
+    Is your (updated) solution correct? <br><br>
     (`0` / `1` / `2` / `3` points)
     </span>
   </div>
@@ -303,23 +315,23 @@ class: center, middle
 
 --
 
-Make code work↩
+Make code work &larrhk;
 
 --
 
-Turn it in↩
+Turn it in &larrhk;
 
 --
 
-.callout[Do self-assessment & receive grade↩]
+.callout[Do self-assessment & receive grade &larrhk;]
 
 --
 
-Never ever ever (EVER) look at your code again↩
+Never ever ever (EVER) look at your code again &larrhk;
 
 --
 
-Rinse and repeat↩
+Rinse and repeat &larrhk;
 
 ---
 class: middle, center
@@ -482,4 +494,5 @@ class: middle, right, inverse
 [`r icon::fa("laptop-code")` slides](https://rstd.io/talkingds-jsm)  
 [`r icon::fa("code")` code for slides](https://github.com/apreshill/talks)  
 [`r icon::fa("camera-retro")` graphics](https://vecteezy.com)  
+[`r icon::fa("users")` humaans](https://www.humaaans.com/) 
 
