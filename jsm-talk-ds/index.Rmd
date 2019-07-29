@@ -322,8 +322,11 @@ class: middle, center
 The truth is, providing the answer keys or feedback at the end is not actually
 helpful for learners.
 
+Students have high motivation and set aside time for what matters for their grade, 
+not necessarily their learning.
+
 So it's no surprise that motivation was low and time was limited for students
-to read the answers or our feedback.
+to devote to "extracurricular" learning.
 
 ---
 exclude: true
@@ -471,6 +474,14 @@ Never ever ever (EVER) look at your code again &larrhk;
 
 Rinse and repeat &larrhk;
 
+???
+
+So they would accumulate these piles of possibilities.
+
+But they would never look back and learn from them.
+
+Instead, I think from one assignment to the next they felt like this...
+
 ---
 class: middle, center
 
@@ -503,7 +514,9 @@ class: center, middle, inverse
 
 # ~~Iteration~~
 
-# Take some sad code and make it better
+## Take some sad `r icon::fa("code")` or `r icon::fa("chart-bar")` <br>
+
+## and make it better
 
 ???
 
@@ -554,6 +567,12 @@ class: center, middle
 background-image: url(img/peer-talk.png)
 background-size: cover
 
+???
+
+The next step was to talk instead to a real person in real time
+
+A person who was there to help you, not evaluate you
+
 ---
 class: inverse, center, middle
 
@@ -571,12 +590,26 @@ class: inverse, middle, center
 .pull-left[
 
 ```{r echo = FALSE}
-knitr::include_graphics("img/snoopy.png")
+knitr::include_graphics("img/reddit.png")
 ```
 
 ]
 
 .pull-right[
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">We just wrapped our <a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> class and I want to share some awesome plots from some 💯 student projects (with permission 😉)<br>Please RT to support new learners 🙏🏽 <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot2</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1014531287485333506?ref_src=twsrc%5Etfw">July 4, 2018</a></blockquote>
+]
+
+
+---
+class: inverse, middle, center
+
+.pull-left[
+
+```{r echo = FALSE}
+knitr::include_graphics("img/snoopy.png")
+```
+
+].pull-right[
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">REALLY great atmosphere of inquiry, reflection, and open discussion of graphics &amp; data analysis strategies with <a href="https://twitter.com/apreshill?ref_src=twsrc%5Etfw">@apreshill</a>&#39;s students <a href="https://twitter.com/alexandra_em?ref_src=twsrc%5Etfw">@alexandra_em</a>, <a href="https://twitter.com/_opelr?ref_src=twsrc%5Etfw">@_opelr</a>, <a href="https://twitter.com/graceolawley?ref_src=twsrc%5Etfw">@graceolawley</a>, <a href="https://twitter.com/alexandracsalem?ref_src=twsrc%5Etfw">@alexandracsalem</a> at the <a href="https://twitter.com/pdxrlang?ref_src=twsrc%5Etfw">@pdxrlang</a> <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> Meetup last night! THANKS!</p>&mdash; John David Smith (@smithjd) <a href="https://twitter.com/smithjd/status/1029759688487854080?ref_src=twsrc%5Etfw">August 15, 2018</a></blockquote> 
 ]
 
@@ -647,11 +680,31 @@ class: center, middle
 background-image: url(img/community-talk.png)
 background-size: cover
 
+???
+
+I think being intentional about:
+
+setting up the tone for talking about data science
+
+setting up safe sandboxes for talking about data science
+
+and setting up grading systems to support talking about data science
+
+All of these things are things that instructors can do to
+
+create more well rounded data scientists...
+
 ---
 name: full-circle
 class: center, middle
 background-image: url(img/full-circle.png)
 background-size: cover
+
+
+
+???
+
+Those who I hope will be more likely to stay for awhile.
 
 ---
 name: thanks
@@ -672,3 +725,7 @@ class: middle, right, inverse
 [`r icon::fa("camera-retro")` graphics](https://vecteezy.com)  
 [`r icon::fa("users")` humaans](https://www.humaaans.com/) 
 
+
+???
+
+Thank you!
