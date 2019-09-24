@@ -19,7 +19,7 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300, echo = FALSE,
-  fig.align = "center", out.width = "80%", cache = TRUE)
+  fig.align = "center", out.width = "80%", cache = FALSE)
 library(tidyverse)
 library(wesanderson)
 library(gganimate)
@@ -39,7 +39,7 @@ class: center, middle
 ---
 class: inverse, middle, center
 
-## The prevalence puzzle: autism counts. 
+### The prevalence puzzle: autism counts. 
 
 > Weintraub, K. (2011). The prevalence puzzle: autism counts. Nature News, 479(7371), 22-24.
 
@@ -235,17 +235,18 @@ class: center, inverse, middle
 
 ```{r tibbleset, echo = TRUE}
 set.seed(1000)
-asdpop <- tibble::tibble(
+asdpop_base <- tibble::tibble(
   time1 = sample(1:100, 100, replace = F), 
   time2 = time1) %>% 
   tidyr::gather(x, y, time1:time2, factor_key = TRUE)  
-asdpop
+asdpop_base
 ```
+
 
 ---
 
 ```{r tibblefactor, echo = TRUE}
-asdpop <- asdpop %>% 
+asdpop <- asdpop_base %>% 
   mutate(services = as.factor(case_when(
     x == "time1" & y <= 30 ~ 1, 
     x == "time1" & y > 30 ~ 0, 
@@ -544,11 +545,12 @@ dotbw
 class: center
 
 ```{r dot5}
-set.seed(2018)
+pos <- position_jitter(width = .25, 
+                       height = 0,
+                       seed = 2018)
 dotleg <- ggplot(asdpop, aes(x, y))
 dotleg <- dotleg + geom_jitter(aes(colour = services), 
-                             position = position_jitter(width = .25, 
-                                                        height = 0), 
+                             position = pos, 
                              alpha = .75, size = 2) 
 dotleg <- dotleg + scale_x_discrete(expand = c(0, 0.6),
                                     name = "", 
@@ -563,7 +565,7 @@ dotleg <- dotleg + theme(panel.grid = element_blank())
 dotleg <- dotleg + theme(axis.title.y = element_text(size = 10)) 
 dotleg <- dotleg + theme(axis.text = element_text(size = 10))
 dotleg <- dotleg + coord_cartesian(ylim = c(0, 102), xlim = c(1, 3.2)) 
-dotleg <- dotleg + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
+dotleg <- dotleg + scale_colour_viridis_d(option = "A", begin = .1, end = .7, 
                                      name = "ASD cases who are:",
                                      labels = c("Not accessing services",
                                               "Accessing services"))
@@ -580,19 +582,48 @@ dotleg
 ```
 
 ---
+exclude: TRUE
+
+```{r}
+library(ggrepel)
+pos <- position_jitter(width = .25, 
+                       height = 0,
+                       seed = 2018)
+# trying out direct labels
+# need to use full dataset (not filtered) b/c of matching up with jittered points
+labels <- asdpop %>% 
+  mutate(callout = as.factor(if_else(y %in% c(20, 77), 1, 0)))
+dotdirect <- dotleg +   
+  guides(colour = FALSE) +
+  geom_jitter(data = labels, aes(alpha = callout), 
+                     colour = "black",
+                     size = 3, shape = 1,
+                     position = pos) +
+  scale_alpha_manual(values = c(0, 1), guide = 'none') +
+  geom_label_repel(data = filter(labels, callout == 1), 
+                   aes(label = services),
+                   position = pos) +
+
+  annotate("text", x = 1.3, y = 24, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Using \nservices")  +
+  geom_segment(aes(x = 1.25, xend = 1.3, y = 20.5, yend = 24), 
+               lwd = .2, colour = "black") 
+dotdirect
+```
+
+---
 class: center
 
 ```{r dot6}
-# lines
-dotline <- dotleg + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
+# top lines
+dottop <- dotleg + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
                               lty = 3, lwd = .5, colour = "black") 
-dotline <- dotline + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
-                              lty = 3, lwd = .5, colour = "black") 
-dotline <- dotline + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
-                              lty = 3, lwd = .5, colour = "black") 
-dotline <- dotline + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
-                              lty = 3, lwd = .5, colour = "black")
-dotline
+dottop <- dottop + annotate("text", 
+                            x = 2.5, y = 97, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
+dottop
 ```
 
 
@@ -602,15 +633,17 @@ dotline
 class: center
 
 ```{r dot7}
-dotann <- dotline + annotate("text", 
-                            x = 2.5, y = 97, size = 4, hjust = 0, 
-                            family = "Lato", 
-                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
-dotann <- dotann + annotate("text", 
+dotboth <- dottop + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotboth <- dotboth + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotboth <- dotboth + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black")
+dotboth <- dotboth + annotate("text", 
                             x = 2.5, y = 60, size = 4, hjust = 0, 
                             family = "Lato", 
                             label = "Estimates of prevalence based\non individuals accessing services\ncan create an illusion of an\nincrease in prevalence over time,\nyet still underestimate prevalence\nat both time points.") 
-dotann
+dotboth
 ```
 
 
@@ -651,19 +684,20 @@ dotprint <- dotprint + theme(legend.title = element_text(size = 10))
 dotprint <- dotprint + theme(legend.background = element_rect(fill = "gray90", 
                                           size=.3, 
                                           linetype="dotted"))
-# lines
+# top line
 dotprint <- dotprint + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
                               lty = 3, lwd = .5, colour = "black") 
+dotprint <- dotprint + annotate("text", 
+                            x = 2.5, y = 97, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
+# bottom line
 dotprint <- dotprint + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
                               lty = 3, lwd = .5, colour = "black") 
 dotprint <- dotprint + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
                               lty = 3, lwd = .5, colour = "black") 
 dotprint <- dotprint + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
                               lty = 3, lwd = .5, colour = "black")
-dotprint <- dotprint + annotate("text", 
-                            x = 2.5, y = 97, size = 4, hjust = 0, 
-                            family = "Lato", 
-                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
 dotprint <- dotprint + annotate("text", 
                             x = 2.5, y = 60, size = 4, hjust = 0, 
                             family = "Lato", 
@@ -719,14 +753,82 @@ dotprint +
 ---
 
 ```{r}
-dotann + 
+dotboth + 
   transition_layers(layer_length = 2, transition_length = 2) +
   #enter_grow() +
   enter_fade() +
   enter_recolour(colour = 'black') 
-
 ```
 
 ---
-idea: first bring in data without `services` geom_jitter color black?
-next add geom_jitter with data + services variable
+
+```{r}
+dotanim <- ggplot() 
+dotanim <- dotanim + geom_jitter(data = asdpop,
+                                 aes(x, y),
+                                 colour = viridisLite::magma(1, begin = .1),
+                                 position = position_jitter(width = .25, 
+                                                            height = 0, 
+                                                            seed = 2018), 
+                                 alpha = .75, size = 2) 
+dotanim <- dotanim + geom_jitter(data = asdpop,
+                                 aes(x, y, colour = services), 
+                                 position = position_jitter(width = .25, 
+                                                        height = 0,
+                                                        seed = 2018), 
+                                 alpha = .75, size = 2) 
+dotanim <- dotanim + scale_x_discrete(expand = c(0, 0.6),
+                                    name = "", 
+                                    labels = c("Time 1:\nPoor Service Access", "Time 2:\nBetter Service Access"))
+dotanim <- dotanim + scale_y_continuous(expand = c(.02, 0),
+                                      name = "ASD Cases per 10,000",
+                                      breaks = seq(0, 100, by = 20)) 
+dotanim <- dotanim + theme_bw(base_family = "Lato") 
+dotanim <- dotanim + theme(axis.ticks = element_blank()) 
+dotanim <- dotanim + theme(panel.border = element_blank()) 
+dotanim <- dotanim + theme(panel.grid = element_blank()) 
+dotanim <- dotanim + theme(axis.title.y = element_text(size = 10)) 
+dotanim <- dotanim + theme(axis.text = element_text(size = 10))
+dotanim <- dotanim + guides(colour = guide_legend(keywidth = 1.1, 
+                                keyheight = 1.1, 
+                                override.aes = list(alpha = 1, size = 3))) 
+dotanim <- dotanim + theme(legend.position=c(.75, .25)) 
+dotanim <- dotanim + theme(legend.text = element_text(size = 10)) 
+dotanim <- dotanim + theme(legend.title = element_text(size = 10)) 
+dotanim <- dotanim + theme(legend.background = element_rect(fill = "gray90", 
+                                          size=.3, 
+                                          linetype="dotted"))
+dotanim <- dotanim + coord_cartesian(ylim = c(0, 102), xlim = c(1, 3.2)) 
+dotanim <- dotanim + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
+                                     name = "ASD cases who are:",
+                                     labels = c("Not accessing services",
+                                              "Accessing services"))
+# top lines
+dotanim <- dotanim + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotanim <- dotanim + annotate("text", 
+                            x = 2.5, y = 97, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
+# bottom line
+dotanim <- dotanim + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotanim <- dotanim + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black") 
+dotanim <- dotanim + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
+                              lty = 3, lwd = .5, colour = "black")
+dotanim <- dotanim + annotate("text", 
+                            x = 2.5, y = 60, size = 4, hjust = 0, 
+                            family = "Lato", 
+                            label = "Estimates of prevalence based\non individuals accessing services\ncan create an illusion of an\nincrease in prevalence over time,\nyet still underestimate prevalence\nat both time points.") 
+
+# animate this thing
+dotanim <- dotanim + 
+  transition_layers(layer_length = 2, transition_length = 2,
+                    keep_layers = c(0, Inf, Inf, Inf, Inf, Inf, Inf)) +
+  enter_fade()
+
+animate(dotanim, start_pause = 5, end_pause = 20)
+```
+
+
