@@ -184,8 +184,6 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
 .inverse h1 {
   font-family: 'Josefin Slab', serif;
   color: #fff;
-  padding-top: 0px;
-  padding-bottom: 0px;
   line-height: 1em;
   word-wrap: break-word;
 }
@@ -194,8 +192,6 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
   font-family: 'Josefin Slab', serif;
   text-shadow: 1px 1px 1px #003b3c;
   color: #fff;
-  padding-top: 100px;
-  padding-bottom: 100px;
 }
 
 .inverse h3 {
@@ -203,8 +199,6 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
   text-shadow: 1px 1px 1px #003b3c;
   color: #fff;
   background: rgba(167,185,189, 0.6);
-  padding-top: 100px;
-  padding-bottom: 100px;
 }
 
 /* Wider cols */
