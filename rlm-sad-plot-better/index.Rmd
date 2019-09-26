@@ -23,7 +23,8 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300, echo = FALSE,
-  fig.align = "center", out.width = "60%", cache = FALSE)
+  fig.align = "center", out.width = "60%", cache = FALSE,
+  fig.path = "figs/")
 library(tidyverse)
 library(gganimate)
 ozcols <- wesanderson::wes_palette("FantasticFox1")[c(2:3)]
@@ -58,29 +59,51 @@ class: inverse, right, bottom
 background-image: url(images/aim-here.png)
 background-size: contain
 
-
+---
+background-image: url(images/feature-keep-going-750.jpg)
+background-size: cover
 ---
 class: inverse, middle, center
 
-# The prevalence puzzle: autism counts. 
+# Autism prevalence 
 
-> Weintraub, K. (2011). The prevalence puzzle: autism counts. Nature News, 479(7371), 22-24.
 
 ```{r, out.width= '50%'}
-knitr::include_graphics("https://www.nature.com/news/2011/111102/images/Diag850.jpg")
+knitr::include_graphics("images/number-with-autistic-spectrum-disorder.png")
 ```
 
 
 .footnote[
-Source: https://www.nature.com/news/2011/111102/full/479022a.html
+https://ourworldindata.org/neurodevelopmental-disorders
 ]
 
 ---
+class: inverse, middle, center
+
+# Autism prevalence 
+
+
+```{r, out.width= '50%'}
+knitr::include_graphics("images/nature-autism-rising.png")
+```
+
+.footnote[[Nature](https://www.nature.com/articles/479022a)]
+---
+class: inverse, middle, center
+
+# Autism prevalence 
+
+
+```{r, out.width= '50%'}
+knitr::include_graphics("images/autism-speaks-2018-prevalence.jpg")
+```
+
+.footnote[[Autism Speaks](https://www.autismspeaks.org/science-news/cdc-increases-estimate-autisms-prevalence-15-percent-1-59-children)]
+---
 class: inverse, top, center
 
-# California Autism Prevalence Trends from 1931 to 2014
+# California: 1931 to 2014
 
-> Nevison, C., Blaxill, M. & Zahorodny, W. J Autism Dev Disord (2018) 48: 4103. https://doi.org/10.1007/s10803-018-3670-2
 
 ```{r, out.width= '50%'}
 knitr::include_graphics("https://media.springernature.com/lw785/springer-static/image/art%3A10.1007%2Fs10803-018-3670-2/MediaObjects/10803_2018_3670_Fig7_HTML.gif")
@@ -88,7 +111,7 @@ knitr::include_graphics("https://media.springernature.com/lw785/springer-static/
 
 
 .footnote[
-https://link.springer.com/article/10.1007/s10803-018-3670-2
+https://doi.org/10.1007/s10803-018-3670-2
 ]
 
 ---
@@ -115,13 +138,13 @@ background-size: contain
 --
 
 .pull-right[
-- 😀 Pink blobs are always smaller than green squares- always under-estimating.
+- `r emo::ji("smiley")` Pink < green- always under-estimating.
 
-- 😒 But, on R, there are more dots in the pink blob. The point is that more people are getting services, but...
+- `r emo::ji("smirk")` More dots in the pink blob - more people are getting services, but...
 
-- 😬 The "true" prevalence (total number of dots) looks different. It is actually the same at both time points!
+- `r emo::ji("grimacing")` The "true" prevalence (total number of dots) looks different. It is actually the same at both time points!
 
-- 😳 I actually like the dots! And I return to this later.
+- `r emo::ji("flushed")` I actually like the dots! And I return to this later.
 ]
 
 
@@ -190,9 +213,9 @@ class: center, middle, inverse
 
 .pull-right[
 
-- 😬 The connection between the line and pie charts is totally unclear. They are also kind of redundant.
+- `r emo::ji("rage")` Franken-plot
 
-- 😬 There are pie charts. With some kind of reflective coating.
+- `r emo::ji("candy")`-coated pies
 ]
 
 ---
@@ -754,48 +777,26 @@ background-position: right center
 
 ---
 
-
-```{r}
-dotprint +
-  transition_layers(layer_length = 1, transition_length = 2,
-                    from_blank = FALSE) +
-  enter_fade()
+```{r echo=FALSE}
+knitr::include_graphics("gifs/gif-bw-1.gif")
 ```
 
+
 ---
 
-```{r}
-dotboth + 
-  transition_layers(layer_length = 2, transition_length = 2) +
-  #enter_grow() +
-  enter_fade() +
-  enter_recolour(colour = 'black') 
+```{r echo=FALSE}
+knitr::include_graphics("gifs/gif-color-1.gif")
 ```
 
----
-class: inverse
-
-## Share your sad plot!
-
-.pull-left[
-![](images/beatles-hold-your-hand.gif)
-]
-
-.pull-right[
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Last year I did a talk called &quot;Take a Sad Plot &amp; Make It Better&quot; 😭<br><br>Now I&#39;m looking for brave souls (<a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a>, <a href="https://twitter.com/hashtag/python?src=hash&amp;ref_src=twsrc%5Etfw">#python</a>, <a href="https://twitter.com/hashtag/Excel?src=hash&amp;ref_src=twsrc%5Etfw">#Excel</a>!) to share their sad plots with me for a Sad Plot Showcase. <br><br>No shame, just sharing! 🤝<a href="https://t.co/E0HNX1CRfU">https://t.co/E0HNX1CRfU</a><a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash&amp;ref_src=twsrc%5Etfw">#ggplot2</a> <a href="https://twitter.com/hashtag/TidyTuesday?src=hash&amp;ref_src=twsrc%5Etfw">#TidyTuesday</a> <a href="https://t.co/T5ildPrDq0">pic.twitter.com/T5ildPrDq0</a></p>&mdash; Alison Hill (@apreshill) <a href="https://twitter.com/apreshill/status/1095535103139168256?ref_src=twsrc%5Etfw">February 13, 2019</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-]
-
-
 
 ---
-background-image: url(images/christopher-burns-31s22xbZXQU-unsplash.jpg)
-background-position: right
+background-image: url(images/rachel-martin-PnAc2UaeqII-unsplash.jpg)
+background-position: left
 background-size: contain
 class: center, middle, inverse
 
-.pull-left[
+.pull-right[
+
 ## Thanks!
 
 Slide theme developed by [Desirée De Leon](http://desiree.rbind.io/).
@@ -811,77 +812,4 @@ To view a copy of this license, visit:
 https://creativecommons.org/licenses/by-sa/4.0/
 
 ]
-
----
-exclude: true
-
-```{r eval=FALSE}
-dotanim <- ggplot() 
-dotanim <- dotanim + geom_jitter(data = asdpop,
-                                 aes(x, y),
-                                 colour = viridisLite::magma(1, begin = .1),
-                                 position = position_jitter(width = .25, 
-                                                            height = 0, 
-                                                            seed = 2018), 
-                                 alpha = .9, size = 2) 
-dotanim <- dotanim + geom_jitter(data = asdpop,
-                                 aes(x, y, colour = services), 
-                                 position = position_jitter(width = .25, 
-                                                        height = 0,
-                                                        seed = 2018), 
-                                 alpha = .75, size = 2) 
-dotanim <- dotanim + scale_x_discrete(expand = c(0, 0.6),
-                                    name = "", 
-                                    labels = c("Time 1:\nPoor Service Access", "Time 2:\nBetter Service Access"))
-dotanim <- dotanim + scale_y_continuous(expand = c(.02, 0),
-                                      name = "ASD Cases per 10,000",
-                                      breaks = seq(0, 100, by = 20)) 
-dotanim <- dotanim + theme_bw(base_family = "Lato") 
-dotanim <- dotanim + theme(axis.ticks = element_blank()) 
-dotanim <- dotanim + theme(panel.border = element_blank()) 
-dotanim <- dotanim + theme(panel.grid = element_blank()) 
-dotanim <- dotanim + theme(axis.title.y = element_text(size = 10)) 
-dotanim <- dotanim + theme(axis.text = element_text(size = 10))
-dotanim <- dotanim + guides(colour = guide_legend(keywidth = 1.1, 
-                                keyheight = 1.1, 
-                                override.aes = list(alpha = 1, size = 3))) 
-dotanim <- dotanim + theme(legend.position=c(.75, .25)) 
-dotanim <- dotanim + theme(legend.text = element_text(size = 10)) 
-dotanim <- dotanim + theme(legend.title = element_text(size = 10)) 
-dotanim <- dotanim + theme(legend.background = element_rect(fill = "gray90", 
-                                          size=.3, 
-                                          linetype="dotted"))
-dotanim <- dotanim + coord_cartesian(ylim = c(0, 102), xlim = c(1, 3.2)) 
-dotanim <- dotanim + scale_color_viridis_d(option = "A", begin = .1, end = .7, 
-                                     name = "ASD cases who are:",
-                                     labels = c("Not accessing services",
-                                              "Accessing services"))
-# top lines
-dotanim <- dotanim + geom_segment(aes(x = .6, xend = 2.4, y = 100, yend = 100), 
-                              lty = 3, lwd = .5, colour = "black") 
-dotanim <- dotanim + annotate("text", 
-                            x = 2.5, y = 97, size = 4, hjust = 0, 
-                            family = "Lato", 
-                            label = "Estimates of prevalence based\non population sampling will remain\nstable over time if true prevalence\nis stable.")  
-# bottom line
-dotanim <- dotanim + geom_segment(aes(x = .6, xend = 1.3, y = 30, yend = 30), 
-                              lty = 3, lwd = .5, colour = "black") 
-dotanim <- dotanim + geom_segment(aes(x = 1.3, xend = 1.7, y = 30, yend = 60), 
-                              lty = 3, lwd = .5, colour = "black") 
-dotanim <- dotanim + geom_segment(aes(x = 1.7, xend = 2.4, y = 60, yend = 60), 
-                              lty = 3, lwd = .5, colour = "black")
-dotanim <- dotanim + annotate("text", 
-                            x = 2.5, y = 60, size = 4, hjust = 0, 
-                            family = "Lato", 
-                            label = "Estimates of prevalence based\non individuals accessing services\ncan create an illusion of an\nincrease in prevalence over time,\nyet still underestimate prevalence\nat both time points.") 
-
-# animate this thing
-dotanim <- dotanim + 
-  transition_layers(layer_length = 2, transition_length = 2,
-                    keep_layers = c(0, Inf, Inf, Inf, Inf, Inf, Inf)) +
-  enter_fade()
-
-animate(dotanim, start_pause = 5, end_pause = 20)
-```
-
 
