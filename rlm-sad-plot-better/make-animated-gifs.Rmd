@@ -1,5 +1,5 @@
 ```{r}
-knitr::opts_chunk$set(fig.path="gifs/")
+knitr::opts_chunk$set(fig.path="gifs/", dpi = 300)
 ```
 
 

@@ -60,7 +60,7 @@ background-image: url(images/aim-here.png)
 background-size: contain
 
 ---
-background-image: url(images/feature-keep-going-750.jpg)
+background-image: url(images/feature-keepgoing-hi-rectangle.jpg)
 background-size: cover
 ---
 class: inverse, middle, center
@@ -778,14 +778,21 @@ background-position: right center
 ---
 
 ```{r echo=FALSE}
-knitr::include_graphics("gifs/gif-bw-1.gif")
+dotprint +
+  transition_layers(layer_length = 1, transition_length = 2,
+                    from_blank = FALSE) +
+  enter_fade()
 ```
 
 
 ---
 
 ```{r echo=FALSE}
-knitr::include_graphics("gifs/gif-color-1.gif")
+dotboth + 
+  transition_layers(layer_length = 2, transition_length = 2) +
+  #enter_grow() +
+  enter_fade() +
+  enter_recolour(colour = 'black') 
 ```
 
 
