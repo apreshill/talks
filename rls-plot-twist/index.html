@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Plot Twist</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Hill" />
+    <meta name="date" content="2019-10-04" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, center, bottom
+
+
+# Plot Twist
+
+## 10 Bake Offs, 11 Ways
+
+### Alison Hill &amp;#183; RStudio
+
+#### R-Ladies Sydney Meetup &amp;#183; 2019-10-04
+
+---
+name: hello
+class: inverse, right, bottom
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Find me at...
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+[<i class="fas  fa-paper-plane "></i> alison@rstudio.com](mailto:alison@rstudio.com)
+
+---
+
+class: center, middle, inverse
+
+# Inspired by:
+
+## [Flowing Data: One Dataset Visualized 25 Ways](https://flowingdata.com/2017/01/24/one-dataset-visualized-25-ways/)
+
+&lt;img src="images/flowing-data-inspo.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle, inverse
+
+## Disclaimers
+
+--
+
+I am a data visualization .whisper[practioner]. 
+
+--
+
+I offer what I hope are well-reasoned opinions here, but obviously .whisper[YMMV].
+
+--
+
+I do not claim that all of the following are .whisper[good] nor .whisper[publication-worthy] visualizations (for those viewing these slides without narrative)
+
+![](https://media.giphy.com/media/3oEjHIs0EQ4nxN4YPC/giphy.gif)
+
+---
+class:middle, inverse, center
+
+## My messages for today
+
+---
+class:middle, inverse, center
+
+## tidiness `\(\neq\)` .shout[godliness]
+
+![](https://media.giphy.com/media/3o6vXSvvyxyzJMVqGk/giphy.gif)
+
+---
+class:middle, inverse, center
+
+## tidiness = .whisper[nimbleness]
+
+![](https://media.giphy.com/media/3o7TKFVl2L6P6P7zqM/giphy.gif)
+
+---
+class:middle, inverse, center
+
+## tidy `\(\neq\)` .shout[done]
+
+![](https://media.giphy.com/media/l41YtBXZvSRdgqq7m/giphy.gif)
+
+---
+class:middle, inverse, center
+
+&lt;img src="images/tidyverse_wrangle.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+
+## But also...
+
+Don't be afraid to chop out those `ggplot2` defaults! 
+
+![](https://media.giphy.com/media/26BoDD0vgBWAipgJ2/giphy.gif)
+
+---
+class: center, middle, inverse
+
+## But also...
+
+It's all in the details.
+
+![](https://media.giphy.com/media/l0MYrsYIulHYo0Bhe/giphy.gif)
+
+---
+# Packages first
+
+I'll use all of the following:
+
+
+```r
+library(tidyverse)
+library(bakeoff) # data + colors!
+```
+
+---
+# Data second
+
+
+```r
+ratings &lt;- ratings %&gt;% 
+  mutate(series = as.factor(series))
+```
+
+---
+# Glimpse
+
+
+```
+Observations: 84
+Variables: 8
+$ series               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3…
+$ episode              &lt;int&gt; 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 7, 8, 1…
+$ uk_airdate           &lt;date&gt; 2010-08-17, 2010-08-24, 2010-08-31, 2010-0…
+*$ viewers_7day         &lt;dbl&gt; 2.24, 3.00, 3.00, 2.60, 3.03, 2.75, 3.10, 3…
+$ viewers_28day        &lt;dbl&gt; 7, 3, 2, 4, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1…
+$ network_rank         &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ channels_rank        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ bbc_iplayer_requests &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+```
+
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 1: Continuous Bar Chart
+
+---
+## Recipe 1: Continuous Bar Chart
+
+&lt;img src="index_files/figure-html/episodebar-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 1: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/episodebar-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+## Recipe 1: Code for Bar Chart
+
+
+```r
+# create continuous episode count
+plot_off1 &lt;- ratings %&gt;% 
+* mutate(ep_id = row_number()) %&gt;%
+  select(ep_id, viewers_7day, series, episode)
+
+# create coordinates for labels
+series_labels &lt;- plot_off1 %&gt;% 
+  group_by(series) %&gt;% 
+  summarize(y_position = median(viewers_7day) + 1,
+            x_position = mean(ep_id))
+
+# make the plot
+*ggplot(plot_off1, aes(x = ep_id, y = viewers_7day, fill = series)) +
+* geom_col(alpha = .9) +
+  ggtitle("Series 8 was a Big Setback in Viewers",
+          subtitle= "7-Day Viewers across All Series/Episodes") +
+  geom_text(data = series_labels, aes(label = series,
+                                      x = x_position, 
+                                      y = y_position)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_fill_bakeoff(guide = FALSE) +
+  scale_x_discrete(expand = c(0, 0)) 
+```
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## What is going on with Series 8?
+
+&gt; *"The eighth series of The Great British Bake Off began on 29 August 2017, with this being the first of The Great British Bake Off to be broadcast on Channel 4, after the production company Love Productions moved the show. It is the first series for new hosts Noel Fielding and Sandi Toksvig, and new judge Prue Leith." -- &lt;a href="https://en.wikipedia.org/wiki/The_Great_British_Bake_Off_(series_8)"&gt;Wikipedia&lt;/a&gt;*
+
+---
+class: center, middle, inverse
+
+![](https://media.giphy.com/media/l0HlLycAY0hSUtiYo/source.gif)
+
+## Read: 
+
+--
+
+## No Mary Berry, no Mel, no Sue
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 2: Lollipop Plot
+
+---
+
+## Recipe 2: Lollipop Plot
+
+&lt;img src="index_files/figure-html/lolli-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 2: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[3 geoms]?
+1. What .whisper[variable] is .shout[facet wrapped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/lolli-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+
+## Recipe 2: Code for Lollipop Plot
+
+
+```r
+plot_off2 &lt;- ratings %&gt;% 
+* group_by(series) %&gt;%
+* mutate(series_avg = mean(viewers_7day, na.rm = TRUE),
+*        diff_avg = viewers_7day - series_avg) %&gt;%
+  #filter(max(episode) == 10) %&gt;% 
+  mutate(episode = as.factor(episode)) %&gt;% 
+  select(episode, viewers_7day, series, diff_avg, series_avg)
+
+*ggplot(plot_off2, aes(x = episode, y = viewers_7day, color = diff_avg)) +
+* geom_hline(aes(yintercept = series_avg), alpha = .5) +
+* geom_point() +
+* geom_segment(aes(xend = episode, yend = series_avg)) +
+* facet_wrap(~series) +
+  scale_color_viridis_c(option="plasma", begin = 0, 
+                      end = .8, guide = FALSE) +
+  ggtitle("Great British Bake Off Finales Get the Most Viewers",
+          subtitle = "Way Higher than Series Average (for Series with 10 episodes)")
+```
+
+
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 3: Series Line Plot
+
+---
+## Recipe 3: Series Line Plot
+
+&lt;img src="index_files/figure-html/serieslines-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 3: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/serieslines-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 3: Code for Series Line Plot
+
+
+```r
+line_labels &lt;- ratings %&gt;% 
+  group_by(series) %&gt;% 
+  filter(episode == max(episode)) %&gt;% 
+  select(series, x_position = episode, y_position = viewers_7day)
+
+*ggplot(ratings, aes(x = as.factor(episode),
+*                   y = viewers_7day,
+*                   color = as.factor(series),
+*                   group = series)) +
+* geom_line() +
+  scale_color_bakeoff(guide = FALSE) +
+  labs(color = "Series", x = "Episode") +
+  geom_text(data = line_labels, aes(label = series,
+                                      x = x_position + .25, 
+                                      y = y_position)) 
+```
+
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 4: Facetted Line Plot
+
+---
+## Recipe 4: Facetted Line Plot
+
+&lt;img src="index_files/figure-html/facetlines-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 4: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is .shout[facetted]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/facetlines-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 4: Code for Facetted Line Plot
+
+
+```r
+*ggplot(ratings, aes(x = as.factor(episode),
+*                   y = viewers_7day,
+*                   color = fct_reorder2(series, episode, viewers_7day),
+*                   group = series)) +
+* facet_wrap(~series) +
+* geom_line(lwd = 2) +
+  scale_color_bakeoff(guide = FALSE) +
+  labs(color = "Series", x = "Episode") 
+```
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 5: First vs. Last
+
+---
+## Recipe 5: First vs. Last
+
+&lt;img src="index_files/figure-html/firstlastline-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 5: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/firstlastline-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 5: Code for First vs. Last
+
+
+```r
+# some wrangling here
+plot_off5 &lt;- ratings %&gt;% 
+  select(series, episode, viewers_7day) %&gt;% 
+* group_by(series) %&gt;%
+* filter(episode == 1 | episode == max(episode)) %&gt;%
+* mutate(episode = recode(episode, `1` = "first", .default = "last")) %&gt;%
+  ungroup()
+
+# code for plot
+*ggplot(plot_off5, aes(x = series,
+*                     y = viewers_7day,
+*                     color = fct_reorder2(episode, series, viewers_7day),
+*                     group = episode)) +
+* geom_point() +
+* geom_line() +
+  scale_color_bakeoff() +
+  ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
+  labs(color = "Episode")
+```
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## What is going on with the Series 8 finale?
+
+---
+class: middle, center, inverse
+
+## A [tweet](https://twitter.com/PrueLeith/status/925329937644564480) heard 'round the world
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;I am so sorry to the fans of the show for my mistake this morning, I am in a different time zone and mortified by my error &lt;a href="https://twitter.com/hashtag/GBBO?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#GBBO&lt;/a&gt;.&lt;/p&gt;&amp;mdash; Prue Leith (@PrueLeith) &lt;a href="https://twitter.com/PrueLeith/status/925329937644564480?ref_src=twsrc%5Etfw"&gt;October 31, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+
+
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 6: Dumbbell Plot
+
+---
+## Recipe 6: Dumbbell Plot
+
+
+&lt;img src="index_files/figure-html/dumbbell-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 6: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/dumbbell-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 6: Code for Dumbbell Plot
+
+
+
+```r
+*ggplot(plot_off5, aes(x = viewers_7day,
+*                     y = fct_rev(series),
+*                     color = episode,
+*                     group = series)) +
+* geom_line(size = .75) +
+* geom_point(size = 2.5) +
+  scale_color_bakeoff() +
+  labs(y = "Series", x = "Viewers (millions)", color = "Episode") +
+  ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") 
+```
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 7: Slope Graph
+
+---
+## Recipe 7: Slope Graph 
+
+
+&lt;img src="index_files/figure-html/slope-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 7: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geoms]?
+1. What .whisper[variable] is .shout[grouped]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/slope-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 7: Code for Slope Graph
+
+
+```r
+slope_labels &lt;- plot_off5 %&gt;% 
+  filter(episode == "last") %&gt;% 
+  select(series, x_position = episode, y_position = viewers_7day)
+
+*ggplot(plot_off5, aes(x = episode,
+*                     y = viewers_7day,
+*                     color = series,
+*                     group = series)) +
+* geom_point() +
+* geom_line() +
+  scale_color_bakeoff(guide = FALSE) +
+  geom_text(data = slope_labels, aes(label = series,
+                                    x = x_position,
+                                    y = y_position),
+            nudge_x = .1) +
+  theme(panel.grid = element_blank(),
+        axis.line = element_line(color = "gray"))
+```
+
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+
+## Recipe 8: Finale "Bumps"
+
+---
+## Recipe 8: Finale "Bumps"
+
+&lt;img src="index_files/figure-html/bump-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 8: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/bump-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 8: Code for Finale "Bumps"
+
+
+```r
+# some more serious wrangling here
+plot_off8 &lt;- ratings %&gt;% 
+  select(series, episode, viewers_7day) %&gt;% 
+  group_by(series) %&gt;% 
+  filter(episode == 1 | episode == max(episode)) %&gt;% 
+* mutate(episode = recode(episode, `1` = "first", .default = "last")) %&gt;%
+* spread(episode, viewers_7day) %&gt;%
+* mutate(finale_bump = last - first)
+
+# plot
+*ggplot(plot_off8, aes(x = fct_rev(series),
+*                     y = finale_bump)) +
+* geom_col(fill = bakeoff_cols("baltic"), alpha = .7) +
+* coord_flip() +
+  labs(x = "Series", y = "Difference in Viewers for Finale from Premiere (millions)") +
+  ggtitle("Finale 'Bumps' were Smallest for Series 1 and 8",
+          subtitle = "Finale 7-day Viewers Relative to Premiere")
+```
+
+
+
+---
+class: center, middle, inverse
+
+# 🍰
+
+## Recipe 9: % Change Bar Chart
+
+---
+## Recipe 9: % Change Bar Chart
+
+&lt;img src="index_files/figure-html/changebar-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 9: Questions
+
+.left-column[
+1. Which .whisper[dataset]?
+1. Which .whisper[geom]?
+1. What .whisper[variable] is mapped on the .shout[x-axis]?
+1. What .whisper[variable] is mapped on the .shout[y-axis]?
+1. What .whisper[variable] is mapped to .shout[color]?
+]
+
+.right-column[
+&lt;img src="index_files/figure-html/changebar-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+---
+## Recipe 9: Code for % Bar
+
+
+```r
+# wrangling to calculate percent change
+plot_off9 &lt;- ratings %&gt;% 
+  select(series, episode, viewers_7day) %&gt;% 
+  group_by(series) %&gt;% 
+  filter(episode == 1 | episode == max(episode)) %&gt;% 
+  ungroup() %&gt;% 
+  mutate(episode = recode(episode, `1` = "first", .default = "last")) %&gt;% 
+* spread(episode, viewers_7day) %&gt;%
+* mutate(pct_change = (last - first) / first)
+
+# plot
+*ggplot(plot_off9, aes(x = fct_rev(series),
+*                     y = pct_change)) +
+* geom_col(fill = bakeoff_cols("baltic"), alpha = .5) +
+  geom_hline(aes(yintercept = median(pct_change, na.rm = TRUE)), 
+             color = bakeoff_cols("berry"),
+             lwd = 2) +
+  labs(x = "Series", y = "% Increase in Viewers, First to Last Episode") +
+  ggtitle("Series 8 had a 6% Increase in Viewers from Premiere to Finale",
+          subtitle= "The Lowest Across All Series (Line is the Median)") + 
+  scale_y_continuous(labels = scales::percent) +
+  coord_flip() 
+```
+
+
+---
+class: center, middle, inverse
+
+# 🎂
+
+## Recipe 10: Lollipop Plot, % Change
+
+---
+## Recipe 10: Lollipop Plot, % Change
+
+&lt;img src="index_files/figure-html/lollipercent-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 10: Code for % Lollipop Plot
+
+
+```r
+# plot
+*ggplot(plot_off9, aes(x = fct_rev(series),
+*                     y = pct_change)) +
+* geom_point(color = bakeoff_cols("bluesapphire"), size = 2) +
+* geom_segment(aes(xend = fct_rev(series), yend = 0), color = bakeoff_cols("bluesapphire")) +
+  geom_text(aes(label = scales::percent(pct_change)), hjust = -.25) +
+  labs(x = "Series", y = "% Change in Viewers from First to Last Episode") +
+  ggtitle("Percent Increase in Viewers was the Smallest for Series 8",
+          subtitle= "Finale 7-day Viewers Relative to Premiere") +
+  scale_y_continuous(labels = scales::percent, limits = c(0, .85)) +
+  coord_flip() 
+```
+
+---
+class: center, middle, inverse
+
+![](https://media.giphy.com/media/3o6ZtgKA92iX0oT2uI/source.gif)
+---
+class: center, middle, inverse
+
+# 🎂
+
+## Recipe 11: Scatterplot
+
+---
+## Recipe 11: Scatterplot
+
+&lt;img src="index_files/figure-html/scatter-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 11: Code for Scatterplot
+
+
+```r
+*ggplot(plot_off8, aes(x = first, y = last)) +
+* geom_point() +
+* geom_smooth(se = FALSE, color = '#EBBFDD') +
+* geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
+  geom_text(aes(label = series), hjust = -1) +
+  labs(x = "Premiere Episode 7-day Viewers (millions)",
+       y = "Finale Episode 7-day Viewers (millions)") +
+  coord_equal(ratio=1)
+```
+
+---
+class: center, middle, inverse
+
+# 🎂
+
+## Recipe 11.1: Pop-Out Scatterplot
+
+---
+## Recipe 11.1: Pop-Out Scatterplot
+
+&lt;img src="index_files/figure-html/lollipop-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+## Recipe 11.1: Code for Pop-Out Scatterplot
+
+
+```r
+ggplot(plot_off8, aes(x = first, y = last)) +
+  geom_abline(slope = 1, intercept = 0, color = "gray", alpha = .5) +
+  geom_smooth(se = FALSE, color = "#11B2E8") +
+  geom_point(data = filter(plot_off8, series %in% c(1:7, 9))) +
+  geom_point(data = filter(plot_off8, series == 8), colour = "#CF2154") +
+  geom_text(data = filter(plot_off8, series %in% c(1:7, 9)),
+            aes(label = series), hjust = -1) +
+  geom_text(data = filter(plot_off8, series == 8),
+            aes(label = series), hjust = -1, colour = "#CF2154") +
+  labs(x = "Premiere Episode 7-day Viewers (millions)",
+       y = "Finale Episode 7-day Viewers (millions)")
+```
+
+---
+class:inverse, middle, center
+
+![](https://media.giphy.com/media/d8m7wQHB3Ct5S/giphy.gif)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLanguage": ["r", "yaml", "markdown"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

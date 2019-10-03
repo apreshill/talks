@@ -1,0 +1,259 @@
+.remark-slide-content p, ul, ol, li {
+  font-size: 22px;
+}
+
+.remark-slide-content h1 {
+	margin-bottom: .25em !important;
+}
+
+.fancy { 
+  font-family: 'Sail', cursive;
+}
+
+.large { font-size: 2em; }
+
+.title {
+  font-family: 'Josefin Slab', serif;
+  font-weight: 400;
+}
+
+/* link color */
+a, a > code {
+  color: #E7553C;
+}
+
+/* unvisited link */
+a:link {
+    color: #E7553C;
+    text-decoration: underline;
+}
+
+/* visited link */
+a:visited {
+    color: #E7553C;
+    text-decoration: underline;
+}
+
+
+/* mouse over link */
+a:hover, a:active, a:focus {
+    color: rgba(231,85,60,.8);
+    text-decoration: underline;
+}
+
+.remark-code {
+  color: #17A2B8;
+}
+
+.remark-inline-code { 
+  color: #17A2B8;
+}
+
+.remark-code-line-highlighted { 
+  background-color: #84d6d3; 
+}
+
+
+.inverse {
+  background-color: #17a2b8;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #FFFFFF;
+  line-height: 1.0em;
+}
+
+.inverse .remark-code {
+  color: #f2e255;
+}
+
+.inverse a {
+  color: #f2e255;
+}
+
+.inverse a:hover,
+.inverse a:focus,
+.inverse a:active {
+  color: #fff;
+}
+
+
+/* Two-column layout */
+.left-column {
+  color: #777;
+  width: 25%;
+  height: 92%;
+  float: left;
+  font-size: 18px;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+
+img, video, iframe {
+  max-width: 100%;
+}
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee }
+
+@page { margin: 0; }
+
+.inverse .remark-inline-code { 
+  color: white;
+}
+
+.title-slide {
+  background-image: url(../images/protea-banner.png);
+  background-position: top;
+  background-size: contain;
+  background-color: #e7553c;
+}
+
+
+.title-slide h1 {
+  font-family: 'Josefin Slab', serif;
+  color: #FFFFFF;
+  font-size: 3em;
+  padding-top: 2em;
+  line-height: 1em;
+  padding-bottom: .1em;
+  word-wrap: break-word;
+}
+
+.title-slide h2 {
+  font-family: 'Josefin Slab', serif;
+  font-weight: 500;
+  font-size: 1.6em;
+  color: #FFFFFF;
+  text-shadow: none;
+  padding-top: .1em;
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+.title-slide h3 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 1.6em;
+  color: #FFFFFF;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 1.6em;
+}
+
+.title-slide h4 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 1.4em;
+  color: #FFFFFF;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.title-slide a {
+  color: #fff;
+}
+
+.inverse h1 {
+  font-family: 'Josefin Slab', serif;
+  color: #fff;
+  line-height: 1em;
+  word-wrap: break-word;
+}
+
+.inverse h2 {
+  font-family: 'Josefin Slab', serif;
+  text-shadow: 1px 1px 1px #003b3c;
+  color: #fff;
+}
+
+.inverse h3 {
+  font-family: 'Josefin Slab', serif;
+  text-shadow: 1px 1px 1px #003b3c;
+  color: #fff;
+  background: rgba(167,185,189, 0.6);
+}
+
+/* Wider cols */
+
+.right-wide {
+  width: 60%;
+  float: right;
+  padding-top: 1em;
+}
+
+.left-narrow {
+  width: 40%;
+  float: left;
+  padding-top: 1em;
+}
+
+.left-wide {
+  width: 60%;
+  float: left;
+  padding-top: 1em;
+}
+
+.right-narrow {
+  width: 40%;
+  float: right;
+  padding-top: 1em;
+}
+
+/* footer */
+
+div.my-footer {
+    background-color: #3b4245;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 20px;
+    width: 100%;
+}
+
+div.my-footer span {
+    font-size: 10pt;
+    color: #ffffff;
+    position: absolute;
+    left: 15px;
+    bottom: 2px;
+}
+
+
+.fa-stack-1x {
+	font-family: Josefin Slab;
+}
+
+
+/* fix hljs output code color to have more contrast */
+.hljs-dracula .hljs-comment, .hljs-dracula .hljs-quote, .hljs-dracula .hljs-deletion, .hljs-dracula .hljs-meta {
+	color: #17A2B8;
+}

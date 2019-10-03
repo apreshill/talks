@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
+ @import url('https://fonts.googleapis.com/css?family=Quicksand:400,400i,500,500i&display=swap');
+ @import url('https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Sail&display=swap');
+
+
+body { 
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  color: #404040;
+}
+
+
+h1 {
+  font-family: 'Josefin Slab', sans-serif;
+  font-weight: 400;
+  color: #17a2b8;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: 'Josefin Slab', sans-serif;
+  font-weight: 400;
+  color: #17A2B8;
+}
+
+.remark-code, 
+.remark-inline-code { 
+  font-family: 'Cutive Mono', monospace;
+}
+
+
+@media print {
+  body {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+}
+
+
+
+
