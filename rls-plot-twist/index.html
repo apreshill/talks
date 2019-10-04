@@ -137,7 +137,16 @@ library(bakeoff) # data + colors!
 
 
 ```r
-ratings &lt;- ratings %&gt;% 
+series10 &lt;- tribble(
+  ~series, ~episode, ~viewers_7day,
+  10,   1, 9.62,
+  10,   2, 9.38,
+  10,   3, 8.72,
+  10,   4, 8.73
+) 
+
+ratings_ten &lt;- ratings %&gt;% 
+  full_join(series10) %&gt;% 
   mutate(series = as.factor(series))
 ```
 
@@ -146,10 +155,10 @@ ratings &lt;- ratings %&gt;%
 
 
 ```
-Observations: 84
+Observations: 88
 Variables: 8
 $ series               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3…
-$ episode              &lt;int&gt; 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 7, 8, 1…
+$ episode              &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 7, 8, 1…
 $ uk_airdate           &lt;date&gt; 2010-08-17, 2010-08-24, 2010-08-31, 2010-0…
 *$ viewers_7day         &lt;dbl&gt; 2.24, 3.00, 3.00, 2.60, 3.03, 2.75, 3.10, 3…
 $ viewers_28day        &lt;dbl&gt; 7, 3, 2, 4, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1…
@@ -192,7 +201,7 @@ class: center, middle, inverse
 
 ```r
 # create continuous episode count
-plot_off1 &lt;- ratings %&gt;% 
+plot_off1 &lt;- ratings_ten %&gt;% 
 * mutate(ep_id = row_number()) %&gt;%
   select(ep_id, viewers_7day, series, episode)
 
@@ -215,7 +224,7 @@ series_labels &lt;- plot_off1 %&gt;%
         axis.title.x = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank()) + 
-  scale_fill_bakeoff(guide = FALSE) +
+  scale_fill_manual(values = bakeoff_cols, guide = FALSE) +
   scale_x_discrete(expand = c(0, 0)) 
 ```
 
@@ -273,15 +282,15 @@ class: center, middle, inverse
 
 
 ```r
-plot_off2 &lt;- ratings %&gt;% 
+plot_off2 &lt;- ratings_ten %&gt;% 
 * group_by(series) %&gt;%
 * mutate(series_avg = mean(viewers_7day, na.rm = TRUE),
 *        diff_avg = viewers_7day - series_avg) %&gt;%
-  #filter(max(episode) == 10) %&gt;% 
+  filter(max(episode) == 10) %&gt;% 
   mutate(episode = as.factor(episode)) %&gt;% 
   select(episode, viewers_7day, series, diff_avg, series_avg)
 
-*ggplot(plot_off2, aes(x = episode, y = viewers_7day, color = diff_avg)) +
+*ggplot(plot_off2, aes(x = as.factor(episode), y = viewers_7day, color = diff_avg)) +
 * geom_hline(aes(yintercept = series_avg), alpha = .5) +
 * geom_point() +
 * geom_segment(aes(xend = episode, yend = series_avg)) +
@@ -326,7 +335,7 @@ class: center, middle, inverse
 
 
 ```r
-line_labels &lt;- ratings %&gt;% 
+line_labels &lt;- ratings_ten %&gt;% 
   group_by(series) %&gt;% 
   filter(episode == max(episode)) %&gt;% 
   select(series, x_position = episode, y_position = viewers_7day)
@@ -336,7 +345,7 @@ line_labels &lt;- ratings %&gt;%
 *                   color = as.factor(series),
 *                   group = series)) +
 * geom_line() +
-  scale_color_bakeoff(guide = FALSE) +
+  scale_color_manual(values = bakeoff_cols, guide = FALSE) +
   labs(color = "Series", x = "Episode") +
   geom_text(data = line_labels, aes(label = series,
                                       x = x_position + .25, 
@@ -377,13 +386,13 @@ class: center, middle, inverse
 
 
 ```r
-*ggplot(ratings, aes(x = as.factor(episode),
+*ggplot(ratings_ten, aes(x = as.factor(episode),
 *                   y = viewers_7day,
 *                   color = fct_reorder2(series, episode, viewers_7day),
 *                   group = series)) +
 * facet_wrap(~series) +
 * geom_line(lwd = 2) +
-  scale_color_bakeoff(guide = FALSE) +
+  scale_color_manual(values = bakeoff_cols, guide = FALSE) +
   labs(color = "Series", x = "Episode") 
 ```
 
@@ -420,7 +429,8 @@ class: center, middle, inverse
 
 ```r
 # some wrangling here
-plot_off5 &lt;- ratings %&gt;% 
+plot_off5 &lt;- ratings_ten %&gt;% 
+  filter(series %in% complete_series) %&gt;% 
   select(series, episode, viewers_7day) %&gt;% 
 * group_by(series) %&gt;%
 * filter(episode == 1 | episode == max(episode)) %&gt;%
@@ -434,7 +444,7 @@ plot_off5 &lt;- ratings %&gt;%
 *                     group = episode)) +
 * geom_point() +
 * geom_line() +
-  scale_color_bakeoff() +
+  scale_color_manual(values = bakeoff_cols) +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
   labs(color = "Episode")
 ```
@@ -496,7 +506,7 @@ class: center, middle, inverse
 *                     group = series)) +
 * geom_line(size = .75) +
 * geom_point(size = 2.5) +
-  scale_color_bakeoff() +
+  scale_color_manual(values = bakeoff_cols) +
   labs(y = "Series", x = "Viewers (millions)", color = "Episode") +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") 
 ```
@@ -544,7 +554,7 @@ slope_labels &lt;- plot_off5 %&gt;%
 *                     group = series)) +
 * geom_point() +
 * geom_line() +
-  scale_color_bakeoff(guide = FALSE) +
+  scale_color_manual(values = bakeoff_cols, guide = FALSE) +
   geom_text(data = slope_labels, aes(label = series,
                                     x = x_position,
                                     y = y_position),
@@ -587,7 +597,8 @@ class: center, middle, inverse
 
 ```r
 # some more serious wrangling here
-plot_off8 &lt;- ratings %&gt;% 
+plot_off8 &lt;- ratings_ten %&gt;%
+  filter(series %in% complete_series) %&gt;% 
   select(series, episode, viewers_7day) %&gt;% 
   group_by(series) %&gt;% 
   filter(episode == 1 | episode == max(episode)) %&gt;% 
@@ -639,7 +650,8 @@ class: center, middle, inverse
 
 ```r
 # wrangling to calculate percent change
-plot_off9 &lt;- ratings %&gt;% 
+plot_off9 &lt;- ratings_ten %&gt;% 
+  filter(series %in% complete_series) %&gt;% 
   select(series, episode, viewers_7day) %&gt;% 
   group_by(series) %&gt;% 
   filter(episode == 1 | episode == max(episode)) %&gt;% 

@@ -48,6 +48,10 @@ theme_bakeoff <- function(font_choice = "Lato"){
   
 }
 ggplot2::theme_set(theme_bakeoff())
+
+bakeoff_cols <- c("#126180", "#fb82b7", "#ee5863", "#84d6d3", "#1a9a9d", "#ff7436", "#8e4866", "#fedb11", "#629d62", "#f7d2b1", "#f27168")
+
+complete_series <- seq(1:9)
 ```
 
 class: title-slide, center, bottom
@@ -172,7 +176,16 @@ library(bakeoff) # data + colors!
 # Data second
 
 ```{r}
-ratings <- ratings %>% 
+series10 <- tribble(
+  ~series, ~episode, ~viewers_7day,
+  10,   1, 9.62,
+  10,   2, 9.38,
+  10,   3, 8.72,
+  10,   4, 8.73
+) 
+
+ratings_ten <- ratings %>% 
+  full_join(series10) %>% 
   mutate(series = as.factor(series))
 ```
 
@@ -180,7 +193,7 @@ ratings <- ratings %>%
 # Glimpse
 
 ```{r echo = FALSE, highlight.output = 6}
-glimpse(ratings)
+glimpse(ratings_ten)
 ```
 
 
@@ -196,7 +209,7 @@ class: center, middle, inverse
 
 ```{r episodebar, echo = FALSE}
 # create continuous episode count
-plot_off1 <- ratings %>% 
+plot_off1 <- ratings_ten %>% 
   mutate(ep_id = row_number()) %>% #<<
   select(ep_id, viewers_7day, series, episode)
 
@@ -219,7 +232,7 @@ ggplot(plot_off1, aes(x = ep_id, y = viewers_7day, fill = series)) + #<<
         axis.title.x = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank()) + 
-  scale_fill_bakeoff(guide = FALSE) +
+  scale_fill_manual(values = bakeoff_cols, guide = FALSE) +
   scale_x_discrete(expand = c(0, 0)) 
 ```
 
@@ -277,15 +290,15 @@ class: center, middle, inverse
 ## Recipe 2: Lollipop Plot
 
 ```{r lolli, echo = FALSE}
-plot_off2 <- ratings %>% 
+plot_off2 <- ratings_ten %>% 
   group_by(series) %>% #<<
   mutate(series_avg = mean(viewers_7day, na.rm = TRUE), #<<
          diff_avg = viewers_7day - series_avg) %>% #<<
-  #filter(max(episode) == 10) %>% 
+  filter(max(episode) == 10) %>% 
   mutate(episode = as.factor(episode)) %>% 
   select(episode, viewers_7day, series, diff_avg, series_avg)
 
-ggplot(plot_off2, aes(x = episode, y = viewers_7day, color = diff_avg)) + #<<
+ggplot(plot_off2, aes(x = as.factor(episode), y = viewers_7day, color = diff_avg)) + #<<
   geom_hline(aes(yintercept = series_avg), alpha = .5) + #<<
   geom_point() + #<<
   geom_segment(aes(xend = episode, yend = series_avg)) + #<<
@@ -332,7 +345,7 @@ class: center, middle, inverse
 ## Recipe 3: Series Line Plot
 
 ```{r serieslines, echo = FALSE}
-line_labels <- ratings %>% 
+line_labels <- ratings_ten %>% 
   group_by(series) %>% 
   filter(episode == max(episode)) %>% 
   select(series, x_position = episode, y_position = viewers_7day)
@@ -342,7 +355,7 @@ ggplot(ratings, aes(x = as.factor(episode), #<<
                     color = as.factor(series), #<<
                     group = series)) + #<<
   geom_line() + #<<
-  scale_color_bakeoff(guide = FALSE) +
+  scale_color_manual(values = bakeoff_cols, guide = FALSE) +
   labs(color = "Series", x = "Episode") +
   geom_text(data = line_labels, aes(label = series,
                                       x = x_position + .25, 
@@ -383,13 +396,13 @@ class: center, middle, inverse
 ## Recipe 4: Facetted Line Plot
 
 ```{r facetlines, echo = FALSE}
-ggplot(ratings, aes(x = as.factor(episode), #<<
+ggplot(ratings_ten, aes(x = as.factor(episode), #<<
                     y = viewers_7day, #<<
                     color = fct_reorder2(series, episode, viewers_7day), #<<
                     group = series)) + #<<
   facet_wrap(~series) + #<<
   geom_line(lwd = 2) + #<<
-  scale_color_bakeoff(guide = FALSE) +
+  scale_color_manual(values = bakeoff_cols, guide = FALSE) +
   labs(color = "Series", x = "Episode") 
 ```
 
@@ -428,7 +441,8 @@ class: center, middle, inverse
 
 ```{r firstlastline, echo = FALSE}
 # some wrangling here
-plot_off5 <- ratings %>% 
+plot_off5 <- ratings_ten %>% 
+  filter(series %in% complete_series) %>% 
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% #<<
   filter(episode == 1 | episode == max(episode)) %>% #<<
@@ -442,7 +456,7 @@ ggplot(plot_off5, aes(x = series, #<<
                       group = episode)) + #<<
   geom_point() + #<<
   geom_line() + #<<
-  scale_color_bakeoff() +
+  scale_color_manual(values = bakeoff_cols) +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") +
   labs(color = "Episode")
 ```
@@ -504,7 +518,7 @@ ggplot(plot_off5, aes(x = viewers_7day, #<<
                       group = series)) + #<<
   geom_line(size = .75) + #<<
   geom_point(size = 2.5) + #<<
-  scale_color_bakeoff() +
+  scale_color_manual(values = bakeoff_cols) +
   labs(y = "Series", x = "Viewers (millions)", color = "Episode") +
   ggtitle("Great British Bake Off Finales Get More Viewers than Premieres") 
 ```
@@ -554,7 +568,7 @@ ggplot(plot_off5, aes(x = episode, #<<
                       group = series)) + #<<
   geom_point() + #<<
   geom_line() + #<<
-  scale_color_bakeoff(guide = FALSE) +
+  scale_color_manual(values = bakeoff_cols, guide = FALSE) +
   geom_text(data = slope_labels, aes(label = series,
                                     x = x_position,
                                     y = y_position),
@@ -599,7 +613,8 @@ class: center, middle, inverse
 
 ```{r bump, echo = FALSE}
 # some more serious wrangling here
-plot_off8 <- ratings %>% 
+plot_off8 <- ratings_ten %>%
+  filter(series %in% complete_series) %>% 
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% 
   filter(episode == 1 | episode == max(episode)) %>% 
@@ -652,7 +667,8 @@ class: center, middle, inverse
 
 ```{r changebar, echo = FALSE}
 # wrangling to calculate percent change
-plot_off9 <- ratings %>% 
+plot_off9 <- ratings_ten %>% 
+  filter(series %in% complete_series) %>% 
   select(series, episode, viewers_7day) %>% 
   group_by(series) %>% 
   filter(episode == 1 | episode == max(episode)) %>% 
