@@ -1,8 +1,9 @@
 ---
 title: "Take A Sad Plot & Make It Better"
 subtitle: "A Case Study with R and ggplot2"
-event: "R-Ladies Melbourne Meetup"
-date: "2019-09-26"
+params:
+  event: "R-Ladies Melbourne Meetup"
+  date: "2019-09-26"
 author: Alison Hill
 output:
   xaringan::moon_reader:
@@ -39,7 +40,7 @@ class: title-slide, center, bottom
 
 ### `r rmarkdown::metadata$author` &#183; RStudio
 
-#### `r rmarkdown::metadata$event` &#183; `r rmarkdown::metadata$date`
+#### `r params$event` &#183; `r params$date`
 
 ---
 name: hello
