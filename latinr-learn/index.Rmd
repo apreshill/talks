@@ -639,7 +639,7 @@ class: middle, center
 ---
 class: middle
 
-# The world is your oyster
+# Stage 4: The world is your oyster
 
 --
 
@@ -660,17 +660,25 @@ background-size: contain
 .footnote[<https://xkcd.com/1168/>]
 
 ---
+class: middle
 
-# Make it count, (eventually) make it public
+# Stage 4: Pause + pay it forward
+
+--
+
+<https://alison.rbind.io/post/2019-12-23-learning-to-teach-machines-to-learn/>
+
+--
+
+<https://masalmon.eu/2020/02/29/hugo-maintenance/>
 
 ---
+class: middle, center
 
-# Pay it forward
+```{r echo=FALSE}
+knitr::include_url("https://isabella-b.com/today-i-learned/")
+```
 
-
-https://alison.rbind.io/post/2019-12-23-learning-to-teach-machines-to-learn/
-
-https://education.rstudio.com/blog/2020/05/remote-roundup/
 
 ---
 class: middle, center, inverse
