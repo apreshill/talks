@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Learning without a net</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Presmanes Hill, Ph.D." />
+    <meta name="date" content="2020-10-07" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, middle
+
+# Learning without a net
+
+## aprendiendo sin una red
+
+### Alison Presmanes Hill, Ph.D.
+
+
+### LatinR 2020 &amp;mdash; 2020-10-07
+
+
+---
+layout: true
+
+&lt;a class="footer-link" href=""&gt;&lt;/a&gt;
+
+---
+name: clouds
+class: center, middle
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+
+
+---
+template: clouds
+
+## .big-text[Hello.]
+
+???
+
+So hello- I'm so happy to be invited to join you all today.
+
+---
+name: clouds
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+---
+name: hello
+template: clouds
+class: middle, center
+
+
+### Alison Hill 
+
+&lt;img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/&gt;
+
+
+[<i class="fab  fa-github "></i> @apreshill](https://github.com/apreshill)  
+[<i class="fab  fa-twitter "></i> @apreshill](https://twitter.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)
+
+
+???
+
+My name is Alison Hill, and I'm a data scientist and professional educator at RStudio.
+
+
+---
+class: middle, left
+background-image: url(images/bath.jpg)
+background-position: right
+background-size: contain
+
+# What does a professional &lt;br&gt; educator do?
+
+--
+
+1) Learn complex things
+
+--
+
+2) Explain complex things
+
+--
+
+3) Rinse and repeat
+
+
+---
+class: middle, center, inverse
+background-image: url(images/intro.png)
+background-size: cover
+
+---
+class: middle, right
+background-image: url(images/mind.jpg)
+background-position: left
+background-size: contain
+
+# What I (try to) bring:
+
+--
+
+1) Ph.D. in human development (learning!)
+
+--
+
+2) Perseverance
+
+--
+
+3) Patience
+
+--
+
+4) Ability to sift through mounds of information
+
+--
+
+5) Ability to cope with the unease of not knowing
+
+--
+
+6) Awareness of what I know (and what I don't)
+
+
+---
+class: middle, left
+background-image: url(images/r.jpg)
+background-position: right
+background-size: contain
+
+# What have I learned &lt;br&gt; on my own (recently)?
+
+--
+
++ R 
+
+--
+
++ .emphasis[Literate programming]&lt;br&gt;(with R Markdown)
+
+--
+
++ .emphasis[Static website development]&lt;br&gt;(with blogdown + Hugo)
+
+--
+
++ .emphasis[Machine learning]&lt;br&gt;(with tidymodels)
+
+--
+
++ .emphasis[Data science pedagogy] (WIP)
+
+---
+background-image: url(images/big-magic.png)
+background-position: middle, center
+background-size: 70%
+class: center, bottom
+
+
+.footnote[&lt;https://alison.rbind.io/talk/2018-cascadia-bigmagic/&gt;]
+
+---
+class: middle, right
+background-image: url(images/girl.jpg)
+background-position: left
+background-size: contain
+
+# But things have changed.
+
+--
+
+We are in a global pandemic.
+
+--
+
+Learning does not feel so great now.
+
+--
+
+Asking for help does not feel so great right now.
+
+
+
+
+---
+class: title-slide, middle
+
+# What do I do?
+
+--
+
+Today, I'll share my own strategies for learning without a net. 
+
+--
+
+Every time I do it, it is scary.
+
+--
+
+But also every time I do it, I get better at it.
+
+--
+
+And having a system helps.
+
+---
+name: materials
+class: middle, center
+background-image: url(images/materials.svg)
+background-size: cover
+background-color: #eceade
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To get somewhere fast 
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### To orient yourself
+]
+
+---
+class: middle
+
+# Orientations
+
+&gt; "An orientation is a general overview that makes people aware something exists."
+&gt; 
+&gt; &amp;mdash; [Greg Wilson](https://third-bit.com/2019/04/10/what-docs-and-when.html)
+
+--
+
++ Webinars
+
+--
+
++ Workshops
+
+--
+
++ First lecture of a course
+
+--
+
++ First chapter of a book
+
+
+---
+template: clouds
+class: middle
+
+# Stage 1: Get oriented
+
+--
+
++ .emphasis[Search!] Try adding *"intro to"* or *"for beginners"* &amp;mdash; this is where you are.
+
+--
+
++ .emphasis[Ask!] *"Can you share 3 or 4 key blog posts or resources that you recommend as starting points?"*&lt;br&gt;(also works for forums like Discourse, Slack, Twitter)
+
+
+--
+
++ .emphasis[Edit!] Be very picky here- you'll likely have options. Pick friendly voices. Select for kindness.
+
+
+
+---
+background-image: url(images/ml-bookmarks.png)
+background-size: contain
+background-position: middle, center
+
+---
+background-image: url(images/parrots.jpg)
+background-size: contain
+background-position: right
+class: middle
+
+# Edit!
+
+---
+template: clouds
+class: middle
+
+# A "good" orientation
+
+--
+
++ Lists .emphasis[prerequisites]
+
+--
+
++ Defines .emphasis[key terms] simply
+
+--
+
++ Includes .emphasis[visual aids] 
+
+--
+
++ Gives you .emphasis[leads] (What else do I need to know? What should I learn next?)
+
+--
+
++ Does some .emphasis[hand-waving] ("Never hesitate to sacrifice truth for clarity." &amp;mdash; [Greg Wilson](https://third-bit.com/10rules/#teaching))
+
+---
+class: middle
+background-image: url(https://i.vas3k.ru/7w1.jpg)
+background-position: right
+background-size: 50%
+
+
+# Examples
+
++ [Machine learning for everyone](https://vas3k.com/blog/machine_learning/)
+
++ [Tidy data by Hadley Wickham](https://vita.had.co.nz/papers/tidy-data.pdf)
+
++ [The modeling process by&lt;br&gt;Bradley Boehmke &amp; Brandon Greenwell](https://bradleyboehmke.github.io/HOML/process.html)
+
+
+
+---
+class: middle, center
+
+.pull-left[
+
+## You need: 
+
+### To orient yourself
+]
+
+--
+
+.pull-right[
+
+## You don't need: 
+
+### Q &amp; A like StackOverflow&lt;br&gt;(not ready yet!)
+
+### Reference documentation&lt;br&gt;(not written for you!)
+]
+
+---
+template: materials
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To get organized
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### To get to a happy place
+]
+
+---
+template: clouds
+class: middle
+
+# Stage 2: Get happy
+
+--
+
+.emphasis[Comfortable with GitHub?] Work in a [repository](https://github.com/katiejolly/data-resources) to learn.
+
+--
+
+.emphasis[Happiest making slides?] Create a deck.
+
+--
+
+.emphasis[Love writing?] Start a blog post.
+
+--
+
+.emphasis[Don't love writing?] Maybe still start a blog post.
+
+---
+class: middle, center, inverse
+background-image: url(images/mother.jpg)
+background-size: contain
+background-position: left
+
+.pull-right[
+### "Learning will only stick if you feel good while doing it." 
+
+### &amp;mdash; me
+
+]
+
+---
+template: materials
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To get to work
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### A mental model
+]
+
+---
+background-image: url(images/hull0.jpg)
+background-size: cover
+class: inverse
+
+---
+background-image: url(images/hull1.jpg)
+background-size: cover
+
+---
+background-image: url(images/ship.jpg)
+background-size: 80%
+class: inverse
+
+
+---
+class: middle, inverse, center
+
+# But also...
+
+--
+
+You need some small, early wins.
+
+--
+
+*"Tag to toes, hands in holes, and flip!"*
+
+---
+class: middle, center
+
+&lt;iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D934100276685634&amp;show_text=false&amp;width=734&amp;height=734&amp;appId" width="734" height="734" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"&gt;&lt;/iframe&gt;
+
+
+---
+class: middle
+
+# Lessons that build mental models
+
+--
+
++ A .emphasis[tutorial] is a planned lesson designed to help you build a mental model.
+
+--
+
++ A .emphasis[worked example] shows you how to solve a specific problem, but a good one also conveys something more generalizable.
+
+
+
+---
+template: clouds
+class: middle
+
+# Stage 3: Building mental models
+
+--
+
++ .emphasis[Search!] Try adding *"how to"* or *"tutorial"* along with keywords to help you filter (like R package names)
+
+--
+
++ .emphasis[Ask!] *"Can you share 3 or 4 key blog posts or resources that you recommend about `_____`?"*&lt;br&gt;(also works for forums like Discourse, Slack, Twitter)
+
+--
+
++ .emphasis[Edit!] Again, someone you want to spend time with.
+
+---
+template: clouds
+class: middle
+
+# A "good" tutorial
+
+--
+
++ Good .emphasis[scope] (not too broad, not too narrow)
+
+--
+
++ Good .emphasis[structure] (information is chunked sensibly)
+
+--
+
++ Good .emphasis[sequencing] (order helps, not hurts)
+
+--
+
++ Good .emphasis[successes] baked in (just enough)
+
+---
+class: middle, center, inverse
+background-image: url(images/mother.jpg)
+background-size: contain
+background-position: left
+
+.pull-right[
+### "There is no trophy for doing it the hard way." 
+
+### &amp;mdash; me
+
+]
+
+---
+class: middle, center, inverse
+
+# Not good enough?
+
+&lt;video width="480" height="600" controls="controls"&gt;
+&lt;source src="images/welder.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+---
+class: middle
+background-image: url(https://www.tidymodels.org/start/case-study/img/hotel.jpg)
+background-position: right
+background-size: 50%
+
+
+# Examples
+
++ [Up &amp; running with blogdown](https://alison.rbind.io/post/2017-06-12-up-and-running-with-blogdown/)
+
++ [Data wrangling](https://suzan.rbind.io/categories/tutorial/)
+
++ [Get started with tidymodels](https://www.tidymodels.org/start/)
+
++ [A predictive modeling case study](https://www.tidymodels.org/start/case-study/)
+
+
+---
+template: materials
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To know how to do exactly X
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### The right help,&lt;br&gt;in the right place,&lt;br&gt;at the right time
+]
+
+---
+class: middle
+
+# The world is your oyster
+
+--
+
++ Reference documentation
+
+--
+
++ "Cookbooks"
+
+--
+
++ Q&amp;A forums like Stack Overflow
+
+---
+background-image: url(https://imgs.xkcd.com/comics/tar_2x.png)
+background-size: contain
+
+.footnote[&lt;https://xkcd.com/1168/&gt;]
+
+---
+
+# Make it count, (eventually) make it public
+
+---
+
+# Pay it forward
+
+
+https://alison.rbind.io/post/2019-12-23-learning-to-teach-machines-to-learn/
+
+https://education.rstudio.com/blog/2020/05/remote-roundup/
+
+---
+class: middle, center, inverse
+
+# What questions do you have?
+
+---
+name: goodbye
+class: right, middle, pink
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Thank you!
+
+### Find me at...
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+[<i class="fas  fa-paper-plane "></i> alison@rstudio.com](mailto:alison@rstudio.com)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>\n",
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

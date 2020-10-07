@@ -1,0 +1,661 @@
+---
+title: "Learning without a net"
+subtitle: "aprendiendo sin una red"
+author: Alison Presmanes Hill, Ph.D.
+date: "2020-10-07"
+output:
+  xaringan::moon_reader:
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+
+
+class: title-slide, left, middle
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+
+### LatinR 2020 &mdash; `r rmarkdown::metadata$date`
+
+
+---
+layout: true
+
+<a class="footer-link" href=""></a>
+
+---
+name: clouds
+class: center, middle
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+
+
+---
+template: clouds
+
+## .big-text[Hello.]
+
+???
+
+So hello- I'm so happy to be invited to join you all today.
+
+---
+name: clouds
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+---
+name: hello
+template: clouds
+class: middle, center
+
+
+### Alison Hill 
+
+<img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/>
+
+
+[`r icon::fa("github")` @apreshill](https://github.com/apreshill)  
+[`r icon::fa("twitter")` @apreshill](https://twitter.com/apreshill)  
+[`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)
+
+
+???
+
+My name is Alison Hill, and I'm a data scientist and professional educator at RStudio.
+
+
+---
+class: middle, left
+background-image: url(images/bath.jpg)
+background-position: right
+background-size: contain
+
+# What does a professional <br> educator do?
+
+--
+
+1) Learn complex things
+
+--
+
+2) Explain complex things
+
+--
+
+3) Rinse and repeat
+
+
+---
+class: middle, center, inverse
+background-image: url(images/intro.png)
+background-size: cover
+
+---
+class: middle, right
+background-image: url(images/mind.jpg)
+background-position: left
+background-size: contain
+
+# What I (try to) bring:
+
+--
+
+1) Ph.D. in human development (learning!)
+
+--
+
+2) Perseverance
+
+--
+
+3) Patience
+
+--
+
+4) Ability to sift through mounds of information
+
+--
+
+5) Ability to cope with the unease of not knowing
+
+--
+
+6) Awareness of what I know (and what I don't)
+
+
+---
+class: middle, left
+background-image: url(images/r.jpg)
+background-position: right
+background-size: contain
+
+# What have I learned <br> on my own (recently)?
+
+--
+
++ R 
+
+--
+
++ .emphasis[Literate programming]<br>(with R Markdown)
+
+--
+
++ .emphasis[Static website development]<br>(with blogdown + Hugo)
+
+--
+
++ .emphasis[Machine learning]<br>(with tidymodels)
+
+--
+
++ .emphasis[Data science pedagogy] (WIP)
+
+---
+background-image: url(images/big-magic.png)
+background-position: middle, center
+background-size: 70%
+class: center, bottom
+
+
+.footnote[<https://alison.rbind.io/talk/2018-cascadia-bigmagic/>]
+
+---
+class: middle, right
+background-image: url(images/girl.jpg)
+background-position: left
+background-size: contain
+
+# But things have changed.
+
+--
+
+We are in a global pandemic.
+
+--
+
+Learning does not feel so great now.
+
+--
+
+Asking for help does not feel so great right now.
+
+
+
+
+---
+class: title-slide, middle
+
+# What do I do?
+
+--
+
+Today, I'll share my own strategies for learning without a net. 
+
+--
+
+Every time I do it, it is scary.
+
+--
+
+But also every time I do it, I get better at it.
+
+--
+
+And having a system helps.
+
+---
+name: materials
+class: middle, center
+background-image: url(images/materials.svg)
+background-size: cover
+background-color: #eceade
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To get somewhere fast 
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### To orient yourself
+]
+
+---
+class: middle
+
+# Orientations
+
+> "An orientation is a general overview that makes people aware something exists."
+> 
+> &mdash; [Greg Wilson](https://third-bit.com/2019/04/10/what-docs-and-when.html)
+
+--
+
++ Webinars
+
+--
+
++ Workshops
+
+--
+
++ First lecture of a course
+
+--
+
++ First chapter of a book
+
+
+---
+template: clouds
+class: middle
+
+# Stage 1: Get oriented
+
+--
+
++ .emphasis[Search!] Try adding *"intro to"* or *"for beginners"* &mdash; this is where you are.
+
+--
+
++ .emphasis[Ask!] *"Can you share 3 or 4 key blog posts or resources that you recommend as starting points?"*<br>(also works for forums like Discourse, Slack, Twitter)
+
+
+--
+
++ .emphasis[Edit!] Be very picky here- you'll likely have options. Pick friendly voices. Select for kindness.
+
+
+
+---
+background-image: url(images/ml-bookmarks.png)
+background-size: contain
+background-position: middle, center
+
+---
+background-image: url(images/parrots.jpg)
+background-size: contain
+background-position: right
+class: middle
+
+# Edit!
+
+---
+template: clouds
+class: middle
+
+# A "good" orientation
+
+--
+
++ Lists .emphasis[prerequisites]
+
+--
+
++ Defines .emphasis[key terms] simply
+
+--
+
++ Includes .emphasis[visual aids] 
+
+--
+
++ Gives you .emphasis[leads] (What else do I need to know? What should I learn next?)
+
+--
+
++ Does some .emphasis[hand-waving] ("Never hesitate to sacrifice truth for clarity." &mdash; [Greg Wilson](https://third-bit.com/10rules/#teaching))
+
+---
+class: middle
+background-image: url(https://i.vas3k.ru/7w1.jpg)
+background-position: right
+background-size: 50%
+
+
+# Examples
+
++ [Machine learning for everyone](https://vas3k.com/blog/machine_learning/)
+
++ [Tidy data by Hadley Wickham](https://vita.had.co.nz/papers/tidy-data.pdf)
+
++ [The modeling process by<br>Bradley Boehmke & Brandon Greenwell](https://bradleyboehmke.github.io/HOML/process.html)
+
+
+
+---
+class: middle, center
+
+.pull-left[
+
+## You need: 
+
+### To orient yourself
+]
+
+--
+
+.pull-right[
+
+## You don't need: 
+
+### Q & A like StackOverflow<br>(not ready yet!)
+
+### Reference documentation<br>(not written for you!)
+]
+
+---
+template: materials
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To get organized
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### To get to a happy place
+]
+
+---
+template: clouds
+class: middle
+
+# Stage 2: Get happy
+
+--
+
+.emphasis[Comfortable with GitHub?] Work in a [repository](https://github.com/katiejolly/data-resources) to learn.
+
+--
+
+.emphasis[Happiest making slides?] Create a deck.
+
+--
+
+.emphasis[Love writing?] Start a blog post.
+
+--
+
+.emphasis[Don't love writing?] Maybe still start a blog post.
+
+---
+class: middle, center, inverse
+background-image: url(images/mother.jpg)
+background-size: contain
+background-position: left
+
+.pull-right[
+### "Learning will only stick if you feel good while doing it." 
+
+### &mdash; me
+
+]
+
+---
+template: materials
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To get to work
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### A mental model
+]
+
+---
+background-image: url(images/hull0.jpg)
+background-size: cover
+class: inverse
+
+---
+background-image: url(images/hull1.jpg)
+background-size: cover
+
+---
+background-image: url(images/ship.jpg)
+background-size: 80%
+class: inverse
+
+
+---
+class: middle, inverse, center
+
+# But also...
+
+--
+
+You need some small, early wins.
+
+--
+
+*"Tag to toes, hands in holes, and flip!"*
+
+---
+class: middle, center
+
+<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D934100276685634&show_text=false&width=734&height=734&appId" width="734" height="734" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
+
+
+---
+class: middle
+
+# Lessons that build mental models
+
+--
+
++ A .emphasis[tutorial] is a planned lesson designed to help you build a mental model.
+
+--
+
++ A .emphasis[worked example] shows you how to solve a specific problem, but a good one also conveys something more generalizable.
+
+
+
+---
+template: clouds
+class: middle
+
+# Stage 3: Building mental models
+
+--
+
++ .emphasis[Search!] Try adding *"how to"* or *"tutorial"* along with keywords to help you filter (like R package names)
+
+--
+
++ .emphasis[Ask!] *"Can you share 3 or 4 key blog posts or resources that you recommend about `_____`?"*<br>(also works for forums like Discourse, Slack, Twitter)
+
+--
+
++ .emphasis[Edit!] Again, someone you want to spend time with.
+
+---
+template: clouds
+class: middle
+
+# A "good" tutorial
+
+--
+
++ Good .emphasis[scope] (not too broad, not too narrow)
+
+--
+
++ Good .emphasis[structure] (information is chunked sensibly)
+
+--
+
++ Good .emphasis[sequencing] (order helps, not hurts)
+
+--
+
++ Good .emphasis[successes] baked in (just enough)
+
+---
+class: middle, center, inverse
+background-image: url(images/mother.jpg)
+background-size: contain
+background-position: left
+
+.pull-right[
+### "There is no trophy for doing it the hard way." 
+
+### &mdash; me
+
+]
+
+---
+class: middle, center, inverse
+
+# Not good enough?
+
+<video width="480" height="600" controls="controls">
+<source src="images/welder.mp4" type="video/mp4">
+</video>
+
+---
+class: middle
+background-image: url(https://www.tidymodels.org/start/case-study/img/hotel.jpg)
+background-position: right
+background-size: 50%
+
+
+# Examples
+
++ [Up & running with blogdown](https://alison.rbind.io/post/2017-06-12-up-and-running-with-blogdown/)
+
++ [Data wrangling](https://suzan.rbind.io/categories/tutorial/)
+
++ [Get started with tidymodels](https://www.tidymodels.org/start/)
+
++ [A predictive modeling case study](https://www.tidymodels.org/start/case-study/)
+
+
+---
+template: materials
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To know how to do exactly X
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
+### The right help,<br>in the right place,<br>at the right time
+]
+
+---
+class: middle
+
+# The world is your oyster
+
+--
+
++ Reference documentation
+
+--
+
++ "Cookbooks"
+
+--
+
++ Q&A forums like Stack Overflow
+
+---
+background-image: url(https://imgs.xkcd.com/comics/tar_2x.png)
+background-size: contain
+
+.footnote[<https://xkcd.com/1168/>]
+
+---
+
+# Make it count, (eventually) make it public
+
+---
+
+# Pay it forward
+
+
+https://alison.rbind.io/post/2019-12-23-learning-to-teach-machines-to-learn/
+
+https://education.rstudio.com/blog/2020/05/remote-roundup/
+
+---
+class: middle, center, inverse
+
+# What questions do you have?
+
+---
+name: goodbye
+class: right, middle, pink
+
+
+<img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/>
+
+# Thank you!
+
+### Find me at...
+
+[`r icon::fa("twitter")` @apreshill](http://twitter.com/apreshill)  
+[`r icon::fa("github")` @apreshill](http://github.com/apreshill)  
+[`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)  
+[`r icon::fa("paper-plane")` alison@rstudio.com](mailto:alison@rstudio.com)
