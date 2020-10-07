@@ -633,6 +633,25 @@ class: middle, center
 
 ## You need: 
 
+### To know how to do exactly X
+]
+
+---
+class: middle, center
+
+.pull-left[
+
+## You want:
+
+### To know how to do exactly X
+]
+
+--
+
+.pull-right[
+
+## You need: 
+
 ### The right help,<br>in the right place,<br>at the right time
 ]
 
