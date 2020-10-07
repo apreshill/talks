@@ -21,7 +21,23 @@ output:
       ratio: "16:9"
 ---
 
-
+```{r meta, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+    description = "Strategies for learning new things on your own",
+    generator = "xaringan and remark.js"
+  ) %>% 
+  meta_name("github-repo" = "apreshill/talks") %>% 
+  meta_social(
+    title = "Learning without a net",
+    url = "https://alison.netlify.app/latinr-learn",
+    image = "https://alison.netlify.app/latinr-learn/images/web.jpg",
+    image_alt = "A spiderweb from rawpixel",
+    og_type = "website",
+    twitter_card_type = "summary_large_image"
+  )
+```
 
 class: title-slide, left, middle
 
