@@ -247,13 +247,16 @@ class: middle, center
 ]
 
 ---
-class: middle
+class: middle, inverse
 
-# Orientations
 
 > "An orientation is a general overview that makes people aware something exists."
 > 
 > &mdash; [Greg Wilson](https://third-bit.com/2019/04/10/what-docs-and-when.html)
+
+---
+
+# Delivery of orientations
 
 --
 
@@ -261,7 +264,7 @@ class: middle
 
 --
 
-+ Workshops
++ First bit of a workshop
 
 --
 
@@ -269,7 +272,7 @@ class: middle
 
 --
 
-+ First chapter of a book
++ Early chapter(s) of a book
 
 
 ---
@@ -497,7 +500,6 @@ class: middle
 + A .emphasis[worked example] shows you how to solve a specific problem, but a good one also conveys something more generalizable.
 
 
-
 ---
 template: clouds
 class: middle
@@ -507,6 +509,10 @@ class: middle
 --
 
 + .emphasis[Search!] Try adding *"how to"* or *"tutorial"* along with keywords to help you filter (like R package names)
+
+--
+
++ .emphasis[Show up!] Find a workshop to attend
 
 --
 
