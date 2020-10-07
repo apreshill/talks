@@ -207,6 +207,10 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
 }
 
 .title-slide a {
+  color: #3b4245;
+}
+
+.title-slide a:hover {
   color: #fff;
 }
 

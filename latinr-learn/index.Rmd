@@ -34,11 +34,8 @@ class: title-slide, left, middle
 
 ### LatinR 2020 &mdash; `r rmarkdown::metadata$date`
 
+<a href="https://alison.netlify.app/latinr-learn">alison.netlify.app/latinr-learn</a>
 
----
-layout: true
-
-<a class="footer-link" href=""></a>
 
 ---
 name: clouds
