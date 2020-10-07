@@ -700,6 +700,9 @@ knitr::include_url("https://isabella-b.com/today-i-learned/")
 
 
 ---
+template: materials
+
+---
 class: middle, center, inverse
 
 # What questions do you have?
