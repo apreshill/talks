@@ -695,6 +695,14 @@ class: middle
 class: middle, center
 
 ```{r echo=FALSE}
+knitr::include_url("https://education.rstudio.com/learn/")
+```
+
+
+---
+class: middle, center
+
+```{r echo=FALSE}
 knitr::include_url("https://isabella-b.com/today-i-learned/")
 ```
 
