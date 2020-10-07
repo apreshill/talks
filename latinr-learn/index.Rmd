@@ -698,6 +698,7 @@ class: middle, center
 knitr::include_url("https://education.rstudio.com/learn/")
 ```
 
+<https://education.rstudio.com/learn/>
 
 ---
 class: middle, center
@@ -706,6 +707,7 @@ class: middle, center
 knitr::include_url("https://isabella-b.com/today-i-learned/")
 ```
 
+<https://isabella-b.com/today-i-learned/>
 
 ---
 template: materials
