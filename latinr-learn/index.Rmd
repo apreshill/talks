@@ -25,7 +25,7 @@ output:
 library(metathis)
 meta() %>%
   meta_general(
-    description = "Strategies for learning new things on your own",
+    description = "Keynote for LatinR 2020",
     generator = "xaringan and remark.js"
   ) %>% 
   meta_name("github-repo" = "apreshill/talks") %>% 
