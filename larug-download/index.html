@@ -113,6 +113,10 @@ class: inverse, middle, center
 # Distill
 
 
+```r
+install.packages("distill")
+```
+
 ---
 class: middle, center
 
@@ -130,7 +134,9 @@ class: middle, center
 
 ✔️ No (extra) dependencies
 
+--
 
+&lt;https://rstudio.github.io/distill/&gt;
 
 ---
 class: middle, center
@@ -142,9 +148,15 @@ class: middle, center
 ### Solution: try the themer!
 
 ---
-class: inverse, middle, center
+class: inverse, middle
+background-image: url(images/paint-cat.jpg)
+background-size: contain
+background-position: right
+background-color: #191A1C
+
 
 # Distill themer demo
+
 
 
 ---
@@ -164,6 +176,11 @@ class: inverse, middle, center
 # Blogdown
 
 
+```r
+devtools::install_github("rstudio/blogdown")
+```
+
+
 ---
 class: middle, center
 
@@ -181,6 +198,10 @@ class: middle, center
 
 ✔️ Subdirectories
 
+--
+
+&lt;https://malco.io/&gt;
+
 
 
 ---
@@ -194,16 +215,23 @@ class: middle, center
 
 ---
 class: middle
+background-image: url(images/trouble-kittens.jpg)
+background-position: left
+background-size: contain
+background-color: #f4f4f3
 
+.pull-right[
 # So many things can go wrong
 
---
+
 
 + Hugo versions
 
---
+
 
 + R package versions
+
+]
 
 ---
 class: middle
@@ -303,6 +331,7 @@ options(blogdown.hugo.version = 0.78.2,
         blogdown.files_filter = blogdown:::md5sum_filter,
         # other nice to haves!
         blogdown.title_case = TRUE,
+        blogdown.initial_files = FALSE,
         # nice defaults!
         blogdown.new_bundle = TRUE,
         blogdown.warn.future = TRUE,
@@ -382,7 +411,7 @@ background-size: 50%
 ---
 class: middle, center
 
-# 🕣 check
+# ⌚ check
 
 bookdown?
 

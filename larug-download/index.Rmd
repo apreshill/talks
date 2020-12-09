@@ -114,6 +114,9 @@ class: inverse, middle, center
 
 # Distill
 
+```{r eval=FALSE}
+install.packages("distill")
+```
 
 ---
 class: middle, center
@@ -132,7 +135,9 @@ class: middle, center
 
 `r emo::ji("heavy_check_mark")` No (extra) dependencies
 
+--
 
+<https://rstudio.github.io/distill/>
 
 ---
 class: middle, center
@@ -144,9 +149,15 @@ class: middle, center
 ### Solution: try the themer!
 
 ---
-class: inverse, middle, center
+class: inverse, middle
+background-image: url(images/paint-cat.jpg)
+background-size: contain
+background-position: right
+background-color: #191A1C
+
 
 # Distill themer demo
+
 
 
 ---
@@ -164,6 +175,10 @@ class: middle, center, inverse
 class: inverse, middle, center
 
 # Blogdown
+
+```{r eval=FALSE}
+devtools::install_github("rstudio/blogdown")
+```
 
 
 ---
@@ -183,6 +198,10 @@ class: middle, center
 
 `r emo::ji("heavy_check_mark")` Subdirectories
 
+--
+
+<https://malco.io/>
+
 
 
 ---
@@ -196,16 +215,23 @@ class: middle, center
 
 ---
 class: middle
+background-image: url(images/trouble-kittens.jpg)
+background-position: left
+background-size: contain
+background-color: #f4f4f3
 
+.pull-right[
 # So many things can go wrong
 
---
+
 
 + Hugo versions
 
---
+
 
 + R package versions
+
+]
 
 ---
 class: middle
@@ -299,6 +325,7 @@ options(blogdown.hugo.version = 0.78.2,
         blogdown.files_filter = blogdown:::md5sum_filter,
         # other nice to haves!
         blogdown.title_case = TRUE,
+        blogdown.initial_files = FALSE,
         # nice defaults!
         blogdown.new_bundle = TRUE,
         blogdown.warn.future = TRUE,
