@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>The Download</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Presmanes Hill, Ph.D." />
+    <meta name="date" content="2020-10-26" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class: title-slide, left, middle
+
+.pull-left[
+
+# The Download
+
+## Recent developments with R Markdown
+
+### Alison Presmanes Hill, Ph.D.
+
+### 2020-10-26
+]
+
+---
+name: clouds
+class: center, middle
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+
+
+---
+template: clouds
+
+## .big-text[Hello.]
+
+???
+
+So hello- I'm so happy to be invited to join you all today.
+
+---
+name: clouds
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+---
+name: hello
+template: clouds
+class: middle, center
+
+
+### Alison Hill 
+
+&lt;img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/&gt;
+
+
+[<i class="fab  fa-github "></i> @apreshill](https://github.com/apreshill)  
+[<i class="fab  fa-twitter "></i> @apreshill](https://twitter.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)
+
+
+???
+
+My name is Alison Hill, and I'm a data scientist and professional educator at RStudio.
+
+---
+background-image: url(images/pkgs.png)
+background-position: left
+background-size: contain
+class: middle, center
+
+.pull-right[
+# *(Some members of)*
+# *the R Markdown family*
+]
+
+---
+class: middle, center
+
+# ~20 packages
+
+
+rstudio/rmarkdown  
+rstudio/distill  
+rstudio/flexdashboard  
+rstudio/learnr  
+rstudio/tufte  
+rstudio/bookdown  
+rstudio/blogdown  
+rstudio/markdown  
+rstudio/rticles  
+rstudio/pagedown  
+rstudio/revealjs  
+yihui/knitr  
+yihui/xaringan  
+yihui/xfun  
+yihui/servr  
+yihui/tinytex  
+yihui/highr  
+yihui/Rd2roxygen  
+
+---
+class: inverse, middle, center
+
+# Distill
+
+
+---
+class: middle, center
+
+# Distill
+
+--
+
+✔️ Optimized for scientific + technical communication
+
+--
+
+✔️ Nice CSS
+
+--
+
+✔️ No (extra) dependencies
+
+
+
+---
+class: middle, center
+
+### Problem: I just want to change [fonts / colors / size]
+
+--
+
+### Solution: try the themer!
+
+---
+class: inverse, middle, center
+
+# Distill themer demo
+
+
+---
+class: middle, center, inverse
+
+## Learn more:
+
+&lt;https://blog.rstudio.com/2020/12/07/distill/&gt;
+
+&lt;https://rstudio.github.io/distill/&gt;
+
+&lt;https://pkgs.rstudio.com/distill/&gt;
+
+---
+class: inverse, middle, center
+
+# Blogdown
+
+
+---
+class: middle, center
+
+# Blogdown
+
+--
+
+✔️ Power of Hugo + markdown
+
+--
+
+✔️ Themes
+
+--
+
+✔️ Subdirectories
+
+
+
+---
+class: middle, center
+
+### Problem: my blogdown/Hugo site is broken!
+
+--
+
+### Solution: make your blogdown unbreakable
+
+---
+class: middle
+
+# So many things can go wrong
+
+--
+
++ Hugo versions
+
+--
+
++ R package versions
+
+---
+class: middle
+
+# Hugo versions
+
+--
+
+
+```r
+library(blogdown)
+hugo_version() # check it
+```
+
+--
+### Set it and forget it
+
+
+```r
+config_Rprofile() # open it
+```
+
+`options(blogdown.hugo.version = "0.78.2")`
+
+---
+class: middle
+
+# Hugo versions
+
+--
+### Tell Netlify and forget it!
+
+
+```r
+config_netlify() # open it
+```
+
+```toml
+[build.environment]
+HUGO_VERSION = "0.78.2"
+```
+
+---
+class: middle
+
+# Hugo versions
+
+--
+### Manage it
+
+
+```r
+find_hugo('all') 
+remove_hugo()
+```
+
+
+---
+class: middle
+
+# R package versions
+
+🧶 it yourself
+
+--
+
+### Make the knit button great again!
+
+&lt;https://github.com/rstudio/blogdown/commit/d32c2945623581377e256d3f7f6e3566c05e3d6f&gt;
+
+---
+class: middle
+
+# R package versions
+
+### Tell blogdown not to 🧶
+
+
+```r
+config_Rprofile() # open it
+```
+
+Add:
+
+`options(blogdown.knit.on_save = FALSE)`  
+`options(blogdown.files_filter = blogdown:::md5sum_filter)`
+
+---
+class: middle
+
+# Healthy `.Rprofile` for happy blogdown users
+
+
+```r
+options(blogdown.hugo.version = 0.78.2,
+        blogdown.knit.on_save = FALSE,
+        blogdown.files_filter = blogdown:::md5sum_filter,
+        # other nice to haves!
+        blogdown.title_case = TRUE,
+        # nice defaults!
+        blogdown.new_bundle = TRUE,
+        blogdown.warn.future = TRUE,
+        blogdown.draft.output = FALSE
+        )
+```
+
+---
+class: middle, center, inverse
+
+# 💣
+
+
+```r
+blogdown::build_site(build_rmd = TRUE)
+```
+
+--
+
+*"`blogdown::build_site()` no longer recompiles R Markdown files by default, because it may be expensive and often undesirable to compile Rmd files that have been compiled before. If you do want to recompile Rmd files, use this."*
+
+---
+class: middle, center, inverse
+
+# 😱
+
+What happened to `public/`?
+
+
+```r
+blogdown::build_site()
+```
+
+---
+class: middle, center, inverse
+
+# That was a lot!
+
+![](https://media.giphy.com/media/sRIXt1e9dQRjEjxnMk/giphy.gif)
+
+---
+
+# ✈️ Pre-flight checks
+
+
+```r
+# kitchen sink
+check_site()
+
+# one at a time
+check_config()
+
+check_gitignore()
+
+check_hugo()
+
+check_netlify()
+
+check_content()
+```
+
+
+---
+class: inverse, middle, center
+
+# Blogdown `.Rprofile` + pre-flight checks demo
+
+
+---
+class: middle, inverse
+background-image: url(images/blogdown-book.png)
+background-position: right
+background-size: 50%
+
+## Learn more 😬
+
+---
+class: middle, center
+
+# 🕣 check
+
+bookdown?
+
+xaringan?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

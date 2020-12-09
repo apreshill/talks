@@ -1,0 +1,382 @@
+---
+title: "The Download"
+subtitle: "Recent developments with R Markdown"
+author: Alison Presmanes Hill, Ph.D.
+date: "2020-10-26"
+output:
+  xaringan::moon_reader:
+    anchor_sections: FALSE
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+
+class: title-slide, left, middle
+
+.pull-left[
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+### `r rmarkdown::metadata$date`
+]
+
+---
+name: clouds
+class: center, middle
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+
+
+---
+template: clouds
+
+## .big-text[Hello.]
+
+???
+
+So hello- I'm so happy to be invited to join you all today.
+
+---
+name: clouds
+background-image: url(images/clouds.jpg)
+background-size: cover
+
+---
+name: hello
+template: clouds
+class: middle, center
+
+
+### Alison Hill 
+
+<img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/>
+
+
+[`r icon::fa("github")` @apreshill](https://github.com/apreshill)  
+[`r icon::fa("twitter")` @apreshill](https://twitter.com/apreshill)  
+[`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)
+
+
+???
+
+My name is Alison Hill, and I'm a data scientist and professional educator at RStudio.
+
+---
+background-image: url(images/pkgs.png)
+background-position: left
+background-size: contain
+class: middle, center
+
+.pull-right[
+# *(Some members of)*
+# *the R Markdown family*
+]
+
+---
+class: middle, center
+
+# ~20 packages
+
+
+rstudio/rmarkdown  
+rstudio/distill  
+rstudio/flexdashboard  
+rstudio/learnr  
+rstudio/tufte  
+rstudio/bookdown  
+rstudio/blogdown  
+rstudio/markdown  
+rstudio/rticles  
+rstudio/pagedown  
+rstudio/revealjs  
+yihui/knitr  
+yihui/xaringan  
+yihui/xfun  
+yihui/servr  
+yihui/tinytex  
+yihui/highr  
+yihui/Rd2roxygen  
+
+---
+class: inverse, middle, center
+
+# Distill
+
+
+---
+class: middle, center
+
+# Distill
+
+--
+
+`r emo::ji("heavy_check_mark")` Optimized for scientific + technical communication
+
+--
+
+`r emo::ji("heavy_check_mark")` Nice CSS
+
+--
+
+`r emo::ji("heavy_check_mark")` No (extra) dependencies
+
+
+
+---
+class: middle, center
+
+### Problem: I just want to change [fonts / colors / size]
+
+--
+
+### Solution: try the themer!
+
+---
+class: inverse, middle, center
+
+# Distill themer demo
+
+
+---
+class: middle, center, inverse
+
+## Learn more:
+
+<https://blog.rstudio.com/2020/12/07/distill/>
+
+<https://rstudio.github.io/distill/>
+
+<https://pkgs.rstudio.com/distill/>
+
+---
+class: inverse, middle, center
+
+# Blogdown
+
+
+---
+class: middle, center
+
+# Blogdown
+
+--
+
+`r emo::ji("heavy_check_mark")` Power of Hugo + markdown
+
+--
+
+`r emo::ji("heavy_check_mark")` Themes
+
+--
+
+`r emo::ji("heavy_check_mark")` Subdirectories
+
+
+
+---
+class: middle, center
+
+### Problem: my blogdown/Hugo site is broken!
+
+--
+
+### Solution: make your blogdown unbreakable
+
+---
+class: middle
+
+# So many things can go wrong
+
+--
+
++ Hugo versions
+
+--
+
++ R package versions
+
+---
+class: middle
+
+# Hugo versions
+
+--
+
+```{r eval=FALSE}
+library(blogdown)
+hugo_version() # check it
+```
+
+--
+### Set it and forget it
+
+```{r eval=FALSE}
+config_Rprofile() # open it
+```
+
+`options(blogdown.hugo.version = "0.78.2")`
+
+---
+class: middle
+
+# Hugo versions
+
+--
+### Tell Netlify and forget it!
+
+```{r eval=FALSE}
+config_netlify() # open it
+```
+
+```toml
+[build.environment]
+HUGO_VERSION = "0.78.2"
+```
+
+---
+class: middle
+
+# Hugo versions
+
+--
+### Manage it
+
+```{r eval=FALSE}
+find_hugo('all') 
+remove_hugo()
+```
+
+
+---
+class: middle
+
+# R package versions
+
+`r emo::ji("yarn")` it yourself
+
+--
+
+### Make the knit button great again!
+
+<https://github.com/rstudio/blogdown/commit/d32c2945623581377e256d3f7f6e3566c05e3d6f>
+
+---
+class: middle
+
+# R package versions
+
+### Tell blogdown not to `r emo::ji("yarn")`
+
+```{r eval=FALSE}
+config_Rprofile() # open it
+```
+
+Add:
+
+`options(blogdown.knit.on_save = FALSE)`  
+`options(blogdown.files_filter = blogdown:::md5sum_filter)`
+
+---
+class: middle
+
+# Healthy `.Rprofile` for happy blogdown users
+
+```{r eval=FALSE}
+options(blogdown.hugo.version = 0.78.2,
+        blogdown.knit.on_save = FALSE,
+        blogdown.files_filter = blogdown:::md5sum_filter,
+        # other nice to haves!
+        blogdown.title_case = TRUE,
+        # nice defaults!
+        blogdown.new_bundle = TRUE,
+        blogdown.warn.future = TRUE,
+        blogdown.draft.output = FALSE
+        )
+```
+
+---
+class: middle, center, inverse
+
+# `r emo::ji("bomb")`
+
+```{r eval=FALSE}
+blogdown::build_site(build_rmd = TRUE)
+```
+
+--
+
+*"`blogdown::build_site()` no longer recompiles R Markdown files by default, because it may be expensive and often undesirable to compile Rmd files that have been compiled before. If you do want to recompile Rmd files, use this."*
+
+---
+class: middle, center, inverse
+
+# `r emo::ji("scream")`
+
+What happened to `public/`?
+
+```{r eval=FALSE}
+blogdown::build_site()
+```
+
+---
+class: middle, center, inverse
+
+# That was a lot!
+
+![](https://media.giphy.com/media/sRIXt1e9dQRjEjxnMk/giphy.gif)
+
+---
+
+# `r emo::ji("flight")` Pre-flight checks
+
+```{r eval=FALSE}
+# kitchen sink
+check_site()
+
+# one at a time
+check_config()
+
+check_gitignore()
+
+check_hugo()
+
+check_netlify()
+
+check_content()
+```
+
+
+---
+class: inverse, middle, center
+
+# Blogdown `.Rprofile` + pre-flight checks demo
+
+
+---
+class: middle, inverse
+background-image: url(images/blogdown-book.png)
+background-position: right
+background-size: 50%
+
+## Learn more `r emo::ji("grimace")`
+
+---
+class: middle, center
+
+# `r emo::ji("clock")` check
+
+bookdown?
+
+xaringan?
