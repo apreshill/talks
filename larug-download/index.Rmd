@@ -404,6 +404,18 @@ class: middle, center
 
 # `r emo::ji("clock")` check
 
+--
+
 bookdown?
 
+```{r eval=FALSE}
+?bs4_book
+```
+
+<https://crumplab.github.io/rstatsforpsych/>
+
+--
+
 xaringan?
+
+Self-contained slides: <https://github.com/yihui/xaringan/issues/3>
