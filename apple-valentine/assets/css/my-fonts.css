@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Commissioner:ital,wght@0,400;0,600;1,400&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;1,300;1,600&display=swap');
+
+body { 
+  font-family: 'Commissioner', sans-serif;
+  font-weight: 400;
+  color: #333;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  color: #0144a3;
+}
+
+h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  color: #0144a3;
+}
+
+h3 {
+  font-family: 'Commissioner', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #0144a3;
+  font-size: 1.3em !important;
+}
+
+h4, h5, h6 {
+  font-family: 'Commissioner', sans-serif;
+  font-weight: 400;
+  color: #003366;
+}
+
+.remark-code,
+.remark-inline-code{ 
+  font-family: 'DM Mono', monospace;
+}
+
+@media print {
+  body {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 400;
+}

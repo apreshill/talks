@@ -1,0 +1,444 @@
+---
+title: "Made with yarn, strings, and glue"
+subtitle: "An R Markdown valentine for you"
+author: Alison Hill
+role: Product Manager, Data Science Communication 
+company: '@RStudio'
+date: "2021-02-16"
+output:
+  xaringan::moon_reader:
+    anchor_sections: FALSE
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+params:
+  source:
+    label: "Input dataset:"
+    value: incoming.csv
+    input: file
+  sink:
+    label: "Exported dataset:"
+    value: results.csv
+    input: file
+  series:
+    label: "Bakeoff series:"
+    value: 8
+    input: slider
+    min: 1
+    max: 10
+---
+
+```{r setup, include=FALSE}
+library(glue)
+library(dplyr)
+library(bakeoff)
+library(epoxy)
+library(xaringanExtra)
+xaringanExtra::use_panelset()
+
+# from garrick's brain
+# https://github.com/gadenbuie/slides/blob/130fac64c5fd293c1ade6f9af796c3fdae8edc2e/toronto-data-workshop/index.Rmd#L53
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+rewrite_chunk <- function(label, include_label = FALSE, nbt = 3) {
+  chunk <- knitr::knit_code$get(label)
+  opts <- attr(chunk, "chunk_opts")
+  bt <- strrep("`", nbt)
+  engine <- opts$engine %||% "r"
+  exclude <- c("engine")
+  if (is.logical(include_label) && !isTRUE(include_label)) {
+    exclude <- c(exclude, "label")
+  }
+  if (is.character(include_label)) {
+    label <- include_label
+  }
+  opts <- opts[setdiff(names(opts), exclude)]
+  opts <- paste(
+    vapply(names(opts), FUN.VALUE = character(1), function(on) {
+      paste0(
+        if (on != "label") paste(on, "= "), 
+        if (is.character(opts[[on]])) {
+          if (on == "label") label else dQuote(opts[[on]], q = 0) 
+        } else {
+          deparse(opts[[on]])
+        }
+      )
+    }),
+    collapse = ", "
+  )
+  header <- paste0(bt, "{", engine, if (length(opts) && nzchar(opts)) " ", opts, "}")
+  paste(
+    header,
+    paste(chunk, collapse = "\n"),
+    bt,
+    sep = "\n"
+  )
+}
+```
+
+
+class: title-slide, right, middle
+background-image: url("images/vintage_valentine.jpg")
+background-position: left
+background-size: contain
+
+.pull-right[
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+### `r rmarkdown::metadata$date`
+]
+
+
+---
+
+## .big-text[Hello.]
+
+???
+
+So hello- I'm so happy to be invited to join you all today.
+
+
+---
+name: hello
+class: middle, center
+
+
+### `r rmarkdown::metadata$author`
+
+<img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/>
+
+### `r rmarkdown::metadata$role`
+
+### `r rmarkdown::metadata$company`
+
+[`r icon::fa("github")` @apreshill](https://github.com/apreshill)    
+[`r icon::fa("twitter")` @apreshill](https://twitter.com/apreshill)   
+[`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)
+
+---
+class: middle
+
+.left-column[
+![](images/bakeoff.png)
+]
+
+.right-column[
+# On your marks...get set...
+
+```r
+remotes::install_github("apreshill/bakeoff")
+```
+
+https://bakeoff.netlify.app/
+]
+
+
+---
+
+what is rmd
+
+---
+name: glue
+class: middle
+
+.left-column[
+![](images/glue.png)
+]
+
+---
+template: glue
+
+.right-column[
+# Let's start with glue
+
+```{r}
+library(glue)
+```
+
+https://glue.tidyverse.org/index.html
+]
+
+---
+template: glue
+
+.right-column[
+
+# Use glue in chunks
+
+.panelset[
+.panel[.panel-name[What you code]
+````
+```{r results='asis', echo=FALSE}`r ''`
+bakers %>% 
+  count(series) %>% 
+  glue_data("- Series {series} had {n} bakers") %>% 
+  glue_collapse(sep = " \ \n")
+```
+````
+]
+
+.panel[.panel-name[What you see]
+```{r results='asis', echo=FALSE}
+bakers %>% 
+  count(series) %>% 
+  glue_data("- Series {series} had {n} bakers") %>% 
+  glue_collapse(sep = " \ \n")
+```
+]
+
+
+]
+]
+
+---
+template: glue
+
+.right-column[
+
+# Use glue inline
+
+.panelset[
+.panel[.panel-name[What you code]
+The show has aired on `` `r
+glue::glue_collapse(unique(series$channel), sep = ", ", last = ", and ")` ``.
+
+]
+
+.panel[.panel-name[What you see]
+The show has aired on `r glue::glue_collapse(unique(series$channel), sep = ", ", last = ", and ")`.
+]
+]
+]
+
+---
+name: epoxy
+class: middle
+
+.left-column[
+![](images/epoxy.jpg)
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# Let's level up: epoxy
+
+```r
+# install.packages("remotes")
+remotes::install_github("gadenbuie/epoxy")
+```
+
+```{r}
+library(epoxy)
+```
+
+Epoxy gives `knitr` a new **engine**.
+
+### Why? 
+
+This helps us meld our data and text in a whole new way.
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# Fire up the glue knitr engine
+
+.panelset[
+.panel[.panel-name[What you code]
+````
+```{glue data=series, .transformer = epoxy_style_collapse()}`r ''`
+The show has aired on {unique(channel)&}.
+```
+````
+
+]
+.panel[.panel-name[What you see]
+```{glue data=series, .transformer = epoxy_style_collapse()}
+The show has aired on {unique(channel)&}.
+```
+]
+]
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# The oxford comma way
+
+.panelset[
+.panel[.panel-name[What you code]
+````
+```{glue data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}`r ''`
+The show has aired on {unique(channel)&}.
+```
+````
+
+]
+.panel[.panel-name[What you see]
+```{glue data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
+The show has aired on {unique(channel)&}.
+```
+
+Use `.transformer` to change.
+]
+]
+]
+
+---
+
+# Fire up the glue knitr engine
+
+.pull-left[
+
+```{r}
+bakers %>% 
+  count(series)
+```
+]
+
+.pull-right[
+```{glue glue-bakers, data = bakers %>% count(series)}
+- **Series {series}**: {n} bakers
+```
+
+]
+
+
+---
+
+#huh
+
+````markdown
+`r rewrite_chunk("glue-bakers")`
+````
+
+
+
+```{glue, data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
+The show has aired on {unique(channel)&}.
+```
+
+
+---
+
+```{r}
+rmarkdown::metadata
+```
+
+---
+
+```{r}
+str(rmarkdown::metadata)
+```
+
+
+
+---
+
+First play with iterating using the render function (i.e., R Markdown from the command line) to “see” all the different output options for a single output format (for example, generate all themes for an HTML document). Talk about ways to iteratively change things like the output filename, output directory, and output options. New friends: purrr::walk and glue::glue. Advanced: make your own custom render function.
+
+---
+
+
+# How do we...
+
+--
+
+Use R code in YAML metadata?
+
+--
+
+Use parameters to change the actual data (like to subset)?
+
+--
+
+Use parameters to change the YAML metadata?
+
+Combine two ideas: using parameters and building a report factory- now we’ll do both! Use parameters now to change the “guts” of a report dynamically. Change YAML elements like title. Change actual data used in code. Change knitr code chunk options like echo TRUE and FALSE. Think about nested parameters like Aron Atkin’s talk.
+
+
+
+
+
+---
+
+now with params!
+
+```{glue data = params}
+- **in {source}**: {sink} out
+- {series}
+```
+
+
+
+---
+
+idea #1
+
+.pull-left[
+
+```{r eval=FALSE}
+sales <- readr::read_csv("sales_raw.csv")
+```
+
+```{r eval=FALSE}
+write_csv(sales, "sales_clean.csv")
+```
+
+
+]
+
+.pull-right[
+
+```
+params:
+  source:
+    label: "Input dataset:"
+    value: incoming.csv
+    input: file
+  sink:
+    label: "Exported dataset:"
+    value: results.csv
+    input: file
+```
+
+```{r eval=FALSE}
+sales <- readr::read_csv(params$source)
+```
+
+```{r eval=FALSE}
+write_csv(sales, params$sink)
+```
+
+]
+
+---
+
+dynamic params
+
+---
+
+make a custom _render script
+
+---
+
+change what knit button does

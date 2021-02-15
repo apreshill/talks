@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Made with yarn, strings, and glue</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Hill" />
+    <meta name="date" content="2021-02-16" />
+    <script src="libs/header-attrs-2.6.6/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.3.9000/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.3.9000/panelset.js"></script>
+    <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, right, middle
+background-image: url("images/vintage_valentine.jpg")
+background-position: left
+background-size: contain
+
+.pull-right[
+
+# Made with yarn, strings, and glue
+
+## An R Markdown valentine for you
+
+### Alison Hill
+
+### 2021-02-16
+]
+
+
+---
+
+## .big-text[Hello.]
+
+???
+
+So hello- I'm so happy to be invited to join you all today.
+
+
+---
+name: hello
+class: middle, center
+
+
+### Alison Hill
+
+&lt;img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/&gt;
+
+### Product Manager, Data Science Communication
+
+### @RStudio
+
+[<i class="fab  fa-github "></i> @apreshill](https://github.com/apreshill)    
+[<i class="fab  fa-twitter "></i> @apreshill](https://twitter.com/apreshill)   
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)
+
+---
+class: middle
+
+.left-column[
+![](images/bakeoff.png)
+]
+
+.right-column[
+# On your marks...get set...
+
+```r
+remotes::install_github("apreshill/bakeoff")
+```
+
+https://bakeoff.netlify.app/
+]
+
+
+---
+
+what is rmd
+
+---
+name: glue
+class: middle
+
+.left-column[
+![](images/glue.png)
+]
+
+---
+template: glue
+
+.right-column[
+# Let's start with glue
+
+
+```r
+library(glue)
+```
+
+https://glue.tidyverse.org/index.html
+]
+
+---
+template: glue
+
+.right-column[
+
+# Use glue in chunks
+
+.panelset[
+.panel[.panel-name[What you code]
+````
+```{r results='asis', echo=FALSE}
+bakers %&gt;% 
+  count(series) %&gt;% 
+  glue_data("- Series {series} had {n} bakers") %&gt;% 
+  glue_collapse(sep = " \ \n")
+```
+````
+]
+
+.panel[.panel-name[What you see]
+- Series 1 had 10 bakers  
+- Series 2 had 12 bakers  
+- Series 3 had 12 bakers  
+- Series 4 had 13 bakers  
+- Series 5 had 12 bakers  
+- Series 6 had 12 bakers  
+- Series 7 had 12 bakers  
+- Series 8 had 12 bakers  
+- Series 9 had 12 bakers  
+- Series 10 had 13 bakers
+]
+
+
+]
+]
+
+---
+template: glue
+
+.right-column[
+
+# Use glue inline
+
+.panelset[
+.panel[.panel-name[What you code]
+The show has aired on `` `r
+glue::glue_collapse(unique(series$channel), sep = ", ", last = ", and ")` ``.
+
+]
+
+.panel[.panel-name[What you see]
+The show has aired on BBC Two, BBC One, and Channel 4.
+]
+]
+]
+
+---
+name: epoxy
+class: middle
+
+.left-column[
+![](images/epoxy.jpg)
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# Let's level up: epoxy
+
+```r
+# install.packages("remotes")
+remotes::install_github("gadenbuie/epoxy")
+```
+
+
+```r
+library(epoxy)
+```
+
+Epoxy gives `knitr` a new **engine**.
+
+### Why? 
+
+This helps us meld our data and text in a whole new way.
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# Fire up the glue knitr engine
+
+.panelset[
+.panel[.panel-name[What you code]
+````
+```{glue data=series, .transformer = epoxy_style_collapse()}
+The show has aired on {unique(channel)&amp;}.
+```
+````
+
+]
+.panel[.panel-name[What you see]
+The show has aired on BBC Two, BBC One and Channel 4.
+]
+]
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# The oxford comma way
+
+.panelset[
+.panel[.panel-name[What you code]
+````
+```{glue data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
+The show has aired on {unique(channel)&amp;}.
+```
+````
+
+]
+.panel[.panel-name[What you see]
+The show has aired on BBC Two, BBC One, and Channel 4.
+
+Use `.transformer` to change.
+]
+]
+]
+
+---
+
+# Fire up the glue knitr engine
+
+.pull-left[
+
+
+```r
+bakers %&gt;% 
+  count(series)
+```
+
+```
+## # A tibble: 10 x 2
+##    series     n
+##  * &lt;fct&gt;  &lt;int&gt;
+##  1 1         10
+##  2 2         12
+##  3 3         12
+##  4 4         13
+##  5 5         12
+##  6 6         12
+##  7 7         12
+##  8 8         12
+##  9 9         12
+## 10 10        13
+```
+]
+
+.pull-right[
+- **Series 1**: 10 bakers
+- **Series 2**: 12 bakers
+- **Series 3**: 12 bakers
+- **Series 4**: 13 bakers
+- **Series 5**: 12 bakers
+- **Series 6**: 12 bakers
+- **Series 7**: 12 bakers
+- **Series 8**: 12 bakers
+- **Series 9**: 12 bakers
+- **Series 10**: 13 bakers
+
+]
+
+
+---
+
+#huh
+
+````markdown
+```{glue data = bakers %&gt;% count(series)}
+- **Series {series}**: {n} bakers
+```
+````
+
+
+
+The show has aired on BBC Two, BBC One, and Channel 4.
+
+
+---
+
+
+```r
+rmarkdown::metadata
+```
+
+```
+## $title
+## [1] "Made with yarn, strings, and glue"
+## 
+## $subtitle
+## [1] "An R Markdown valentine for you"
+## 
+## $author
+## [1] "Alison Hill"
+## 
+## $role
+## [1] "Product Manager, Data Science Communication"
+## 
+## $company
+## [1] "@RStudio"
+## 
+## $date
+## [1] "2021-02-16"
+## 
+## $output
+## $output$`xaringan::moon_reader`
+## $output$`xaringan::moon_reader`$anchor_sections
+## [1] FALSE
+## 
+## $output$`xaringan::moon_reader`$css
+## [1] "default"                 "assets/css/my-theme.css"
+## [3] "assets/css/my-fonts.css"
+## 
+## $output$`xaringan::moon_reader`$seal
+## [1] FALSE
+## 
+## $output$`xaringan::moon_reader`$lib_dir
+## [1] "libs"
+## 
+## $output$`xaringan::moon_reader`$nature
+## $output$`xaringan::moon_reader`$nature$highlightStyle
+## [1] "solarized-light"
+## 
+## $output$`xaringan::moon_reader`$nature$highlightLanguage
+## [1] "r"    "css"  "yaml"
+## 
+## $output$`xaringan::moon_reader`$nature$highlightLines
+## [1] TRUE
+## 
+## $output$`xaringan::moon_reader`$nature$countIncrementalSlides
+## [1] FALSE
+## 
+## $output$`xaringan::moon_reader`$nature$ratio
+## [1] "16:9"
+## 
+## 
+## 
+## 
+## $params
+## $params$source
+## $params$source$label
+## [1] "Input dataset:"
+## 
+## $params$source$value
+## [1] "incoming.csv"
+## 
+## $params$source$input
+## [1] "file"
+## 
+## 
+## $params$sink
+## $params$sink$label
+## [1] "Exported dataset:"
+## 
+## $params$sink$value
+## [1] "results.csv"
+## 
+## $params$sink$input
+## [1] "file"
+## 
+## 
+## $params$series
+## $params$series$label
+## [1] "Bakeoff series:"
+## 
+## $params$series$value
+## [1] 8
+## 
+## $params$series$input
+## [1] "slider"
+## 
+## $params$series$min
+## [1] 1
+## 
+## $params$series$max
+## [1] 10
+```
+
+---
+
+
+```r
+str(rmarkdown::metadata)
+```
+
+```
+## List of 8
+##  $ title   : chr "Made with yarn, strings, and glue"
+##  $ subtitle: chr "An R Markdown valentine for you"
+##  $ author  : chr "Alison Hill"
+##  $ role    : chr "Product Manager, Data Science Communication"
+##  $ company : chr "@RStudio"
+##  $ date    : chr "2021-02-16"
+##  $ output  :List of 1
+##   ..$ xaringan::moon_reader:List of 5
+##   .. ..$ anchor_sections: logi FALSE
+##   .. ..$ css            : chr [1:3] "default" "assets/css/my-theme.css" "assets/css/my-fonts.css"
+##   .. ..$ seal           : logi FALSE
+##   .. ..$ lib_dir        : chr "libs"
+##   .. ..$ nature         :List of 5
+##   .. .. ..$ highlightStyle        : chr "solarized-light"
+##   .. .. ..$ highlightLanguage     : chr [1:3] "r" "css" "yaml"
+##   .. .. ..$ highlightLines        : logi TRUE
+##   .. .. ..$ countIncrementalSlides: logi FALSE
+##   .. .. ..$ ratio                 : chr "16:9"
+##  $ params  :List of 3
+##   ..$ source:List of 3
+##   .. ..$ label: chr "Input dataset:"
+##   .. ..$ value: chr "incoming.csv"
+##   .. ..$ input: chr "file"
+##   ..$ sink  :List of 3
+##   .. ..$ label: chr "Exported dataset:"
+##   .. ..$ value: chr "results.csv"
+##   .. ..$ input: chr "file"
+##   ..$ series:List of 5
+##   .. ..$ label: chr "Bakeoff series:"
+##   .. ..$ value: int 8
+##   .. ..$ input: chr "slider"
+##   .. ..$ min  : int 1
+##   .. ..$ max  : int 10
+```
+
+
+
+---
+
+First play with iterating using the render function (i.e., R Markdown from the command line) to “see” all the different output options for a single output format (for example, generate all themes for an HTML document). Talk about ways to iteratively change things like the output filename, output directory, and output options. New friends: purrr::walk and glue::glue. Advanced: make your own custom render function.
+
+---
+
+
+# How do we...
+
+--
+
+Use R code in YAML metadata?
+
+--
+
+Use parameters to change the actual data (like to subset)?
+
+--
+
+Use parameters to change the YAML metadata?
+
+Combine two ideas: using parameters and building a report factory- now we’ll do both! Use parameters now to change the “guts” of a report dynamically. Change YAML elements like title. Change actual data used in code. Change knitr code chunk options like echo TRUE and FALSE. Think about nested parameters like Aron Atkin’s talk.
+
+
+
+
+
+---
+
+now with params!
+
+- **in incoming.csv**: results.csv out
+- 8
+
+
+
+---
+
+idea #1
+
+.pull-left[
+
+
+```r
+sales &lt;- readr::read_csv("sales_raw.csv")
+```
+
+
+```r
+write_csv(sales, "sales_clean.csv")
+```
+
+
+]
+
+.pull-right[
+
+```
+params:
+  source:
+    label: "Input dataset:"
+    value: incoming.csv
+    input: file
+  sink:
+    label: "Exported dataset:"
+    value: results.csv
+    input: file
+```
+
+
+```r
+sales &lt;- readr::read_csv(params$source)
+```
+
+
+```r
+write_csv(sales, params$sink)
+```
+
+]
+
+---
+
+dynamic params
+
+---
+
+make a custom _render script
+
+---
+
+change what knit button does
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
