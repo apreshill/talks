@@ -36,6 +36,7 @@ library(bakeoff)
 library(epoxy)
 library(xaringanExtra)
 xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
 
 knitr::opts_chunk$set(collapse = TRUE)
 
@@ -711,26 +712,70 @@ purrr::walk(
 ]
 
 ---
+class: middle, left, pink
+background-image: url(images/cat.png)
+background-position: right bottom
+background-size: 50%
+
 
 # Using YAML with strings and glue
 
 --
 
-Use params inside YAML fields
+Use params inside YAML fields &rarr; dynamic YAML
 
 --
 
-Use params inside `rmarkdown::render` 
+Use params inside `rmarkdown::render` &rarr; dynamic render
 
 --
 
-Use params to replace param values
+Use params to replace param values &rarr; dynamic params
 
 --
 
-Use params to replace YAML fields 
+Use params to replace YAML fields &rarr; dynamic metadata
+
 
 ---
+
+# Batch render
+
+[`_render_batch.R`](https://github.com/apreshill/baker-valentines/blob/master/_render_batch.R)
+
+.panelset[
+.panel[.panel-name[The setup]
+```{r eval=FALSE}
+library(dplyr)
+bnames <- readr::read_csv("data/bakers.csv") %>%
+  mutate(send_to = purrr::map2(.x = baker_first, .y = baker_last,
+                               ~list(first = .x,
+                                     last = .y)))
+```
+
+]
+
+.panel[.panel-name[The play]
+```{r eval=FALSE}
+purrr::walk(
+  .x = bnames$send_to, #<<
+  ~ rmarkdown::render(
+    input = "index.Rmd",
+    output_file = glue::glue("valentine-for-{.x$first}.html"),
+    output_options = list(theme = "journal"),
+    params = list(send_to = {.x},
+                  sent_from = list(first = "Therese", last = "Anders"),
+                  my_valentine = glue::glue("My funny valentine, {.x$first}"))
+  )
+)
+```
+
+]
+
+]
+
+---
+class: middle
 
 # Change what the knit button does
 
@@ -762,13 +807,13 @@ yml_empty() %>%
 
 ]
 
-
 ---
 name: goodbye
-class: inverse, bottom
+class: pink, bottom
 
 .pull-left[
-Sincere thanks to my RStudio colleagues:
+### Sincere thanks 
+to my RStudio colleagues:
 + Christophe Dervieux, 
 + Garrick Aden-Buie, and 
 + Tom Mock.

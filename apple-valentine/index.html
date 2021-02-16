@@ -9,6 +9,10 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/panelset-0.2.3.9000/panelset.css" rel="stylesheet" />
     <script src="libs/panelset-0.2.3.9000/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.3.9000/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.3.9000/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <link href="libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
@@ -722,26 +726,72 @@ purrr::walk(
 ]
 
 ---
+class: middle, left, pink
+background-image: url(images/cat.png)
+background-position: right bottom
+background-size: 50%
+
 
 # Using YAML with strings and glue
 
 --
 
-Use params inside YAML fields
+Use params inside YAML fields &amp;rarr; dynamic YAML
 
 --
 
-Use params inside `rmarkdown::render` 
+Use params inside `rmarkdown::render` &amp;rarr; dynamic render
 
 --
 
-Use params to replace param values
+Use params to replace param values &amp;rarr; dynamic params
 
 --
 
-Use params to replace YAML fields 
+Use params to replace YAML fields &amp;rarr; dynamic metadata
+
 
 ---
+
+# Batch render
+
+[`_render_batch.R`](https://github.com/apreshill/baker-valentines/blob/master/_render_batch.R)
+
+.panelset[
+.panel[.panel-name[The setup]
+
+```r
+library(dplyr)
+bnames &lt;- readr::read_csv("data/bakers.csv") %&gt;%
+  mutate(send_to = purrr::map2(.x = baker_first, .y = baker_last,
+                               ~list(first = .x,
+                                     last = .y)))
+```
+
+]
+
+.panel[.panel-name[The play]
+
+```r
+purrr::walk(
+* .x = bnames$send_to,
+  ~ rmarkdown::render(
+    input = "index.Rmd",
+    output_file = glue::glue("valentine-for-{.x$first}.html"),
+    output_options = list(theme = "journal"),
+    params = list(send_to = {.x},
+                  sent_from = list(first = "Therese", last = "Anders"),
+                  my_valentine = glue::glue("My funny valentine, {.x$first}"))
+  )
+)
+```
+
+]
+
+]
+
+---
+class: middle
 
 # Change what the knit button does
 
@@ -775,13 +825,13 @@ knit: source('_render.R')$value
 
 ]
 
-
 ---
 name: goodbye
-class: inverse, bottom
+class: pink, bottom
 
 .pull-left[
-Sincere thanks to my RStudio colleagues:
+### Sincere thanks 
+to my RStudio colleagues:
 + Christophe Dervieux, 
 + Garrick Aden-Buie, and 
 + Tom Mock.
