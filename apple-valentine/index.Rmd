@@ -537,6 +537,25 @@ class: middle, center, inverse
 # The parameter finale
 ]
 ---
+class: inverse, middle, center
+
+.pull-left[
+
+## `r emo::ji("down_arrow")`
+
+So, we know parameters flow .emphasis[down] by affecting code/text in the body of your document.
+]
+
+--
+
+.pull-right[
+
+## `r emo::ji("up_arrow")`
+
+But parameters can also flow .emphasis[up] by affecting our YAML and metadata.
+]
+
+---
 
 # Use parameters inside your YAML metadata
 
