@@ -83,8 +83,8 @@ https://bakeoff.netlify.app/
 
 
 ---
-
-what is rmd
+background-image: url(images/rmarkdown_hedgehog_wide.png)
+background-size: contain
 
 ---
 name: glue
@@ -465,13 +465,20 @@ template: parameters
 ---
 class: middle
 
-# Flavors of parameterized reports
+# Two main flavors of parameterized reports
 
 --
 
 .pull-left[
 
 + .emphasis[Scoped:] a report made with a single source, but with different variants scoped for different audiences.
+
++ .emphasis[Change:] narrative; .emphasis[Keep:] data
+
+    &amp;rarr; `ceo.html`
+
+    &amp;rarr; `lnl.html`
+  
 
 ]
 
@@ -481,12 +488,18 @@ class: middle
 
 + .emphasis[Filtered:] a report made with a single source but the dataset is filtered to focus on a specific subsample or time period.
 
++ .emphasis[Change:] data; .emphasis[Keep:] narrative
+
+    &amp;rarr; `nw-covid-august.html`
+
+    &amp;rarr; `se-covid-july.html`
+    
 ]
   
 ---
 class: middle
 
-# Rendering modes for parameterized reports
+# Two main modes for rendering parameterized reports
 
 --
 
@@ -505,122 +518,6 @@ class: middle
 ]
 
 ---
-
-
-```r
-rmarkdown::metadata
-## $title
-## [1] "Made with yarn, strings, and glue"
-## 
-## $subtitle
-## [1] "An R Markdown valentine for you"
-## 
-## $author
-## [1] "Alison Hill"
-## 
-## $role
-## [1] "Product Manager, Data Science Communication"
-## 
-## $company
-## [1] "@RStudio"
-## 
-## $date
-## [1] "2021-02-16"
-## 
-## $output
-## $output$`xaringan::moon_reader`
-## $output$`xaringan::moon_reader`$anchor_sections
-## [1] FALSE
-## 
-## $output$`xaringan::moon_reader`$css
-## [1] "default"                 "assets/css/my-theme.css"
-## [3] "assets/css/my-fonts.css"
-## 
-## $output$`xaringan::moon_reader`$seal
-## [1] FALSE
-## 
-## $output$`xaringan::moon_reader`$lib_dir
-## [1] "libs"
-## 
-## $output$`xaringan::moon_reader`$nature
-## $output$`xaringan::moon_reader`$nature$highlightStyle
-## [1] "solarized-light"
-## 
-## $output$`xaringan::moon_reader`$nature$highlightLanguage
-## [1] "r"    "css"  "yaml"
-## 
-## $output$`xaringan::moon_reader`$nature$highlightLines
-## [1] TRUE
-## 
-## $output$`xaringan::moon_reader`$nature$countIncrementalSlides
-## [1] FALSE
-## 
-## $output$`xaringan::moon_reader`$nature$ratio
-## [1] "16:9"
-## 
-## 
-## 
-## 
-## $params
-## $params$date
-## [1] "February 14"
-## 
-## $params$send_to
-## $params$send_to$value
-## $params$send_to$value$first
-## [1] "Annetha"
-## 
-## $params$send_to$value$last
-## [1] "Mills"
-## 
-## 
-## 
-## $params$sent_from
-## $params$sent_from$value
-## $params$sent_from$value$first
-## [1] "Alison"
-## 
-## $params$sent_from$value$last
-## [1] "Hill"
-```
-
----
-
-
-```r
-str(rmarkdown::metadata)
-## List of 8
-##  $ title   : chr "Made with yarn, strings, and glue"
-##  $ subtitle: chr "An R Markdown valentine for you"
-##  $ author  : chr "Alison Hill"
-##  $ role    : chr "Product Manager, Data Science Communication"
-##  $ company : chr "@RStudio"
-##  $ date    : chr "2021-02-16"
-##  $ output  :List of 1
-##   ..$ xaringan::moon_reader:List of 5
-##   .. ..$ anchor_sections: logi FALSE
-##   .. ..$ css            : chr [1:3] "default" "assets/css/my-theme.css" "assets/css/my-fonts.css"
-##   .. ..$ seal           : logi FALSE
-##   .. ..$ lib_dir        : chr "libs"
-##   .. ..$ nature         :List of 5
-##   .. .. ..$ highlightStyle        : chr "solarized-light"
-##   .. .. ..$ highlightLanguage     : chr [1:3] "r" "css" "yaml"
-##   .. .. ..$ highlightLines        : logi TRUE
-##   .. .. ..$ countIncrementalSlides: logi FALSE
-##   .. .. ..$ ratio                 : chr "16:9"
-##  $ params  :List of 3
-##   ..$ date     : chr "February 14"
-##   ..$ send_to  :List of 1
-##   .. ..$ value:List of 2
-##   .. .. ..$ first: chr "Annetha"
-##   .. .. ..$ last : chr "Mills"
-##   ..$ sent_from:List of 1
-##   .. ..$ value:List of 2
-##   .. .. ..$ first: chr "Alison"
-##   .. .. ..$ last : chr "Hill"
-```
-
----
 background-image: url("images/kitten-theater.png")
 background-position: right
 background-size: contain
@@ -632,15 +529,113 @@ class: middle, center, inverse
 ]
 ---
 
-dynamic params
+# Use parameters inside your YAML metadata
+
+
+```
+---
+title: A valentine for `r params$send_to$first`
+subtitle: Yours truly, `r params$sent_from$first`
+params:
+  date: February 14
+  send_to:
+    value:
+      first: Annetha
+      last: Mills
+  sent_from:
+    value:
+      first: Alison
+      last: Hill
+---
+```
+
 
 ---
 
-make a custom _render script
+# Use parameters to override your YAML
+
+`_render_single.R`
+
+```r
+function(input, ...) {
+  purrr::walk(
+    .x = list(send_to = list(first = "Sophie", last = "Faldo")),
+    ~ rmarkdown::render(
+      input = input,
+      output_file = glue::glue("valentine-for-{.x$first}.html"),
+      params = list(send_to = {.x},
+                    sent_from = list(first = "Rami", last = "Krispin"))
+    )
+  )
+}
+```
 
 ---
 
-change what knit button does
+# Use parameters to override your YAML metadata
+
+
+
+---
+
+# Change what knit button does
+
+.pull-left[
+
+### Add your R script
+
+Recommended: name it `_render.R`, and it .emphasis[must] be of the form:
+
+```r
+function(input, ...) { 
+...
+}
+```
+]
+
+--
+
+.pull-right[
+
+### Add to YAML with `knit:` key
+
+`source` your script, and you .emphasis[must] end this with `$value`
+
+
+```
+---
+knit: source('_render.R')$value
+---
+```
+
+]
+
+
+---
+name: goodbye
+class: inverse, bottom
+
+.pull-left[
+Sincere thanks to my RStudio colleagues:
++ Christophe Dervieux, 
++ Garrick Aden-Buie, and 
++ Tom Mock.
+]
+
+
+.pull-right[
+.right[
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+# Thank you!
+
+### Find me at...
+
+[<i class="fab  fa-twitter "></i> @apreshill](http://twitter.com/apreshill)  
+[<i class="fab  fa-github "></i> @apreshill](http://github.com/apreshill)  
+[<i class="fas  fa-link "></i> alison.rbind.io](https://alison.rbind.io)  
+]
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
