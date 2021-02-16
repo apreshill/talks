@@ -18,20 +18,15 @@ output:
       countIncrementalSlides: false
       ratio: "16:9"
 params:
-  source:
-    label: "Input dataset:"
-    value: incoming.csv
-    input: file
-  sink:
-    label: "Exported dataset:"
-    value: results.csv
-    input: file
-  series:
-    label: "Bakeoff series:"
-    value: 8
-    input: slider
-    min: 1
-    max: 10
+  date: "February 14"
+  send_to:
+    value:
+      first: "Annetha"
+      last: "Mills"
+  sent_from:
+    value:
+      first: "Alison"
+      last: "Hill"
 ---
 
 ```{r setup, include=FALSE}
@@ -41,6 +36,8 @@ library(bakeoff)
 library(epoxy)
 library(xaringanExtra)
 xaringanExtra::use_panelset()
+
+knitr::opts_chunk$set(collapse = TRUE)
 
 # from garrick's brain
 # https://github.com/gadenbuie/slides/blob/130fac64c5fd293c1ade6f9af796c3fdae8edc2e/toronto-data-workshop/index.Rmd#L53
@@ -102,6 +99,7 @@ background-size: contain
 
 
 ---
+class: middle, center, inverse
 
 ## .big-text[Hello.]
 
@@ -112,7 +110,7 @@ So hello- I'm so happy to be invited to join you all today.
 
 ---
 name: hello
-class: middle, center
+class: middle, center, inverse
 
 
 ### `r rmarkdown::metadata$author`
@@ -258,19 +256,45 @@ template: epoxy
 
 .right-column[
 
-# Fire up the glue knitr engine
+# Fire up the glue engine
 
 .panelset[
 .panel[.panel-name[What you code]
+
+````markdown
+`r rewrite_chunk("glue-gbbo")`
 ````
-```{glue data=series, .transformer = epoxy_style_collapse()}`r ''`
-The show has aired on {unique(channel)&}.
-```
-````
+
 
 ]
 .panel[.panel-name[What you see]
-```{glue data=series, .transformer = epoxy_style_collapse()}
+```{glue, glue-gbbo}
+There are {nrow(bakeoff::series)} series of
+ *The Great British Bake-Off* (or, **GBBO**).
+```
+]
+]
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# Add data
+
+.panelset[
+.panel[.panel-name[What you code]
+
+````markdown
+`r rewrite_chunk("glue-data")`
+````
+
+Choose how vectors are collapsed by adding `*`, `&` or `|` to the end of the expression.
+
+]
+.panel[.panel-name[What you see]
+```{glue glue-data, data=series, .transformer = epoxy_style_collapse()}
 The show has aired on {unique(channel)&}.
 ```
 ]
@@ -286,57 +310,208 @@ template: epoxy
 
 .panelset[
 .panel[.panel-name[What you code]
+
+````markdown
+`r rewrite_chunk("glue-comma")`
 ````
-```{glue data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}`r ''`
-The show has aired on {unique(channel)&}.
-```
-````
+
+Use `.transformer` to change.
 
 ]
 .panel[.panel-name[What you see]
-```{glue data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
+```{glue glue-comma, data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
 The show has aired on {unique(channel)&}.
 ```
 
-Use `.transformer` to change.
+
 ]
 ]
 ]
 
 ---
+template: epoxy
 
-# Fire up the glue knitr engine
+.right-column[
 
-.pull-left[
+# Epoxy is *vectorized*
+
+.panelset[
+.panel[.panel-name[Data]
 
 ```{r}
 bakers %>% 
   count(series)
 ```
 ]
+.panel[.panel-name[What you code]
 
-.pull-right[
+````markdown
+`r rewrite_chunk("glue-bakers")`
+````
+]
+
+.panel[.panel-name[What you see]
+
+
 ```{glue glue-bakers, data = bakers %>% count(series)}
 - **Series {series}**: {n} bakers
+```
+
+]
+]
+]
+
+---
+background-image: url("images/kitten-box.png")
+background-position: right
+background-size: contain
+class: middle, center, inverse
+
+.pull-left[
+
+# What about parameters?
+]
+
+---
+name: parameters
+
+# The parameters two-step
+
+.pull-left[
+
+1\. Setup in YAML with `params:`
+
+```{r echo=FALSE, comment=NULL}
+library(ymlthis)
+yml_empty() %>% 
+  yml_params(date = "February 14",
+             send_to = list(value = list(first = "Annetha", last = "Mills")),
+             sent_from = list(value = list(first = "Alison", last = "Hill")))
+```
+]
+
+---
+template: parameters
+
+--
+
+.pull-right[
+```{r}
+params$date
+params$send_to
+params$sent_from
+```
+
+]
+
+---
+template: parameters
+
+--
+
+.pull-right[
+2\. Use in code with `params$field_name`
+
+Valentine's Day is 
+`` `r
+params$date`` `
+
+```{r eval=FALSE}
+baker_results %>% 
+  filter(baker_first == params$send_to$first & 
+           baker_last == params$send_to$last)
+```
+
+]
+
+---
+template: parameters
+
+--
+
+.pull-right[
+2\. Use in code with epoxy!
+
+```{glue glue-date, data=params}
+### To (sent {date}):
+```
+
+```{glue glue-to, data=params$send_to}
+{first} {last}
+```
+
+```{glue glue-from, data=params$sent_from}
+### From:
+{first} {last}
 ```
 
 ]
 
 
 ---
+template: parameters
 
-#huh
+
+.pull-right[
+2\. Use in code with epoxy!
 
 ````markdown
-`r rewrite_chunk("glue-bakers")`
+`r rewrite_chunk("glue-date")`
 ````
 
+````markdown
+`r rewrite_chunk("glue-to")`
+````
+
+````markdown
+`r rewrite_chunk("glue-from")`
+````
+
+]
 
 
-```{glue, data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
-The show has aired on {unique(channel)&}.
-```
 
+---
+class: middle
+
+# Flavors of parameterized reports
+
+--
+
+.pull-left[
+
++ .emphasis[Scoped:] a report made with a single source, but with different variants scoped for different audiences.
+
+]
+
+--
+
+.pull-right[
+
++ .emphasis[Filtered:] a report made with a single source but the dataset is filtered to focus on a specific subsample or time period.
+
+]
+  
+---
+class: middle
+
+# Rendering modes for parameterized reports
+
+--
+
+.pull-left[
+
++ .emphasis[Single:] you just want to render one-at-a-time. You can use vanilla knit button, a Shiny interactive interface, or command line.
+
+]
+
+--
+
+.pull-right[
+
++ .emphasis[Batch:] you want to render many reports, iterating across all values of a parameter. You can use command line, or customize your `r emo::ji("yarn")` button.
+
+]
 
 ---
 
@@ -350,87 +525,16 @@ rmarkdown::metadata
 str(rmarkdown::metadata)
 ```
 
-
-
 ---
-
-First play with iterating using the render function (i.e., R Markdown from the command line) to “see” all the different output options for a single output format (for example, generate all themes for an HTML document). Talk about ways to iteratively change things like the output filename, output directory, and output options. New friends: purrr::walk and glue::glue. Advanced: make your own custom render function.
-
----
-
-
-# How do we...
-
---
-
-Use R code in YAML metadata?
-
---
-
-Use parameters to change the actual data (like to subset)?
-
---
-
-Use parameters to change the YAML metadata?
-
-Combine two ideas: using parameters and building a report factory- now we’ll do both! Use parameters now to change the “guts” of a report dynamically. Change YAML elements like title. Change actual data used in code. Change knitr code chunk options like echo TRUE and FALSE. Think about nested parameters like Aron Atkin’s talk.
-
-
-
-
-
----
-
-now with params!
-
-```{glue data = params}
-- **in {source}**: {sink} out
-- {series}
-```
-
-
-
----
-
-idea #1
+background-image: url("images/kitten-theater.png")
+background-position: right
+background-size: contain
+class: middle, center, inverse
 
 .pull-left[
 
-```{r eval=FALSE}
-sales <- readr::read_csv("sales_raw.csv")
-```
-
-```{r eval=FALSE}
-write_csv(sales, "sales_clean.csv")
-```
-
-
+# The parameter finale
 ]
-
-.pull-right[
-
-```
-params:
-  source:
-    label: "Input dataset:"
-    value: incoming.csv
-    input: file
-  sink:
-    label: "Exported dataset:"
-    value: results.csv
-    input: file
-```
-
-```{r eval=FALSE}
-sales <- readr::read_csv(params$source)
-```
-
-```{r eval=FALSE}
-write_csv(sales, params$sink)
-```
-
-]
-
 ---
 
 dynamic params

@@ -38,6 +38,7 @@ background-size: contain
 
 
 ---
+class: middle, center, inverse
 
 ## .big-text[Hello.]
 
@@ -48,7 +49,7 @@ So hello- I'm so happy to be invited to join you all today.
 
 ---
 name: hello
-class: middle, center
+class: middle, center, inverse
 
 
 ### Alison Hill
@@ -200,15 +201,44 @@ template: epoxy
 
 .right-column[
 
-# Fire up the glue knitr engine
+# Fire up the glue engine
 
 .panelset[
 .panel[.panel-name[What you code]
+
+````markdown
+```{glue}
+There are {nrow(bakeoff::series)} series of
+ *The Great British Bake-Off* (or, **GBBO**).
+```
 ````
-```{glue data=series, .transformer = epoxy_style_collapse()}
+
+
+]
+.panel[.panel-name[What you see]
+There are 10 series of
+ *The Great British Bake-Off* (or, **GBBO**).
+]
+]
+]
+
+---
+template: epoxy
+
+.right-column[
+
+# Add data
+
+.panelset[
+.panel[.panel-name[What you code]
+
+````markdown
+```{glue data = series, .transformer = epoxy_style_collapse()}
 The show has aired on {unique(channel)&amp;}.
 ```
 ````
+
+Choose how vectors are collapsed by adding `*`, `&amp;` or `|` to the end of the expression.
 
 ]
 .panel[.panel-name[What you see]
@@ -226,34 +256,38 @@ template: epoxy
 
 .panelset[
 .panel[.panel-name[What you code]
-````
-```{glue data=series, .transformer = epoxy_style_collapse(last_and = ", and ")}
+
+````markdown
+```{glue data = series, .transformer = epoxy_style_collapse(last_and = ", and ")}
 The show has aired on {unique(channel)&amp;}.
 ```
 ````
+
+Use `.transformer` to change.
 
 ]
 .panel[.panel-name[What you see]
 The show has aired on BBC Two, BBC One, and Channel 4.
 
-Use `.transformer` to change.
+
 ]
 ]
 ]
 
 ---
+template: epoxy
 
-# Fire up the glue knitr engine
+.right-column[
 
-.pull-left[
+# Epoxy is *vectorized*
+
+.panelset[
+.panel[.panel-name[Data]
 
 
 ```r
 bakers %&gt;% 
   count(series)
-```
-
-```
 ## # A tibble: 10 x 2
 ##    series     n
 ##  * &lt;fct&gt;  &lt;int&gt;
@@ -269,8 +303,18 @@ bakers %&gt;%
 ## 10 10        13
 ```
 ]
+.panel[.panel-name[What you code]
 
-.pull-right[
+````markdown
+```{glue data = bakers %&gt;% count(series)}
+- **Series {series}**: {n} bakers
+```
+````
+]
+
+.panel[.panel-name[What you see]
+
+
 - **Series 1**: 10 bakers
 - **Series 2**: 12 bakers
 - **Series 3**: 12 bakers
@@ -283,31 +327,188 @@ bakers %&gt;%
 - **Series 10**: 13 bakers
 
 ]
+]
+]
+
+---
+background-image: url("images/kitten-box.png")
+background-position: right
+background-size: contain
+class: middle, center, inverse
+
+.pull-left[
+
+# What about parameters?
+]
+
+---
+name: parameters
+
+# The parameters two-step
+
+.pull-left[
+
+1\. Setup in YAML with `params:`
+
+
+```
+---
+params:
+  date: February 14
+  send_to:
+    value:
+      first: Annetha
+      last: Mills
+  sent_from:
+    value:
+      first: Alison
+      last: Hill
+---
+```
+]
+
+---
+template: parameters
+
+--
+
+.pull-right[
+
+```r
+params$date
+## [1] "February 14"
+params$send_to
+## $first
+## [1] "Annetha"
+## 
+## $last
+## [1] "Mills"
+params$sent_from
+## $first
+## [1] "Alison"
+## 
+## $last
+## [1] "Hill"
+```
+
+]
+
+---
+template: parameters
+
+--
+
+.pull-right[
+2\. Use in code with `params$field_name`
+
+Valentine's Day is 
+`` `r
+params$date`` `
+
+
+```r
+baker_results %&gt;% 
+  filter(baker_first == params$send_to$first &amp; 
+           baker_last == params$send_to$last)
+```
+
+]
+
+---
+template: parameters
+
+--
+
+.pull-right[
+2\. Use in code with epoxy!
+
+### To (sent February 14):
+
+Annetha Mills
+
+### From:
+Alison Hill
+
+]
 
 
 ---
+template: parameters
 
-#huh
+
+.pull-right[
+2\. Use in code with epoxy!
 
 ````markdown
-```{glue data = bakers %&gt;% count(series)}
-- **Series {series}**: {n} bakers
+```{glue data = params}
+### To (sent {date}):
 ```
 ````
 
+````markdown
+```{glue data = params$send_to}
+{first} {last}
+```
+````
+
+````markdown
+```{glue data = params$sent_from}
+### From:
+{first} {last}
+```
+````
+
+]
 
 
-The show has aired on BBC Two, BBC One, and Channel 4.
 
+---
+class: middle
+
+# Flavors of parameterized reports
+
+--
+
+.pull-left[
+
++ .emphasis[Scoped:] a report made with a single source, but with different variants scoped for different audiences.
+
+]
+
+--
+
+.pull-right[
+
++ .emphasis[Filtered:] a report made with a single source but the dataset is filtered to focus on a specific subsample or time period.
+
+]
+  
+---
+class: middle
+
+# Rendering modes for parameterized reports
+
+--
+
+.pull-left[
+
++ .emphasis[Single:] you just want to render one-at-a-time. You can use vanilla knit button, a Shiny interactive interface, or command line.
+
+]
+
+--
+
+.pull-right[
+
++ .emphasis[Batch:] you want to render many reports, iterating across all values of a parameter. You can use command line, or customize your 🧶 button.
+
+]
 
 ---
 
 
 ```r
 rmarkdown::metadata
-```
-
-```
 ## $title
 ## [1] "Made with yarn, strings, and glue"
 ## 
@@ -361,43 +562,26 @@ rmarkdown::metadata
 ## 
 ## 
 ## $params
-## $params$source
-## $params$source$label
-## [1] "Input dataset:"
+## $params$date
+## [1] "February 14"
 ## 
-## $params$source$value
-## [1] "incoming.csv"
+## $params$send_to
+## $params$send_to$value
+## $params$send_to$value$first
+## [1] "Annetha"
 ## 
-## $params$source$input
-## [1] "file"
-## 
-## 
-## $params$sink
-## $params$sink$label
-## [1] "Exported dataset:"
-## 
-## $params$sink$value
-## [1] "results.csv"
-## 
-## $params$sink$input
-## [1] "file"
+## $params$send_to$value$last
+## [1] "Mills"
 ## 
 ## 
-## $params$series
-## $params$series$label
-## [1] "Bakeoff series:"
 ## 
-## $params$series$value
-## [1] 8
+## $params$sent_from
+## $params$sent_from$value
+## $params$sent_from$value$first
+## [1] "Alison"
 ## 
-## $params$series$input
-## [1] "slider"
-## 
-## $params$series$min
-## [1] 1
-## 
-## $params$series$max
-## [1] 10
+## $params$sent_from$value$last
+## [1] "Hill"
 ```
 
 ---
@@ -405,9 +589,6 @@ rmarkdown::metadata
 
 ```r
 str(rmarkdown::metadata)
-```
-
-```
 ## List of 8
 ##  $ title   : chr "Made with yarn, strings, and glue"
 ##  $ subtitle: chr "An R Markdown valentine for you"
@@ -428,105 +609,27 @@ str(rmarkdown::metadata)
 ##   .. .. ..$ countIncrementalSlides: logi FALSE
 ##   .. .. ..$ ratio                 : chr "16:9"
 ##  $ params  :List of 3
-##   ..$ source:List of 3
-##   .. ..$ label: chr "Input dataset:"
-##   .. ..$ value: chr "incoming.csv"
-##   .. ..$ input: chr "file"
-##   ..$ sink  :List of 3
-##   .. ..$ label: chr "Exported dataset:"
-##   .. ..$ value: chr "results.csv"
-##   .. ..$ input: chr "file"
-##   ..$ series:List of 5
-##   .. ..$ label: chr "Bakeoff series:"
-##   .. ..$ value: int 8
-##   .. ..$ input: chr "slider"
-##   .. ..$ min  : int 1
-##   .. ..$ max  : int 10
+##   ..$ date     : chr "February 14"
+##   ..$ send_to  :List of 1
+##   .. ..$ value:List of 2
+##   .. .. ..$ first: chr "Annetha"
+##   .. .. ..$ last : chr "Mills"
+##   ..$ sent_from:List of 1
+##   .. ..$ value:List of 2
+##   .. .. ..$ first: chr "Alison"
+##   .. .. ..$ last : chr "Hill"
 ```
 
-
-
 ---
-
-First play with iterating using the render function (i.e., R Markdown from the command line) to “see” all the different output options for a single output format (for example, generate all themes for an HTML document). Talk about ways to iteratively change things like the output filename, output directory, and output options. New friends: purrr::walk and glue::glue. Advanced: make your own custom render function.
-
----
-
-
-# How do we...
-
---
-
-Use R code in YAML metadata?
-
---
-
-Use parameters to change the actual data (like to subset)?
-
---
-
-Use parameters to change the YAML metadata?
-
-Combine two ideas: using parameters and building a report factory- now we’ll do both! Use parameters now to change the “guts” of a report dynamically. Change YAML elements like title. Change actual data used in code. Change knitr code chunk options like echo TRUE and FALSE. Think about nested parameters like Aron Atkin’s talk.
-
-
-
-
-
----
-
-now with params!
-
-- **in incoming.csv**: results.csv out
-- 8
-
-
-
----
-
-idea #1
+background-image: url("images/kitten-theater.png")
+background-position: right
+background-size: contain
+class: middle, center, inverse
 
 .pull-left[
 
-
-```r
-sales &lt;- readr::read_csv("sales_raw.csv")
-```
-
-
-```r
-write_csv(sales, "sales_clean.csv")
-```
-
-
+# The parameter finale
 ]
-
-.pull-right[
-
-```
-params:
-  source:
-    label: "Input dataset:"
-    value: incoming.csv
-    input: file
-  sink:
-    label: "Exported dataset:"
-    value: results.csv
-    input: file
-```
-
-
-```r
-sales &lt;- readr::read_csv(params$source)
-```
-
-
-```r
-write_csv(sales, params$sink)
-```
-
-]
-
 ---
 
 dynamic params

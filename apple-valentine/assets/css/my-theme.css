@@ -16,10 +16,6 @@ blockquote {
   background-color: #f6f5ed;
 }
 
-.remark-slide-content h1 {
-	margin-bottom: 0.5em !important;
-}
-
 .footnote {
 	bottom: 1em;
 	font-size: 75%;
