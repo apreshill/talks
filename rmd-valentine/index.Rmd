@@ -802,9 +802,12 @@ class: middle
 
 Recommended: name it `_render.R`, and it .emphasis[must] be of the form:
 
-```r
+```{r eval=FALSE}
 function(input, ...) { 
 ...
+  rmarkdown::render(
+    input = input #<<
+    )
 }
 ```
 ]
