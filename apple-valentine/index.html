@@ -525,7 +525,7 @@ class: middle, center, inverse
 
 .pull-left[
 
-# The parameter finale
+# The grand params finale
 ]
 ---
 class: inverse, middle, center
@@ -543,12 +543,12 @@ So, we know parameters flow .emphasis[down] by affecting code/text in the body o
 
 ## ⬆️
 
-But parameters can also flow .emphasis[up] by affecting our YAML and metadata.
+But parameters can also flow .emphasis[up] to our YAML, our file output names, and our document's metadata.
 ]
 
 ---
 
-# Use parameters inside your YAML metadata
+# Use params inside YAML fields
 
 
 ```
@@ -568,36 +568,182 @@ params:
 ---
 ```
 
+---
+
+# Use params inside `rmarkdown::render`
+
+.panelset[
+.panel[.panel-name[Script]
+
+Here, I'm overriding the name of the `output_file` and the `theme`.
+
+
+```r
+purrr::walk(
+  .x = list(send_to = list(first = "Sophie", last = "Faldo")),
+  ~ rmarkdown::render(
+    input = "index.Rmd",
+*   output_file = glue::glue("valentine-for-{.x$first}.html"),
+*   output_options = list(theme = "journal")
+  )
+)
+```
+
+
+]
+
+.panel[.panel-name[Args]
+
+You can replace anything that is an argument to [`rmarkdown::render()`](https://rmarkdown.rstudio.com/docs//reference/render.html)
+
+.emphasis[But]...this won't actually change the valentine itself! 
+
+]
+]
 
 ---
 
-# Use parameters to override your YAML
+# Use params to replace param values
 
-`_render_single.R`
+Now, I'm actually making a valentine for Sophie!
+
 
 ```r
-function(input, ...) {
-  purrr::walk(
-    .x = list(send_to = list(first = "Sophie", last = "Faldo")),
-    ~ rmarkdown::render(
-      input = input,
-      output_file = glue::glue("valentine-for-{.x$first}.html"),
-      params = list(send_to = {.x},
-                    sent_from = list(first = "Rami", last = "Krispin"))
-    )
+purrr::walk(
+  .x = list(send_to = list(first = "Sophie", last = "Faldo")),
+  ~ rmarkdown::render(
+    input = "index.Rmd",
+    output_file = glue::glue("valentine-for-{.x$first}.html"),
+    output_options = list(theme = "journal"),
+*   params = list(send_to = {.x})
   )
-}
+)
 ```
 
 ---
 
-# Use parameters to override your YAML metadata
+# Use params to replace param values
+
+You can *also* .emphasis[replace anything that is a parameter...]
+[`_render_single.R`](https://github.com/apreshill/baker-valentines/blob/master/_render_single.R)
 
 
+```r
+purrr::walk(
+  .x = list(send_to = list(first = "Sophie", last = "Faldo")),
+  ~ rmarkdown::render(
+    input = "index.Rmd",
+    output_file = glue::glue("valentine-for-{.x$first}.html"),
+    output_options = list(theme = "journal"),
+    params = list(send_to = {.x},
+*                 sent_from = list(first = "Rami", last = "Krispin"))
+  )
+)
+```
 
 ---
 
-# Change what knit button does
+# Use params to replace YAML fields
+
+[`_render_single.R`](https://github.com/apreshill/baker-valentines/blob/master/_render_single.R)
+
+--
+
+.panelset[
+.panel[.panel-name[Step 1]
+
+```
+---
+title: '`r params$my_valentine`'
+params:
+  my_valentine: Nothing matters
+---
+```
+]
+
+.panel[.panel-name[Step 2]
+
+```r
+purrr::walk(
+  .x = list(send_to = list(first = "Sophie", last = "Faldo")),
+  ~ rmarkdown::render(
+    input = "index.Rmd",
+    output_file = glue::glue("valentine-for-{.x$first}.html"),
+    output_options = list(theme = "journal"),
+    params = list(send_to = {.x},
+                  sent_from = list(first = "Rami", last = "Krispin"),
+*                 my_valentine = "My funny valentine")
+  )
+)
+```
+
+]
+
+]
+
+---
+
+# Use params to replace YAML fields
+
+[`_render_single.R`](https://github.com/apreshill/baker-valentines/blob/master/_render_single.R)
+
+--
+
+.panelset[
+.panel[.panel-name[Step 1]
+
+```
+---
+title: '`r params$my_valentine`'
+params:
+  my_valentine: Nothing matters
+---
+```
+]
+
+.panel[.panel-name[Step 2]
+
+```r
+purrr::walk(
+  .x = list(send_to = list(first = "Sophie", last = "Faldo")),
+  ~ rmarkdown::render(
+    input = input,
+    output_file = glue::glue("valentine-for-{.x$first}.html"),
+    output_options = list(theme = "journal"),
+    params = list(send_to = {.x},
+                  sent_from = list(first = "Rami", last = "Krispin"),
+*                 my_valentine = glue::glue("My funny valentine, {.x$first}"))
+  )
+)
+```
+
+]
+
+]
+
+---
+
+# Using YAML with strings and glue
+
+--
+
+Use params inside YAML fields
+
+--
+
+Use params inside `rmarkdown::render` 
+
+--
+
+Use params to replace param values
+
+--
+
+Use params to replace YAML fields 
+
+---
+
+# Change what the knit button does
 
 .pull-left[
 

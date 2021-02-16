@@ -84,7 +84,7 @@ a:hover, a:active, a:focus {
 }
 
 .remark-code-line-highlighted { 
-  background-color:  #bed3eca1; 
+  background-color:  #f3e0e1; 
 }
 
 /* darken up code and results */
@@ -364,12 +364,6 @@ h4 {
   text-shadow: 2px 2px 0.5em black;
   color: #fff;
 }
-
-.remark-code-line-highlighted {
-  color: #DD6164FF;
-  background-color: transparent;
-}
-
 
 .hidden{
   visibility: hidden;
