@@ -850,3 +850,24 @@ to my RStudio colleagues:
 [`r icon::fa("link")` alison.rbind.io](https://alison.rbind.io)  
 ]
 ]
+
+```{r include=FALSE}
+library(metathis)
+meta() %>%
+  meta_description(
+    "How to use YAML, parameters, and strings to make your R Markdown documents better with glue and knitr engines."
+  ) %>% 
+  meta_name("github-repo" = "apreshill/talks") %>% 
+  meta_viewport() %>% 
+  meta_social(
+    title = "Made with yarn, strings, and glue: An R Markdown valentine for you",
+    url = "https://alison.netlify.app/rmd-valentine",
+    image = "https://alison.netlify.app/rmd-valentine/images/vintage_valentine.jpg",
+    image_alt = "Vintage valentine",
+    og_type = "website",
+    og_author = "Alison Hill",
+    twitter_card_type = "summary",
+    twitter_creator = "@apreshill"
+  )
+```
+
