@@ -770,6 +770,26 @@ bnames &lt;- readr::read_csv("data/bakers.csv") %&gt;%
 
 ]
 
+.panel[.panel-name[The data]
+
+
+
+```r
+bnames %&gt;%
+  tidyr::unnest_wider(send_to)
+## # A tibble: 6 x 2
+##   first     last    
+##   &lt;chr&gt;     &lt;chr&gt;   
+## 1 Annetha   Mills   
+## 2 David     Chambers
+## 3 Edward    Kimber  
+## 4 Jasminder Randhawa
+## 5 Jonathan  Shepherd
+## 6 Lea       Harris
+```
+
+]
+
 .panel[.panel-name[The play]
 
 ```r

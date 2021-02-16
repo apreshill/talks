@@ -755,6 +755,23 @@ bnames <- readr::read_csv("data/bakers.csv") %>%
 
 ]
 
+.panel[.panel-name[The data]
+```{r echo=FALSE, comment=NULL}
+bnames <- bakeoff::bakers %>% 
+  head() %>%
+  mutate(send_to = purrr::map2(.x = baker_first, .y = baker_last,
+                               ~list(first = .x,
+                                     last = .y))) %>% 
+  select(send_to)
+```
+
+```{r}
+bnames %>%
+  tidyr::unnest_wider(send_to)
+```
+
+]
+
 .panel[.panel-name[The play]
 ```{r eval=FALSE}
 purrr::walk(
