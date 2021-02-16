@@ -1,5 +1,5 @@
 ---
-title: "Made with yarn, strings, and glue"
+title: "Made with YAML, strings, and glue"
 subtitle: "An R Markdown valentine for you"
 author: Alison Hill
 role: Product Manager, Data Science Communication 
@@ -858,12 +858,12 @@ to my RStudio colleagues:
 library(metathis)
 meta() %>%
   meta_description(
-    "How to use YAML, parameters, and strings to make your R Markdown documents better with glue and knitr engines."
+    "Use YAML, strings, and glue to power your R Markdown documents."
   ) %>% 
   meta_name("github-repo" = "apreshill/talks") %>% 
   meta_viewport() %>% 
   meta_social(
-    title = "Made with yarn, strings, and glue: An R Markdown valentine for you",
+    title = "Made with YAML, strings, and glue: An R Markdown valentine for you",
     url = "https://alison.netlify.app/rmd-valentine",
     image = "https://alison.netlify.app/rmd-valentine/images/vintage_valentine.jpg",
     image_alt = "Vintage valentine",
