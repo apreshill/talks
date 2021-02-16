@@ -484,7 +484,7 @@ class: middle
 
 + .emphasis[Change:] code; .emphasis[Keep:] data
 
-    &rarr; `ceo.html`
+    &rarr; `conf.html`
 
     &rarr; `lnl.html`
   
