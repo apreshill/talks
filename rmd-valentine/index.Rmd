@@ -36,7 +36,6 @@ library(bakeoff)
 library(epoxy)
 library(xaringanExtra)
 xaringanExtra::use_panelset()
-xaringanExtra::use_clipboard()
 
 knitr::opts_chunk$set(collapse = TRUE)
 
@@ -158,7 +157,9 @@ https://github.com/apreshill/baker-valentines
 ---
 background-image: url(images/rmarkdown_hedgehog_wide.png)
 background-size: contain
+class: bottom
 
+Artwork by [Allison Horst](https://www.allisonhorst.com/)
 ---
 name: glue
 class: middle
