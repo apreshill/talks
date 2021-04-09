@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;1,300;1,600&display=swap');
+
+body { 
+  font-family: 'Bitter', sans-serif;
+  font-weight: 400;
+  color: var(--independence);
+}
+
+h1 {
+  font-family: 'Petrona', serif;
+  font-weight: 500;
+  color: var(--independence);
+}
+
+h2 {
+  font-family: 'Petrona', serif;
+  font-weight: 300;
+  color: var(--independence);
+}
+
+h3 {
+  font-family: 'Bitter', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: var(--china-rose);
+  font-size: 1.3em !important;
+}
+
+h4, h5, h6 {
+  font-family: 'Bitter', sans-serif;
+  font-weight: 400;
+  color: var(--china-rose);
+}
+
+.remark-code,
+.remark-inline-code{ 
+  font-family: 'Courier Prime', monospace;
+}
+
+@media print {
+  body {
+    font-family: 'Bitter', sans-serif;
+    font-weight: 400;
+}
