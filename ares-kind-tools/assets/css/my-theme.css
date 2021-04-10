@@ -2,12 +2,14 @@
 /* CSS HEX */
 --independence: #344966ff;
 --cornflower-blue: #7899d4ff;
---marigold: #f5ab1fff;
+--marigold: #fad662; 
 --china-rose: #b74f6fff;
 --orchid-pink: #ffc6d9ff;
 --cultured: #fcfaf9ff;
 --ming: #246A73ff;
 }
+
+#f5ab1fff
 
 .remark-slide-content p, ul, ol, li {
   font-size: 1.6rem;

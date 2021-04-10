@@ -866,22 +866,17 @@ blogdown::check_content()
 
 --
 
-.pull-left[
-`○` = `check_success()` 
-
-`●` = `[TODO]`
-]
-
---
-
-.pull-right[
-
-`―` = start/complete check
-
-`|` = progress
+```{.r}
+----------------------------------------------------------
+○ A successful check looks like this.
+● [TODO] A check that needs your attention looks like this.
+| Let's check out your blogdown site!
+----------------------------------------------------------
+```
 
 And we managed to avoid ✗ shapes, which always port you back to 5th grade math.
-]
+
+
 
 ---
 class: middle
@@ -908,6 +903,15 @@ class: middle
 
 > I feel empowered to continue using blogdown 
 
+---
+class: middle, center, inverse
+
+
+<video width="300" height="400" controls>
+  <source src="images/gitignore.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
 
 ---
 class: section, middle, center
@@ -921,7 +925,40 @@ background-position: bottom, center
 
 --
 
-# Case study #3: `distill` + `postcards`
+# Case study #3: `distill`
+
+
+---
+background-image: url(images/distill-theme.png)
+background-position: middle, center 
+background-size: 75%
+class: top, center
+
+# Issue #19
+
+---
+
+I’m in the place where distill needs to sit in the corner and think about what its done :angry:
+
+# My two biggest distill woes
+
+1. Customizability
+
+1. Accessibility
+
+> Can we can do a good job on this?
+
+---
+
+# But how?
+
+1. Use YAML- but, does it add value over raw CSS? 
+
+Sounds good- yes I was editing a new Hugo site last night and just enjoying the variables.css file. 
+
+I limited myself to font sizes and colors (no changing font styling or families) since those are most important I imagine for accessibility. 
+
+.footnote[[Amber's CSS variables](https://github.com/ProQuestionAsker/websiteSource/blob/5041264138212dc1a3a740bf001f7fb0e4837597/themes/data-science/static/css/variables.css)]
 
 ---
 class: center, inverse, middle
@@ -965,6 +1002,7 @@ Distill + postcards are [M-F-E-O](https://alison.rbind.io/post/2020-12-22-postca
 ---
 name: goodbye
 class: bottom
+background-color: #fad662
 
 .pull-left[
 ### Sincere thanks to:
