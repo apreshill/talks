@@ -12,6 +12,11 @@ output:
     seal: false 
     lib_dir: libs
     nature:
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
       highlightStyle: solarized-light
       highlightLanguage: ["r", "css", "yaml"]
       highlightLines: true
@@ -38,6 +43,9 @@ theme_set(theme_minimal(base_family = "Bitter"))
 pkg_colors <- c("palmerpenguins" = "#7899d4", 
                 "blogdown" = "#f5ab1f", 
                 "distill" = "#b74f6f")
+
+library(xaringanExtra)
+xaringanExtra::use_panelset()
 ```
 
 
@@ -501,7 +509,7 @@ class: middle, center
 ```{r cran-line}
 dl <- cranlogs::cran_downloads(c("palmerpenguins", "distill", "blogdown"),
                                from = "2020-04-01",
-                               to = "2021-04-03") %>% 
+                               to = "2021-04-07") %>% 
   as_tibble() 
 
 ggplot(dl, aes(date, count, 
@@ -722,7 +730,10 @@ class: section, middle, center
 # Be their accomplice
 ]
 
+
+
 ---
+class: middle
 
 # `r emo::ji("airplane")` Pre-flight checks
 
@@ -742,10 +753,142 @@ check_content()
 
 --
 
-.footnote[https://github.com/rstudio/blogdown/pull/534]
+.footnote[[PR](https://github.com/rstudio/blogdown/pull/534); [issue](https://github.com/rstudio/blogdown/issues/510); [post](https://alison.rbind.io/post/2020-12-27-blogdown-checks/)]
 
 ---
 class: middle
+
+.panelset[
+.panel[.panel-name[Before]
+
+```{.r}
+blogdown:::serve_site()
+
+--------------------------------------------------------------------------------
+You are recommended to ignore more items in the 'ignoreFiles' field in config.toml: "\\.Rmd$", "\\.Rmarkdown$", "\\.knit\\.md$", "\\.utf8\\.md$"
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+You are recommended to remove the item '_files$' in the 'ignoreFiles' field in config.toml.
+--------------------------------------------------------------------------------
+```
+
+]
+
+.panel[.panel-name[Check]
+
+```{.r}
+blogdown::check_config()
+
+― Checking config.toml
+| Checking "baseURL" setting for Hugo...
+○ Found baseURL = "https://alison.rbind.io"; nothing to do here!
+| Checking "ignoreFiles" setting for Hugo...
+● [TODO] Add these items to the "ignoreFiles" setting: "\\.Rmd$", "\\.Rmarkdown$", "\\.knit\\.md$", "\\.utf8\\.md$"
+| Checking setting for Hugo's Markdown renderer...
+○ All set! Found the "unsafe" setting for goldmark.
+― Check complete: config.toml
+```
+]
+]
+
+---
+class: middle
+
+.panelset[
+.panel[.panel-name[Before]
+
+```{.r}
+The 'publish' setting in 'netlify.toml' is 'public/' but the publish dir in the Hugo config file is 'public'. You may want to change the former to the latter.
+```
+
+]
+
+.panel[.panel-name[Check]
+
+```{.r}
+blogdown::check_netlify()
+
+― Checking netlify.toml...
+○ Found HUGO_VERSION = 0.79.0 in [build] context of netlify.toml.
+| Checking that Netlify & local Hugo versions match...
+○ It's a match! Blogdown and Netlify are using the same Hugo version (0.79.0).
+| Checking that Netlify & local Hugo publish directories match...
+○ Good to go - blogdown and Netlify are using the same publish directory: public
+― Check complete: netlify.toml
+```
+]
+]
+
+---
+class: middle
+
+.panelset[
+.panel[.panel-name[Before]
+
+```{.r}
+The date of the post is in the future: '2025-01-01'. See https://github.com/rstudio/blogdown/issues/377 for consequences.
+To turn off this warning, set options(blogdown.warn.future = FALSE).
+```
+]
+
+
+.panel[.panel-name[Check]
+
+```{.r}
+blogdown::check_content()
+
+― Checking content files
+| Checking for previewed content that will not be published...
+● [TODO] Found 1 file with a future publish date:
+
+  content/talk/2021-rstudio-global/index.md
+
+  If you want to publish today, change a file's YAML key to 'date: 2020-12-27'
+○ Found 0 files marked as drafts.
+| Checking your R Markdown content...
+○ All R Markdown files have been knitted.
+○ All R Markdown output files are up to date with their source files.
+| Checking for .html/.md files to clean up...
+○ Found 0 duplicate .html output files.
+○ Found 0 incompatible .html files to clean up.
+― Check complete: Content
+```
+]
+]
+
+---
+
+# Kind design?
+
+> "In Japan and Korea, the ○ mark is used instead of the check mark, and the X or ✓ mark are commonly used for wrong."
+>
+> [Wikipedia](https://en.wikipedia.org/wiki/Check_mark)
+
+--
+
+.pull-left[
+`○` = `check_success()` 
+
+`●` = `[TODO]`
+]
+
+--
+
+.pull-right[
+
+`―` = start/complete check
+
+`|` = progress
+
+And we managed to avoid ✗ shapes, which always port you back to 5th grade math.
+]
+
+---
+class: middle
+
+> I can understand exactly what's being checked, I'm able to follow along with what's going on behind the scenes with each step, and I understand what I need to do next. What a difference! These messages are so much more helpful and clear -- I am so impressed!
+
+--
 
 > Really enjoy the encouraging console output that accompanies the new blogdown::check_site() function.
 
@@ -852,13 +995,13 @@ class: bottom
 library(metathis)
 meta() %>%
   meta_description(
-    "Use YAML, strings, and glue to power your R Markdown documents."
+    "Crafting kind tools."
   ) %>% 
   meta_name("github-repo" = "apreshill/talks") %>% 
   meta_viewport() %>% 
   meta_social(
-    title = "Made with YAML, strings, and glue: An R Markdown valentine for you",
-    url = "https://alison.netlify.app/rmd-valentine",
+    title = "Crafting kind tools",
+    url = "https://alison.netlify.app/ares-kind-tools",
     image = "https://alison.netlify.app/rmd-valentine/images/vintage_valentine.jpg",
     image_alt = "Vintage valentine",
     og_type = "website",

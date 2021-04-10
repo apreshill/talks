@@ -6,6 +6,7 @@
 --china-rose: #b74f6fff;
 --orchid-pink: #ffc6d9ff;
 --cultured: #fcfaf9ff;
+--ming: #246A73ff;
 }
 
 .remark-slide-content p, ul, ol, li {
@@ -69,20 +70,15 @@ pre code {
 
 
 /* link color */
-a, a > code {
-  color: #DD6164;
-}
-
 
 :any-link {
     color: var(--independence);
     text-decoration: underline;
 }
 
-
 /* mouse over link */
 a:hover, a:active, a:focus {
-    color: var(--orchid-pink);
+    color: var(--ming);
     text-decoration: underline;
 }
 
@@ -98,12 +94,6 @@ a:hover, a:active, a:focus {
 
 .remark-code-line-highlighted { 
   background-color:  #f3e0e1; 
-}
-
-/* darken up code and results */
-
-.hljs-solarized-light .hljs {
-  color: #2B3D43; 
 }
 
 .inverse {
@@ -125,11 +115,11 @@ a:hover, a:active, a:focus {
 }
 
 .inverse a {
-  color: var(--orchid-pink);
+  color: var(--cultured);
 }
 
 .inverse a:hover {
-  color: var(--cultured);
+  color: var(--orchid-pink);
 }
 
 
@@ -408,7 +398,7 @@ h4 {
 
 .remark-slide-number .progress-bar {
   height: 100%;
-  background-color: #f3e0e1;
+  background-color: var(--orchid-pink);
 }
 
 .title-slide .remark-slide-number .progress-bar-container {
