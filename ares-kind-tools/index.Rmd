@@ -491,7 +491,7 @@ background-size: 15%
 background-position: bottom, center
 
 .frame[
-# Be their ally
+# Be an ally
 ]
 
 --
@@ -598,29 +598,31 @@ The palmerpenguins data package
 
 1. [Fun art](https://allisonhorst.github.io/palmerpenguins/articles/art.html)
 
-And of course, the charismatic penguins themselves!
+And of course, penguins don't hurt!
 
 ]
 
 
 ---
+class: middle
 
-.pull-left[
+> "I think this gives the best of both worlds — if you're teaching a tidyverse centric course, you'll get tibbles; if you're running in a low dependency environment, you'll get a data frame."
+
 ```{r echo=FALSE}
 palmerpenguins::penguins %>% 
   as.data.frame()
 ```
 
-]
+---
+class: middle
 
---
+# Only use tibbles if tibble installed
 
-.pull-right[
 ```{r echo=FALSE}
 palmerpenguins::penguins 
 ```
 
-]
+.footnote[Thanks to [Hadley Wickham!](https://github.com/allisonhorst/palmerpenguins/pull/25)]
 
 ---
 
@@ -642,13 +644,94 @@ We learn better from 'ingroup' members:
 ]
 
 .footnote[[tweet](https://twitter.com/helenczerski/status/1375915057905856513?s=20)]
+
+
+---
+class: section, middle, center
+background-image: url(images/distill.png)
+background-size: 15%
+background-position: bottom, center
+
+.frame[
+# Be an advocate
+]
+
+--
+
+# Case study #2: `distill`
+
+---
+exclude: true
+4 anticipate (rational -> trust; use smarties task here; what is the "job to be done"- hilarious snickers user persona) --> DISTILL THEMER + POSTCARDS (led to new collections feature)
+
+---
+background-image: url(images/distill-theme.png)
+background-position: bottom, center 
+background-size: 75%
+class: top, center
+
+# Issue #19
+
 ---
 
+So we knew this was a problem.
 
+--
 
+And we thought if we could do a good job on this it would matter.
 
+--
 
-4 anticipate (rational -> trust; use smarties task here; what is the "job to be done"- hilarious snickers user persona) --> DISTILL THEMER + POSTCARDS (led to new collections feature)
+It would *also* make distill content more accessible (allowing users to increase font size and color contrast).
+
+---
+
+# But how?
+
+1. Use YAML- but, does it add value over raw CSS? 
+
+Sounds good- yes I was editing a new Hugo site last night and just enjoying the variables.css file. 
+
+I limited myself to font sizes and colors (no changing font styling or families) since those are most important I imagine for accessibility. 
+
+.footnote[[Amber's CSS variables](https://github.com/ProQuestionAsker/websiteSource/blob/5041264138212dc1a3a740bf001f7fb0e4837597/themes/data-science/static/css/variables.css)]
+
+---
+class: center, inverse, middle
+
+# Alison testing Hugo themes
+
+![](https://media.giphy.com/media/PW24kUmUv3vlm/giphy.gif)
+
+---
+name: postcard
+background-image: url(images/postcard.jpg)
+background-size: 50%
+background-color: white
+background-position: left
+class: middle
+
+---
+template: postcard
+
+.pull-right[
+
+> “Create simple, beautiful personal websites and landing pages using only R Markdown.”
+>
+> [Sean Kross](https://github.com/seankross/postcards)
+
+]
+
+---
+template: postcard
+
+.pull-right[
+
+Distill is a package that *also* helps you make simple, beautiful websites and blogs using only R Markdown.
+
+Distill + postcards are [M-F-E-O](https://alison.rbind.io/post/2020-12-22-postcards-distill/)
+
+]
 
 ---
 class: top, center
@@ -657,7 +740,7 @@ background-size: 63%
 background-position: bottom, center
 
 .frame[
-# Case study #2: `blogdown`
+# Case study #3: `blogdown`
 ]
 
 ???
@@ -729,7 +812,7 @@ class: middle, center
 class: section, middle, center
 
 .frame[
-# Be their accomplice
+# Be an accomplice
 ]
 
 
@@ -860,7 +943,7 @@ blogdown::check_content()
 
 ---
 
-# Kind design?
+# On design
 
 > "In Japan and Korea, the ○ mark is used instead of the check mark, and the X or ✓ mark are commonly used for wrong."
 >
@@ -913,91 +996,6 @@ class: middle, center, inverse
   <source src="images/gitignore.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video> 
-
-
----
-class: section, middle, center
-background-image: url(images/distill.png)
-background-size: 15%
-background-position: bottom, center
-
-.frame[
-# Be their assistant
-]
-
---
-
-# Case study #3: `distill`
-
-
----
-background-image: url(images/distill-theme.png)
-background-position: middle, center 
-background-size: 75%
-class: top, center
-
-# Issue #19
-
----
-
-I’m in the place where distill needs to sit in the corner and think about what its done :angry:
-
-# My two biggest distill woes
-
-1. Customizability
-
-1. Accessibility
-
-> Can we can do a good job on this?
-
----
-
-# But how?
-
-1. Use YAML- but, does it add value over raw CSS? 
-
-Sounds good- yes I was editing a new Hugo site last night and just enjoying the variables.css file. 
-
-I limited myself to font sizes and colors (no changing font styling or families) since those are most important I imagine for accessibility. 
-
-.footnote[[Amber's CSS variables](https://github.com/ProQuestionAsker/websiteSource/blob/5041264138212dc1a3a740bf001f7fb0e4837597/themes/data-science/static/css/variables.css)]
-
----
-class: center, inverse, middle
-
-# Alison testing Hugo themes
-
-![](https://media.giphy.com/media/PW24kUmUv3vlm/giphy.gif)
-
----
-name: postcard
-background-image: url(images/postcard.jpg)
-background-size: 50%
-background-color: white
-background-position: left
-class: middle
-
----
-template: postcard
-
-.pull-right[
-
-> “Create simple, beautiful personal websites and landing pages using only R Markdown.”
->
-> [Sean Kross](https://github.com/seankross/postcards)
-
-]
-
----
-template: postcard
-
-.pull-right[
-
-Distill is a package that *also* helps you make simple, beautiful websites and blogs using only R Markdown.
-
-Distill + postcards are [M-F-E-O](https://alison.rbind.io/post/2020-12-22-postcards-distill/)
-
-]
 
 
 
