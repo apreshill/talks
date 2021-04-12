@@ -380,7 +380,8 @@ name: what-we-know
 background-image: url(images/mind.jpg)
 background-size: contain
 background-position: left
-class: middle
+class: middle, inverse
+background-color: #246A73
 
 ---
 template: what-we-know
@@ -390,6 +391,12 @@ template: what-we-know
 
 We know a lot about how people learn.
 
+]
+
+--
+
+.pull-right[
+We also know a lot about .shadow-text[*who*] people learn .shadow-text[*from*].
 ]
 
 --
@@ -423,24 +430,26 @@ background-size: 50%
 ---
 class: middle
 
-> "Cool [executive function (EF) tasks] required large amount logic and critical analysis, and usually involve conscious control of thoughts and actions without an affective component."
+
+# `r emo::ji("music")` Cause you're hot then you're cold `r emo::ji("music")`
+
 
 --
+
+
+> "Cool [executive function (EF) tasks] required large amount logic and critical analysis, and usually involve conscious control of thoughts and actions without an affective component."
+
+
+--
+
 
 > "Contrary to cool tasks, hot EF tasks require regulation in contexts where the outcomes are of greater personal significance, such as completing a task to earn a desirable prize."
 
-.footnote[[Poon](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5767838/); [Walle](https://idlab.ucmerced.edu/sites/idlab.ucmerced.edu/files/page/documents/walle_lopez_castillo_in_press.pdf)]
+
 
 --
 
-.pull-right[
-Adult humans bring `r emo::ji("fire")`
-]
-
-
-
-
-
+.footnote[[Poon](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5767838/); [Walle](https://idlab.ucmerced.edu/sites/idlab.ucmerced.edu/files/page/documents/walle_lopez_castillo_in_press.pdf)]
 
 ---
 class: section, middle, center
@@ -488,8 +497,8 @@ class: section, middle, center
 
 
 ---
-class: center, middle, frame
-background-color: #ffc6d9
+class: center, middle, frame, inverse
+background-color: #246A73
 
 # How can you be the airplane <i class="far fa-paper-plane"></i>?
 
@@ -499,7 +508,7 @@ How do you help without adding any (more) heat?
 
 --
 
-I think the answer is kindness.
+I think the answer is .shadow-text[*kindness*].
 
 
 ---
@@ -707,10 +716,6 @@ background-position: bottom, center
 # Case study #2: `distill`
 
 ---
-exclude: true
-4 anticipate (rational -> trust; use smarties task here; what is the "job to be done"- hilarious snickers user persona) --> DISTILL THEMER + POSTCARDS (led to new collections feature)
-
----
 background-image: url(images/distill-theme.png)
 background-position: bottom, center 
 background-size: 75%
@@ -726,6 +731,7 @@ class: middle, center, inverse
 ![](https://media.giphy.com/media/10ngGQdSSV7EZ2/giphy.gif)
 
 ---
+class: middle
 
 So we knew this was a problem.
 
@@ -736,6 +742,28 @@ And we thought if we could do a good job on this it would matter.
 --
 
 It would *also* make distill content more accessible (allowing users to increase font size and color contrast).
+
+--
+
+### But how?
+
+1. Use YAML- but, does it add value over raw CSS? 
+
+---
+class: middle
+
+.panelset[
+.panel[.panel-name[Default]
+
+![](https://rstudio.github.io/distill/images/theme-before.png)
+
+]
+
+.panel[.panel-name[Themed]
+
+![](https://rstudio.github.io/distill/images/theme-after.png)
+]
+]
 
 ---
 
