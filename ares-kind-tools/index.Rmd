@@ -509,10 +509,16 @@ class: section, middle, center
 
 
 ---
-class: center, middle
-background-color: #7899d4
+class: center, middle, frame
+background-color: #ffc6d9
 
-# How do you *not* add heat?
+# How can you be the airplane <i class="far fa-paper-plane"></i>?
+
+--
+
+How do you help without adding any (more) heat?
+
+--
 
 I think the answer is kindness.
 
@@ -702,7 +708,10 @@ We learn better from 'ingroup' members:
 
 .footnote[https://pubmed.ncbi.nlm.nih.gov/33203741/; https://pubmed.ncbi.nlm.nih.gov/23006251/; https://pubmed.ncbi.nlm.nih.gov/21159092/]
 
+---
+class: middle, center, inverse
 
+![](https://media.giphy.com/media/26tOY7amTI3QyIbZe/giphy.gif)
 
 ---
 class: section, middle, center
@@ -729,6 +738,11 @@ background-size: 75%
 class: top, center
 
 # Issue #19
+
+---
+class: middle, center, inverse
+
+![](https://media.giphy.com/media/10ngGQdSSV7EZ2/giphy.gif)
 
 ---
 
@@ -774,7 +788,7 @@ template: postcard
 
 .pull-right[
 
-> “Create simple, beautiful personal websites and landing pages using only R Markdown.”
+> "Create simple, beautiful personal websites and landing pages using only R Markdown."
 >
 > [Sean Kross](https://github.com/seankross/postcards)
 
@@ -790,6 +804,11 @@ Distill is a package that *also* helps you make simple, beautiful websites and b
 Distill + postcards are [M-F-E-O](https://alison.rbind.io/post/2020-12-22-postcards-distill/)
 
 ]
+
+---
+class: middle, center, inverse
+
+![](https://media.giphy.com/media/j4s6M0gYs5fUs/giphy.gif)
 
 ---
 class: top, center
@@ -1044,7 +1063,7 @@ class: middle
 
 --
 
-> I feel empowered to continue using blogdown 
+> I feel empowered to continue using blogdown.
 
 ---
 class: middle, center, inverse
