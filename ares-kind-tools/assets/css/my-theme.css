@@ -9,7 +9,6 @@
 --ming: #246A73ff;
 }
 
-#f5ab1fff
 
 .remark-slide-content p, ul, ol, li {
   font-size: 1.6rem;
@@ -348,16 +347,6 @@ h4 {
   font-size: 1.8em;
 }
 
-.freight-slide {
-  background-image: 
-    linear-gradient(
-      rgba(59, 66, 69, .8),
-      rgba(59, 66, 69, .8)
-    ),
-    /* your image */
-    url(../../images/freight.jpg);
-  background-size: cover;
-}
 
 .emphasis {
   font-family: 'Bitter';
@@ -370,8 +359,8 @@ h4 {
 }
 
 .shadow-text {
-  text-shadow: 2px 2px 0.5em black;
-  color: #fff;
+  text-shadow: 2px 2px 0.5em var(--china-rose);
+  color: var(--marigold);
 }
 
 .hidden{

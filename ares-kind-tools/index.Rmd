@@ -267,11 +267,14 @@ class: middle, monkey-slide, inverse
 .footnote[[Box, 1984](https://www.google.com/books/edition/Primate_Behaviour_and_Social_Ecology/bAwrBgAAQBAJ?hl=en&gbpv=1&pg=PR7&printsec=frontcover); [Heyes, 1994](users.ox.ac.uk/~ascch/Celia's pdfs/3 1994 Heyes cats and mechs.pdf)]
 
 ---
-background-image: url(images/work.png)
+background-image: url(images/work.jpg)
 background-size: cover
-class: top, center
+class: middle, right
 
+.right-column[
 ## .big-text[Wait, this is social learning?]
+
+]
 
 ---
 name: takeaway
@@ -307,17 +310,32 @@ background-size: contain
 background-position: left
 class: right, middle, inverse
 
-## .big-text[Expert in social]
+# I actually am!
 
-good place to add in that triadic image here
+--
 
-.footnote[[Source](https://jasonstcyr.com/2019/11/27/building-trust-have-you-been-kind-today/)]
+.right-column[
 
----
+> "Social cognition involves all the abilities that enable us to understand social agents and to interact with them."
+]
 
-## A warning
+--
 
-Selective social learning, or selective trust, 
+.right-column[
+
+### Elements of:
+
++ Social attention
++ Emotion regulation
++ Cognitive science
++ Language acquisition
+
+]
+
+.footnote[[Image](https://jasonstcyr.com/2019/11/27/building-trust-have-you-been-kind-today/); [Soto-Icaza et al.](https://www.frontiersin.org/articles/10.3389/fnins.2015.00333/full)]
+
+]
+
 
 ---
 background-image: url(images/sciam.jpg)
@@ -343,6 +361,14 @@ Tools can shape how you:
 
 + react
 
+--
+
++ learn
+
+--
+
++ remember
+
 
 --
 
@@ -350,89 +376,57 @@ Tools can shape how you:
 ]
 
 ---
-
-Cultural transmission
-
----
-
-Because humans
-
----
-
-learning = emotions
-
----
-
-# You may have heard about this
-
-Managing cognitive load? +- 7 items
-
-learner/user personas
-
-How about managing emotional load
-
-
----
-
-Hot vs cool contexts
-
-https://idlab.ucmerced.edu/sites/idlab.ucmerced.edu/files/page/documents/walle_lopez_castillo_in_press.pdf
-
----
-
-Contrary to cool tasks, hot EF tasks require regulation in contexts where the outcomes are of greater personal significance, such as completing a task to earn a desirable prize(e.g., Hongwanishkul et al., 2005; Kerr & Zelazo, 2004). 
-
----
-
-Sound familiar? job to be done!
-
----
-class: section, middle, center
-
-.frame[
-# Bringing the `r emo::ji("fire")`
-]
-
---
-
-# Teaching tidymodels to *beginners*
-
----
-background-image: url(images/tidymodels-workshop.png)
+name: what-we-know
+background-image: url(images/mind.jpg)
 background-size: contain
-
-.footnote[[Source](https://alison.rbind.io/project/tidyml/)]
-
----
-background-image: url(images/fire.jpg)
-background-size: cover
+background-position: left
 class: middle
 
-.pull-left[
-> Much more understandable than online documentation of tidymodels, which should be set on FIRE
+---
+template: what-we-know
+
+.pull-right[
+## The good news
+
+We know a lot about how people learn.
+
++ The science of learning
+
++ Limitations of learning (aka cognitive load)
+
++ Reinforcers of learning
 ]
 
 ---
-background-image: url(images/fire.jpg)
+template: what-we-know
+
+.pull-right[
+## The not-good news
+
++ Pedagogy &ne; andragogy
+
++ Emotions
+
++ Stress (jobs, health, school, family, a global pandemic...)
+]
+
+
+---
+background-image: url(images/debugging.jpg)
 background-size: cover
-class: center, middle
 
-<iframe width="712" height="400" src="https://www.youtube.com/embed/k1oXx4delIY?start=28" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+.footnote[Art by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)]
+
 
 ---
-class: section, middle, center
+background-image: url(images/Why-buy-snickers.png)
+background-size: 50%
 
-.frame[
-# <i class="far fa-paper-plane"></i>
-]
+# User/learner personas often "ignore context, situations, and anxieties"
 
---
 
-# Your job to be done:
-
---
-
-# Be the airplane
+.footnote[[Intercom](https://www.intercom.com/blog/using-job-stories-design-features-ui-ux/)]
 
 ---
 template: takeaway
@@ -457,32 +451,108 @@ class: middle, inverse
 --
 
 .pull-right[
-They bring `r emo::ji("fire")`; you bring `r emo::ji("snowflake")`
+Adult humans bring `r emo::ji("fire")`
 ]
 
 
----
-
-#How do you not add heat?
-
-
-I think the answer is kindness
 
 ---
-class: center, inverse, middle
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YGSj2zY2OEM?start=70" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+> Contrary to cool tasks, hot EF tasks require regulation in contexts where the outcomes are of greater personal significance, such as completing a task to earn a desirable prize(e.g., Hongwanishkul et al., 2005; Kerr & Zelazo, 2004). 
+
+.footnote[[Walle](https://idlab.ucmerced.edu/sites/idlab.ucmerced.edu/files/page/documents/walle_lopez_castillo_in_press.pdf)]
+
 
 ---
-background-image: url(images/rogers-kind.jpg)
+class: section, middle, center
+
+.frame[
+# Bringing the `r emo::ji("fire")`
+]
+
+--
+
+# Teaching tidymodels to *beginners*
+
+---
+background-image: url(images/tidymodels-workshop.png)
+background-size: contain
+
+.footnote[[Source](https://alison.rbind.io/project/tidyml/)]
+
+---
+background-image: url(images/fire.jpg)
 background-size: cover
+class: middle
+
+.left-column[
+> Much more understandable than online documentation of tidymodels, which should be set on FIRE
+]
+
+---
+background-image: url(images/fire.jpg)
+background-size: cover
+class: center, middle
+
+<iframe width="712" height="400" src="https://www.youtube.com/embed/k1oXx4delIY?start=28" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+class: section, middle, center
+
+.frame[
+# <i class="far fa-paper-plane"></i>
+]
+
+--
+
+# Be the airplane
+
+
+---
+class: center, middle
+background-color: #7899d4
+
+# How do you *not* add heat?
+
+I think the answer is kindness.
+
+
+---
+name: rogers
+background-image: url(images/rogers.jpg)
+background-size: cover
+class: inverse, middle
+
+---
+template: rogers
+
+"There are three ways to ultimate success:
+
+The first way is to be kind.
+
+The second way is to be kind.
+
+The third way is to be kind."
+
 
 .footnote[[Source](https://jasonstcyr.com/2019/11/27/building-trust-have-you-been-kind-today/)]
 
 ---
-But what is a kind tool? (not a kind tool maker)
+template: rogers
 
-I think it might involve these elements:
+
+
+"There are three ways to ultimate success:
+ 
+The first way is to .shadow-text[*be an ally*].
+
+The second way is to .shadow-text[*be an advocate*].
+
+The third way is to .shadow-text[*be an accomplice*]."
+
+
+
+.footnote[[Source](https://jasonstcyr.com/2019/11/27/building-trust-have-you-been-kind-today/)]
 
 ---
 class: section, middle, center
@@ -632,18 +702,6 @@ We learn better from 'ingroup' members:
 
 .footnote[https://pubmed.ncbi.nlm.nih.gov/33203741/; https://pubmed.ncbi.nlm.nih.gov/23006251/; https://pubmed.ncbi.nlm.nih.gov/21159092/]
 
----
-
-.pull-left[
-![](images/calculus-easy.jpg)
-]
-
-
-.pull-right[
-![](images/calculus-prologue.jpg)
-]
-
-.footnote[[tweet](https://twitter.com/helenczerski/status/1375915057905856513?s=20)]
 
 
 ---
