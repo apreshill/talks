@@ -742,6 +742,8 @@ class: top, center
 ---
 class: middle, center, inverse
 
+# "The default website"
+
 ![](https://media.giphy.com/media/10ngGQdSSV7EZ2/giphy.gif)
 
 ---
@@ -771,7 +773,9 @@ I limited myself to font sizes and colors (no changing font styling or families)
 ---
 class: center, inverse, middle
 
-# Alison testing Hugo themes
+# Footage from the Hugo theme testing laboratory, pre-`rstudio::global`
+
+--
 
 ![](https://media.giphy.com/media/PW24kUmUv3vlm/giphy.gif)
 
@@ -875,7 +879,7 @@ What is really hard about blogdown is that it is scary.
 ---
 class: center, inverse, middle
 
-# Alison troubleshooting blogdown sites
+# Troubleshooting blogdown sites
 
 ![](https://media.giphy.com/media/4d8cNCXRnr2pO/giphy.gif)
 
@@ -1117,8 +1121,8 @@ meta() %>%
   meta_social(
     title = "Crafting kind tools",
     url = "https://alison.netlify.app/ares-kind-tools",
-    image = "https://alison.netlify.app/rmd-valentine/images/vintage_valentine.jpg",
-    image_alt = "Vintage valentine",
+    image = "https://alison.netlify.app/ares-kind-tools/images/chimp.jpg",
+    image_alt = "Chimp",
     og_type = "website",
     og_author = "Alison Hill",
     twitter_card_type = "summary",
