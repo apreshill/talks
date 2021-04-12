@@ -373,7 +373,7 @@ Tools can shape how you:
 ]
 
 ---
-name: what-we-know
+name: mind
 background-image: url(images/mind.jpg)
 background-size: contain
 background-position: left
@@ -381,7 +381,8 @@ class: middle, inverse
 background-color: #246A73
 
 ---
-template: what-we-know
+template: mind
+name: good-news
 
 .pull-right[
 ## The good news
@@ -390,11 +391,12 @@ We know a lot about how people learn.
 
 ]
 
---
-
 .pull-right[
 We also know a lot about .shadow-text[*who*] people learn .shadow-text[*from*].
 ]
+
+---
+template: good-news
 
 --
 
@@ -428,7 +430,7 @@ background-size: 50%
 class: middle
 
 
-# 🎵 Cause you're hot then you're cold 🎵
+# 🎸 Cause you're hot then you're cold 🎚
 
 
 --
@@ -1347,6 +1349,7 @@ class: middle
 .footnote[Thanks to [Hadley Wickham!](https://github.com/allisonhorst/palmerpenguins/pull/25)]
 
 ---
+exclude: true
 
 We learn better from 'ingroup' members:
 
@@ -1401,11 +1404,6 @@ And we thought if we could do a good job on this it would matter.
 
 It would *also* make distill content more accessible (allowing users to increase font size and color contrast).
 
---
-
-### But how?
-
-1. Use YAML- but, does it add value over raw CSS? 
 
 ---
 class: middle
@@ -1422,18 +1420,6 @@ class: middle
 ![](https://rstudio.github.io/distill/images/theme-after.png)
 ]
 ]
-
----
-
-# But how?
-
-1. Use YAML- but, does it add value over raw CSS? 
-
-Sounds good- yes I was editing a new Hugo site last night and just enjoying the variables.css file. 
-
-I limited myself to font sizes and colors (no changing font styling or families) since those are most important I imagine for accessibility. 
-
-.footnote[[Amber's CSS variables](https://github.com/ProQuestionAsker/websiteSource/blob/5041264138212dc1a3a740bf001f7fb0e4837597/themes/data-science/static/css/variables.css)]
 
 ---
 class: center, inverse, middle
