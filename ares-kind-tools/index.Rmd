@@ -238,16 +238,23 @@ class: center, inverse, middle
 ![](https://media.giphy.com/media/3tK7DEMGN6jewLa6aL/giphy.gif)
 
 ---
-
-pivot to software
-
-what is the difference?
+class: middle, inverse, center
 
 You may be thinking of yourself more as a tool-user
 
+--
+
 But today I want you to think about yourself as the tool-maker
 
-Is it kind? What makes a tool kind?
+--
+
+Are you making a kind tool? 
+
+--
+
+What makes a tool kind?
+
+--
 
 Does it matter?
 
@@ -376,7 +383,7 @@ Tools can shape how you:
 ]
 
 ---
-name: what-we-know
+name: mind
 background-image: url(images/mind.jpg)
 background-size: contain
 background-position: left
@@ -384,7 +391,8 @@ class: middle, inverse
 background-color: #246A73
 
 ---
-template: what-we-know
+template: mind
+name: good-news
 
 .pull-right[
 ## The good news
@@ -393,11 +401,12 @@ We know a lot about how people learn.
 
 ]
 
---
-
 .pull-right[
 We also know a lot about .shadow-text[*who*] people learn .shadow-text[*from*].
 ]
+
+---
+template: good-news
 
 --
 
@@ -535,7 +544,7 @@ The third way is to be kind."
 
 ---
 template: rogers
-
+name: kind-tools
 
 
 "There are three ways to ultimate success:
@@ -819,6 +828,21 @@ Distill + postcards are [M-F-E-O](https://alison.rbind.io/post/2020-12-22-postca
 ]
 
 ---
+background-image: url(images/anyene.png)
+background-size: contain
+background-position: middle, center
+
+---
+background-image: url(images/preu.png)
+background-size: contain
+background-position: middle, center
+
+---
+background-image: url(images/laderas.png)
+background-size: contain
+background-position: middle, center
+
+---
 class: middle, center, inverse
 
 ![](https://media.giphy.com/media/j4s6M0gYs5fUs/giphy.gif)
@@ -893,10 +917,6 @@ class: center, inverse, middle
 ![](https://media.giphy.com/media/4d8cNCXRnr2pO/giphy.gif)
 
 
----
-class: middle, center
-
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">blogdown users have suffered from two main pain points: 1. Hugo versions; 2. Themes. We have fixed #1, and will also try to fix #2. I have to admit that #1 was partly my fault (was aware of the pain but didn&#39;t provide solution). #2 requires more effort but is still fixable.</p>&mdash; Yihui Xie (@xieyihui) <a href="https://twitter.com/xieyihui/status/1374075636562673664?ref_src=twsrc%5Etfw">March 22, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 ---
 class: section, middle, center
@@ -1087,7 +1107,8 @@ class: middle, center, inverse
 Your browser does not support the video tag.
 </video> 
 
-
+---
+template: kind-tools
 
 ---
 name: goodbye
