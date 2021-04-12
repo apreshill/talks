@@ -406,6 +406,42 @@ We also know a lot about .shadow-text[*who*] people learn .shadow-text[*from*].
 ]
 
 ---
+class: middle, inverse
+background-color: #246A73
+
+
+We learn better from people who are perceived as:
+
+--
+
+- helpful (avoid learning from mean, “trickers”, otherwise deceptive people)
+
+--
+
+- reliable (avoid learning from ignorant people: “I don’t know what that is”) 
+
+--
+
+- knowledgeable (prefer “know” over “think” or “guess”, above and beyond “merely accurate”)
+
+--
+
+- credible (prefer history of accuracy)
+
+--
+
+- expertise (prefer informants with domain knowledge)
+
+--
+
+- relevant (prefer informants who provide the right quantity of information; avoid someone providing too little, circular, or irrelevant information)
+
+
+--
+
+.footnote[[Knowing When to Doubt: Developing a Critical Stance When Learning From Others](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3810952/)]
+
+---
 template: good-news
 
 --
@@ -430,8 +466,9 @@ background-size: cover
 ---
 background-image: url(images/Why-buy-snickers.png)
 background-size: 50%
+class: top, center
 
-# User/learner personas often "ignore context, situations, and anxieties"
+## User/learner personas often "ignore context, situations, and anxieties"
 
 
 .footnote[[Intercom](https://www.intercom.com/blog/using-job-stories-design-features-ui-ux/)]
@@ -520,6 +557,11 @@ How do you help without adding any (more) heat?
 --
 
 I think the answer is .shadow-text[*kindness*].
+
+
+--
+
+But .shadow-text[*credible*], .shadow-text[*reliable*], and .shadow-text[*relevant*] kindness.
 
 
 ---
