@@ -1070,6 +1070,8 @@ background-color: #fad662
 + Kristen Gorman,
 + JJ Allaire,
 + Christophe Dervieux, 
++ Rich Iannone,
++ Charles Teague,
 + Hadley Wickham, and 
 + Yihui Xie.
 ]
