@@ -1,0 +1,197 @@
+---
+title: "Free & Open Source Software"
+subtitle: "Data Modernization Workshop"
+author: Dr. Alison Presmanes Hill
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/grayscale.css", "css/fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 3)
+library(xaringanExtra)
+```
+
+```{r share-again, echo=FALSE}
+xaringanExtra::use_share_again()
+```
+
+class: title-slide, center, bottom
+background-image: url(img/crane.jpg)
+background-position: 50% 20%
+background-size: 50%
+background-color: #ffffff
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author` · [alison.rbind.io](https://alison.rbind.io/)
+
+
+---
+class: middle, center
+
+# Disclosure
+
+I am a employee of RStudio, PBC. I  will be speaking from that perspective.  I will not comment on relative advantages or disadvantages of our products vs. competitors.
+
+---
+class: inverse, middle, center
+
+# What is free and open source software?
+
+---
+class: middle
+
+# What is free? (*Gratis* versus *Libre*)
+
+The English adjective free is commonly used in one of two meanings: 
+
++ "for free" (*gratis*) and 
+
++ "with little or no restriction" (*libre*). 
+
+---
+class: middle
+
+# "Think free as in free speech, not free beer."
+
+.pull-left[
+# .center[`r emo::ji("heavy_check_mark")` `r fontawesome::fa("microphone-alt")`]
+]
+
+.pull-right[
+
+# .center[`r emo::ji("heavy_multiplication_x")`  `r fontawesome::fa("beer")`]
+]
+
+???
+
+Richard Stallman summarized the nature of *libre* in a slogan: 
+
+Both meanings of free are relevant here!
+
+
+
+---
+class: middle
+
+# Four essential freedoms
+
+
+--
+
+1. .emphasis[RUN]<br>The freedom to run the program as you wish, for any purpose (freedom 0).
+
+--
+
+1. .emphasis[STUDY]<br>The freedom to study how the program works, and change it so it does your computing as you wish (freedom 1). Access to the source code is a precondition for this.
+
+--
+
+1. .emphasis[COPY & DISTRIBUTE]<br>The freedom to redistribute copies so you can help others (freedom 2).
+
+--
+
+1. .emphasis[CHANGE & IMPROVE]<br>The freedom to distribute copies of your modified versions to others (freedom 3). By doing this you can give the whole community a chance to benefit from your changes. Access to the source code is a precondition for this.
+
+--
+
+.footnote[https://www.gnu.org/philosophy/free-sw.en.html#f1]
+
+---
+class: middle
+
+.pull-left[
+### Scientific & technical computing companies
+
+Some traditional leaders:
+
+- SAS Institute (SAS/JMP)
+
+- MathWorks (MATLAB)
+
+- Wolfram Research (Mathematica)
+
+- IBM (SPSS)
+]
+
+--
+
+.pull-right[
+### Open source tools for scientific and technical computing 
+
+- SageMath
+
+- GNU Octave (compatible with Matlab)
+
+- R 
+
+- Python / [Project Jupyter](https://jupyter.org/)
+
+- Julia
+]
+
+
+
+---
+background-image: url(img/cranes.jpg)
+background-position: left
+background-size: contain
+background-color: #ffffff
+class: middle
+
+.right-column[
+
+# Benefits of FLOSS
+
+- actual functionality
+
+- accessibility
+
+- resiliency
+
+- participatory
+
+- reproducibility
+]
+
+???
+
+A single software vendor is fundamentally incapable of keeping up with the breadth and depth of methodological innovation that occurs in science.
+
+---
+background-image: url(img/cranes.jpg)
+background-position: left
+background-size: contain
+background-color: #ffffff
+class: middle
+
+.right-column[
+
+# Reproducibility
+
+> "The baseline requirement for reproducibility is that I can run your software!"
+>
+> [J.J. Allaire](https://youtu.be/DskltmWKOVY)
+
+
+]
+
