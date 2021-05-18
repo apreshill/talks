@@ -69,52 +69,63 @@ The English adjective free is commonly used in one of two meanings:
 + "with little or no restriction" (*libre*). 
 
 ---
-class: middle
+background-image: url(img/donut.png)
+background-size: cover
+class: middle, center
 
-# "Think free as in free speech, not free beer."
+# "Think free as in free speech,<br>not free donuts."
 
 .pull-left[
-# .center[`r emo::ji("heavy_check_mark")` `r fontawesome::fa("microphone-alt")`]
+## .center[`r emo::ji("heavy_check_mark")`<br>`r fontawesome::fa("microphone-alt")`]
 ]
 
 .pull-right[
 
-# .center[`r emo::ji("heavy_multiplication_x")`  `r fontawesome::fa("beer")`]
+## .center[`r emo::ji("heavy_multiplication_x")`<br>`r fontawesome::fa("money-bill-alt")`]
 ]
 
 ???
 
-Richard Stallman summarized the nature of *libre* in a slogan: 
+Richard Stallman summarized the nature of *libre* in a slogan that I'll adapt here
 
 Both meanings of free are relevant here!
-
 
 
 ---
 class: middle
 
-# Four essential freedoms
+# You as a user are "free" to...
 
 
 --
 
-1. .emphasis[RUN]<br>The freedom to run the program as you wish, for any purpose (freedom 0).
+1. .emphasis[RUN]<br>Run the program as you wish, for any purpose.
 
 --
 
-1. .emphasis[STUDY]<br>The freedom to study how the program works, and change it so it does your computing as you wish (freedom 1). Access to the source code is a precondition for this.
+1. .emphasis[STUDY]<br>Study how the program works, and change it so it does your computing as you wish. Access to the source code is a precondition for this.
 
 --
 
-1. .emphasis[COPY & DISTRIBUTE]<br>The freedom to redistribute copies so you can help others (freedom 2).
+1. .emphasis[COPY & DISTRIBUTE]<br>Redistribute copies so you can help others.
 
 --
 
-1. .emphasis[CHANGE & IMPROVE]<br>The freedom to distribute copies of your modified versions to others (freedom 3). By doing this you can give the whole community a chance to benefit from your changes. Access to the source code is a precondition for this.
+1. .emphasis[CHANGE & IMPROVE]<br>Distribute copies of your modified versions to others. By doing this you can give the whole community a chance to benefit from your changes. Access to the source code is a precondition for this.
 
 --
 
 .footnote[https://www.gnu.org/philosophy/free-sw.en.html#f1]
+
+---
+background-image: url(img/puppy.png)
+background-size: 60%
+background-position: bottom center
+class: top center
+
+
+# "Think free as in a free puppy?"
+
 
 ---
 class: middle
@@ -202,12 +213,13 @@ background-size: contain
 
 ---
 background-image: url(img/wvu_shiny_walkthrough.png)
-background-position: left
-background-size: 50%
-class: middle
+background-position: left bottom
+background-size: 55%
+class: bottom, inverse
+
+## "Data Driven WV" helps support vaccine supply & demand with dashboards
 
 .pull-right[
-### "Data Driven WV" helps support vaccine supply & demand with dashboards
 
 > "In the pandemic’s infancy, the process was done manually using Google Docs and Microsoft Excel spreadsheets."
 
