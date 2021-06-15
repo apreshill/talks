@@ -1,0 +1,279 @@
+---
+title: "R Markdown"
+author: Alison Hill
+role: Product Manager, Data Science Communication
+org: "@RStudio"
+date: "2021-06-15"
+output:
+  xaringan::moon_reader:
+    anchor_sections: FALSE
+    css: ["default", "css/theme.css", "css/fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+
+class: title-slide, left, middle
+background-image: url("images/rmd-hex.png")
+background-position: 85% 50%
+background-size: 30%
+background-color: #F9F8F3
+
+.pull-left[
+
+# `r rmarkdown::metadata$title`
+
+### `r rmarkdown::metadata$author`, Ph.D.
+
+### `r rmarkdown::metadata$org`
+
+### `r rmarkdown::metadata$date`
+]
+
+
+---
+class: middle, center, inverse
+
+## .big-text[Hello.]
+
+
+---
+name: hello
+class: middle, center, inverse
+
+
+### `r rmarkdown::metadata$author`
+
+<img style="border-radius: 50%;" src="https://alison.rbind.io/authors/alison/avatar.jpg" width="150px"/>
+
+### `r rmarkdown::metadata$role`
+
+### `r rmarkdown::metadata$org`
+
+[`r fontawesome::fa("github")` @apreshill](https://github.com/apreshill)    
+[`r fontawesome::fa("twitter")` @apreshill](https://twitter.com/apreshill)   
+[`r fontawesome::fa("link")` alison.rbind.io](https://alison.rbind.io)
+
+---
+class: middle, center
+
+# Who we are
+
+.columns[
+
+.left-col[
+### `r rmarkdown::metadata$author`
+
+<img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/>
+
+[`r fontawesome::fa("github")` @apreshill](https://github.com/apreshill)    
+[`r fontawesome::fa("twitter")` @apreshill](https://twitter.com/apreshill)   
+[`r fontawesome::fa("link")` alison.rbind.io](https://alison.rbind.io)
+]
+
+.middle-col[
+### Christophe Dervieux
+
+<img style="border-radius: 50%;" src="https://github.com/cderv.png" width="150px"/>
+
+[`r fontawesome::fa("github")` @cderv](https://github.com/cderv)    
+[`r fontawesome::fa("twitter")` @chrisderv](https://twitter.com/chrisderv)   
+]
+
+
+.right-col[
+### Yihui Xie
+
+<img style="border-radius: 50%; object-fit: cover;" src="https://www.rstudio.com/about/team/yihuixie/yihuixie.jpg" width="150px" height="150px"/>
+
+[`r fontawesome::fa("github")` @yihui](https://github.com/yihui)    
+[`r fontawesome::fa("twitter")` @xieyihui](https://twitter.com/xieyihui)   
+[`r fontawesome::fa("link")` yihui.org](https://yihui.org/)
+]
+]
+
+---
+class: middle
+background-image: url(images/hexes.png)
+background-position: left
+background-size: contain
+
+.pull-right[
+
+# We develop & support R packages for data science communication.
+
+]
+
+---
+class: bottom center
+background-image: url(images/projs.png)
+background-position: 50% 10%
+background-size: 70%
+
+## .big-text[Write. Code. Share. Repeat.]
+
+
+---
+class: top center
+background-image: url(images/fauna.png)
+background-position: 50% 90%
+background-size: 50%
+
+# Who uses it?
+
+--
+
+.pull-left[
+.center[
+Researchers
+]
+]
+
+--
+
+.pull-right[
+.center[
+Data Scientists
+]
+]
+
+
+---
+class: middle
+background-image: url(images/knit.png)
+background-position: 90% 50%
+background-size: 25%
+
+# How do they use it?
+
+--
+
++ Scientific communication 
+
+
+--
+
++ Team collaboration
+
+--
+
++ Teaching (& learning) out loud
+
+
+---
+class: middle
+
+# Scientific communication 
+
+```{r echo=FALSE}
+knitr::include_url("https://stats.andrewheiss.com/who-cares-about-crackdowns/", height = 450)
+```
+
+.footnote[https://stats.andrewheiss.com/who-cares-about-crackdowns/]
+
+---
+class: middle
+
+
+# Scientific communication 
+
+```{r echo=FALSE}
+knitr::include_url("https://skadauke.github.io/early-toci/" , height = 450)
+```
+
+.footnote[https://skadauke.github.io/early-toci/]
+
+---
+class: middle
+
+
+# Collaboration
+
+```{r echo=FALSE}
+knitr::include_url("https://www.openscapes.org/" , height = 450)
+```
+
+.footnote[https://www.openscapes.org/]
+
+---
+class: middle
+
+
+# Collaboration
+
+```{r echo=FALSE, out.width="75%"}
+knitr::include_graphics("images/reports.png")
+```
+
+.footnote[https://emilymarkowitz-noaa.github.io/NMFSReports/]
+
+---
+class: middle
+
+
+# Teaching (& learning) out loud
+
+```{r echo=FALSE}
+knitr::include_url("https://rmd4sci.njtierney.com/" , height = 450)
+```
+
+.footnote[https://rmd4sci.njtierney.com/]
+
+
+---
+class: middle
+
+
+# Teaching (& learning) out loud
+
+```{r echo=FALSE}
+knitr::include_url("https://numbat.space/post/pca/pca/" , height = 450)
+```
+
+.footnote[https://numbat.space/post/pca/pca/]
+
+---
+name: goodbye
+class: bottom
+background-image: url("images/fam.png")
+background-size: 40%
+background-position: 1% 99%
+
+.pull-left[
+### Our extended family:
++ Garrick Aden-Buie,
++ Carson Sievert,
++ Charles Teague,
++ Hadley Wickham, 
++ JJ Allaire, and
++ Rich Iannone.
+]
+
+
+.pull-right[
+.right[
+
+<img src="images/rmd-hex.png" width="150px">
+
+# Thank you!
+
+### Find us elsewhere at...
+
+[`r fontawesome::fa("link")` rmarkdown.rstudio.com](https://rmarkdown.rstudio.com)  
+[`r fontawesome::fa("stroopwafel")` rmarkdown cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)  
+[`r fontawesome::fa("blog")` blog.rstudio.com](https://blog.rstudio.com/categories/r-markdown/)  
+[`r fontawesome::fa("box-open")` pkgs.rstudio.com](https://pkgs.rstudio.com/)  
+[`r fontawesome::fa("youtube")` youtube](https://youtube.com/playlist?list=PL9HYL-VRX0oTZhAhlLb8r6DI04KY46RJW) 
+]
+]
