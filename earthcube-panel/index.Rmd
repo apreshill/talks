@@ -125,6 +125,14 @@ background-size: 70%
 
 
 ---
+class: top, center
+background-image: url(images/rmd_flowchart.png)
+background-position: 50% 50%
+background-size: 100%
+
+# How it works
+
+---
 class: top center
 background-image: url(images/fauna.png)
 background-position: 50% 90%
@@ -148,13 +156,7 @@ Data Scientists
 ]
 ]
 
----
-class: top, center
-background-image: url(images/rmd_flowchart.png)
-background-position: 50% 50%
-background-size: 100%
 
-# How it works
 
 ---
 class: middle
