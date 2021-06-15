@@ -148,6 +148,13 @@ Data Scientists
 ]
 ]
 
+---
+class: top, center
+background-image: url(images/rmd_flowchart.png)
+background-position: 50% 50%
+background-size: 100%
+
+# How it works
 
 ---
 class: middle
@@ -242,6 +249,22 @@ knitr::include_url("https://numbat.space/post/pca/pca/" , height = 450)
 ```
 
 .footnote[https://numbat.space/post/pca/pca/]
+
+
+---
+class: middle
+background-image: url(images/draft.png)
+background-position: 95% 50%
+background-size: 45%
+
+# Community
+
+
+https://community.rstudio.com/tag/rmarkdown
+
+https://twitter.com/hashtag/rmarkdown
+
+[Contributing Guide](https://pkgs.rstudio.com/rmarkdown/CONTRIBUTING.html)
 
 ---
 name: goodbye
